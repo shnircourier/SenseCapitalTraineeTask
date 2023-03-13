@@ -1,7 +1,11 @@
 using BusinessLogic;
+using BusinessLogic.PipelineBehaviors;
 using BusinessLogic.Profiles;
 using Data;
 using Data.Entities;
+using FluentValidation;
+using MediatR;
+using SenseCapitalTraineeTask.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +18,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IRepository<Meeting>, TestDataRepository>();
 builder.Services.AddAutoMapper(typeof(MeetingRequestProfile), typeof(MeetingResponseProfile));
 builder.Services.AddMediatR(cfg => 
-    cfg.RegisterServicesFromAssembly(typeof(BusinessLogicMediatrEntrypoint).Assembly));
+    cfg.RegisterServicesFromAssembly(typeof(BusinessLogicEntrypoint).Assembly));
+builder.Services.AddValidatorsFromAssembly(typeof(BusinessLogicEntrypoint).Assembly);
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+builder.Services.AddTransient<ValidationExceptionHandlingMiddleware>();
 
 var app = builder.Build();
 
@@ -28,6 +35,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ValidationExceptionHandlingMiddleware>();
 
 app.MapControllers();
 

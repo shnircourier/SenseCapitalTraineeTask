@@ -5,6 +5,8 @@ namespace Data;
 public class TestDataRepository : IRepository<Meeting>
 {
     private readonly List<Meeting> _meetings = new();
+    private readonly HashSet<Guid> _imgGuids = new();
+    private readonly HashSet<Guid> _roomGuids = new();
 
     public TestDataRepository()
     {
@@ -29,6 +31,20 @@ public class TestDataRepository : IRepository<Meeting>
             ImgId = Guid.NewGuid(),
             RoomId = Guid.NewGuid()
         });
+        
+        _meetings.ForEach(m =>
+        {
+            _imgGuids.Add(m.ImgId);
+            _roomGuids.Add(m.RoomId);
+        });
+
+        _imgGuids.Add(Guid.NewGuid());
+        _imgGuids.Add(Guid.NewGuid());
+        _imgGuids.Add(Guid.NewGuid());
+
+        _roomGuids.Add(Guid.NewGuid());
+        _roomGuids.Add(Guid.NewGuid());
+        _roomGuids.Add(Guid.NewGuid());
     }
 
     public List<Meeting> Get()
@@ -66,5 +82,15 @@ public class TestDataRepository : IRepository<Meeting>
         _meetings.Remove(meeting);
 
         return meeting;
+    }
+
+    public HashSet<Guid> GetAvailableImgGuids()
+    {
+        return _imgGuids;
+    }
+
+    public HashSet<Guid> GetAvailableRoomGuids()
+    {
+        return _roomGuids;
     }
 }

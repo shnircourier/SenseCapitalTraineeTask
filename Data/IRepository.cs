@@ -11,4 +11,8 @@ public interface IRepository<T>
     T Update(T entity);
 
     T Delete(Guid id);
+
+    HashSet<Guid> GetAvailableImgGuids();
+
+    HashSet<Guid> GetAvailableRoomGuids();
 }
