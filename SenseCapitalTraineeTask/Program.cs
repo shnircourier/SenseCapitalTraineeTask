@@ -1,3 +1,8 @@
+using BusinessLogic;
+using BusinessLogic.Profiles;
+using Data;
+using Data.Entities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +11,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<IRepository<Meeting>, TestDataRepository>();
+builder.Services.AddAutoMapper(typeof(MeetingRequestProfile), typeof(MeetingResponseProfile));
+builder.Services.AddMediatR(cfg => 
+    cfg.RegisterServicesFromAssembly(typeof(BusinessLogicMediatrEntrypoint).Assembly));
 
 var app = builder.Build();
 

@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenseCapitalTraineeTask", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{26EEE37C-AB46-47A1-8B36-C8705E59E000}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{3C02F9D0-69C7-4C38-BD79-4444D67201BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{26EEE37C-AB46-47A1-8B36-C8705E59E000}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26EEE37C-AB46-47A1-8B36-C8705E59E000}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26EEE37C-AB46-47A1-8B36-C8705E59E000}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C02F9D0-69C7-4C38-BD79-4444D67201BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C02F9D0-69C7-4C38-BD79-4444D67201BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C02F9D0-69C7-4C38-BD79-4444D67201BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C02F9D0-69C7-4C38-BD79-4444D67201BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
