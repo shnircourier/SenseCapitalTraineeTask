@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenseCapitalTraineeTask", "SenseCapitalTraineeTask\SenseCapitalTraineeTask.csproj", "{7D8CE1F5-6BC6-4367-AC7A-CD8A44F23073}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{26EEE37C-AB46-47A1-8B36-C8705E59E000}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D8CE1F5-6BC6-4367-AC7A-CD8A44F23073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D8CE1F5-6BC6-4367-AC7A-CD8A44F23073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D8CE1F5-6BC6-4367-AC7A-CD8A44F23073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D8CE1F5-6BC6-4367-AC7A-CD8A44F23073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26EEE37C-AB46-47A1-8B36-C8705E59E000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26EEE37C-AB46-47A1-8B36-C8705E59E000}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26EEE37C-AB46-47A1-8B36-C8705E59E000}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26EEE37C-AB46-47A1-8B36-C8705E59E000}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
