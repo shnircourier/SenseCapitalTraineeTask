@@ -1,5 +1,6 @@
 using AutoMapper;
 using BusinessLogic.Commands;
+using BusinessLogic.Exceptions;
 using BusinessLogic.Models;
 using Data;
 using Data.Entities;
@@ -23,6 +24,11 @@ public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingCommand, Meetin
     public Task<MeetingResponse> Handle(DeleteMeetingCommand request, CancellationToken cancellationToken)
     {
         var meeting = _repository.Delete(request.Id);
+        
+        if (meeting is null)
+        {
+            throw new NotFoundException("Мероприятие не найдено");
+        }
 
         var response = _mapper.Map<MeetingResponse>(meeting);
         

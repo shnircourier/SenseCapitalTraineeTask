@@ -1,10 +1,11 @@
 using System.Text.Json;
+using BusinessLogic.Exceptions;
 using FluentValidation;
 using FluentValidation.Results;
 
 namespace SenseCapitalTraineeTask.Middlewares;
 
-public class ValidationExceptionHandlingMiddleware : IMiddleware
+public class ExceptionHandlingMiddleware : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
@@ -37,18 +38,32 @@ public class ValidationExceptionHandlingMiddleware : IMiddleware
         exception switch
         {
             ValidationException => StatusCodes.Status422UnprocessableEntity,
+            NotFoundException => StatusCodes.Status404NotFound,
             _ => StatusCodes.Status500InternalServerError
         };
     
-    private static IReadOnlyDictionary<string, List<ValidationFailure>> GetErrors(Exception exception)
+    private static List<ExceptionModel> GetErrors(Exception exception)
     {
-        Dictionary<string, List<ValidationFailure>> errors = null;
-        if (exception is ValidationException validationException)
+        List<ExceptionModel> errors = null;
+        switch (exception)
         {
-            errors = validationException.Errors
-                .GroupBy(x => x.PropertyName)
-                .ToDictionary(x => x.Key, x => x.ToList());
+            case ValidationException validationException:
+                errors = validationException.Errors.Select(e => new ExceptionModel
+                {
+                    ErrorCode = e.ErrorCode,
+                    ErrorMessage = e.ErrorMessage
+                }).ToList();
+                break;
+            case NotFoundException notFoundException:
+                var errorList = new List<ExceptionModel>();
+                errorList.Add(new ExceptionModel
+                {
+                    ErrorCode = "NotFoundException",
+                    ErrorMessage = notFoundException.Message
+                });
+                break;
         }
+
         return errors;
     }
 }

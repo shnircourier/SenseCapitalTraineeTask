@@ -1,5 +1,6 @@
 using AutoMapper;
 using BusinessLogic.Commands;
+using BusinessLogic.Exceptions;
 using BusinessLogic.Models;
 using Data;
 using Data.Entities;
@@ -23,6 +24,11 @@ public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, Meetin
     public Task<MeetingResponse> Handle(UpdateMeetingCommand request, CancellationToken cancellationToken)
     {
         var meeting = _repository.Get(request.Id);
+
+        if (meeting is null)
+        {
+            throw new NotFoundException("Мероприятие не найдено");
+        }
 
         meeting.Description = request.Meeting.Description;
 

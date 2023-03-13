@@ -1,4 +1,5 @@
 using AutoMapper;
+using BusinessLogic.Exceptions;
 using BusinessLogic.Models;
 using BusinessLogic.Queries;
 using Data;
@@ -24,7 +25,12 @@ public class GetMeetingByIdHandler : IRequestHandler<GetMeetingByIdQuery, Meetin
     
     public Task<MeetingResponse> Handle(GetMeetingByIdQuery request, CancellationToken cancellationToken)
     {
-        var response = _mapper.Map<MeetingResponse>(_repository.Get(Id));
+        var response = _mapper.Map<MeetingResponse>(_repository.Get(request.Id));
+
+        if (response is null)
+        {
+            throw new NotFoundException("Мероприятие не найдено");
+        }
         
         return Task.FromResult(response);
     }

@@ -70,7 +70,7 @@ public class TestDataRepository : IRepository<Meeting>
     {
         var index = _meetings.IndexOf(Get(meeting.Id));
 
-        _meetings.Insert(index, meeting);
+        _meetings[index] = meeting; 
 
         return meeting;
     }

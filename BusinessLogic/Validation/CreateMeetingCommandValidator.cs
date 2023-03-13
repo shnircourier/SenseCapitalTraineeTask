@@ -25,18 +25,22 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
 
         RuleFor(x => x.Meeting.ImgId)
             .NotEmpty()
-            .Must(x => _repository.GetAvailableImgGuids().Contains(x));
+            .Must(x => _repository.GetAvailableImgGuids().Contains(x))
+            .WithMessage("Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.RoomId)
             .NotEmpty()
-            .Must(x => _repository.GetAvailableRoomGuids().Contains(x));
+            .Must(x => _repository.GetAvailableRoomGuids().Contains(x))
+            .WithMessage("Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.BeginAt)
             .NotEmpty()
-            .Must((x,d ) => d < x.Meeting.EndAt);
+            .Must((x,d ) => d < x.Meeting.EndAt)
+            .WithMessage("Дата начала не может быть позже даты окончания");
 
         RuleFor(x => x.Meeting.EndAt)
             .NotEmpty()
-            .Must((x, d) => d > x.Meeting.BeginAt);
+            .Must((x, d) => d > x.Meeting.BeginAt)
+            .WithMessage("Дата окончания не может быть раньше даты начала");
     }
 }
