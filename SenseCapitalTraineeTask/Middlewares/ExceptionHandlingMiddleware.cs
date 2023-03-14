@@ -26,7 +26,6 @@ public class ExceptionHandlingMiddleware : IMiddleware
         var response = new
         {
             status = statusCode,
-            detail = exception.Message,
             errors = GetErrors(exception)
         };
         httpContext.Response.ContentType = "application/json";
@@ -61,6 +60,7 @@ public class ExceptionHandlingMiddleware : IMiddleware
                     ErrorCode = "NotFoundException",
                     ErrorMessage = notFoundException.Message
                 });
+                errors = errorList;
                 break;
         }
 

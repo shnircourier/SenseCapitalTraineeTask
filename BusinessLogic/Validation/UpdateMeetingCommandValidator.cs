@@ -1,17 +1,17 @@
 using BusinessLogic.Commands;
-using Data;
-using Data.Entities;
+using BusinessLogic.Queries;
 using FluentValidation;
+using MediatR;
 
 namespace BusinessLogic.Validation;
 
 public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingCommand>
 {
-    private readonly IRepository<Meeting> _repository;
+    private readonly IMediator _mediator;
 
-    public UpdateMeetingCommandValidator(IRepository<Meeting> repository)
+    public UpdateMeetingCommandValidator(IMediator mediator)
     {
-        _repository = repository;
+        _mediator = mediator;
 
         RuleFor(x => x.Meeting.Title)
             .NotEmpty()
@@ -25,12 +25,22 @@ public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingComm
 
         RuleFor(x => x.Meeting.ImgId)
             .NotEmpty()
-            .Must(x => _repository.GetAvailableImgGuids().Contains(x))
+            .MustAsync(async (x, cToken ) =>
+            {
+                var guids = await _mediator.Send(new GetImgGuidsQuery());
+
+                return guids.HashSet.Contains(x);
+            })
             .WithMessage("Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.RoomId)
             .NotEmpty()
-            .Must(x => _repository.GetAvailableRoomGuids().Contains(x))
+            .MustAsync(async (x, cToken) =>
+            {
+                var guids = await _mediator.Send(new GetRoomGuidsQuery());
+
+                return guids.HashSet.Contains(x);
+            })
             .WithMessage("Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.BeginAt)

@@ -23,8 +23,8 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
         var context = new ValidationContext<TRequest>(request);
 
         var failures = _validators
-            .Select(x => x.Validate(context))
-            .SelectMany(x => x.Errors)
+            .Select(x => x.ValidateAsync(context, cancellationToken))
+            .SelectMany(x => x.Result.Errors)
             .Where(x => x != null)
             .ToList();
 
