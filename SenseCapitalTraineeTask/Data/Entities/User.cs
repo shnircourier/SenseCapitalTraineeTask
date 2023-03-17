@@ -1,6 +1,6 @@
 namespace SenseCapitalTraineeTask.Data.Entities;
 
-public class User
+public record User
 {
     public Guid Id { get; set; }
 

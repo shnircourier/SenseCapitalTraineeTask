@@ -1,10 +1,12 @@
 using FluentValidation;
+using JetBrains.Annotations;
 using MediatR;
 using SenseCapitalTraineeTask.Features.Auth.GetUsers;
 using SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUser;
 
+[UsedImplicitly]
 public class GiveTicketToUserCommandValidator : AbstractValidator<GiveTicketToUserCommand>
 {
     private readonly IMediator _mediator;
@@ -19,7 +21,7 @@ public class GiveTicketToUserCommandValidator : AbstractValidator<GiveTicketToUs
 
         RuleFor(x => x.RequestDto.UserId)
             .NotEmpty()
-            .MustAsync(async (x, cToken) =>
+            .MustAsync(async (x, _) =>
             {
                 var users = await _mediator.Send(new GetUsersQuery());
 

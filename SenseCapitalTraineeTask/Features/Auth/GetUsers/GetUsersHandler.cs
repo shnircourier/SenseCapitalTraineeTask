@@ -1,10 +1,12 @@
 using AutoMapper;
+using JetBrains.Annotations;
 using MediatR;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Auth.GetUsers;
 
+[UsedImplicitly]
 public class GetUsersHandler : IRequestHandler<GetUsersQuery, List<UserResponseDto>>
 {
     private readonly IRepository<Meeting> _repository;

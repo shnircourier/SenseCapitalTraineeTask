@@ -1,9 +1,11 @@
+using JetBrains.Annotations;
 using MediatR;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Images.ImageGuids;
 
+[UsedImplicitly]
 public class GetImgGuidsHandler : IRequestHandler<GetImgGuidsQuery, ImgGuidsResponseDto>
 {
     private readonly IRepository<Meeting> _repository;

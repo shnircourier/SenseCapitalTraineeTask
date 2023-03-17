@@ -1,10 +1,12 @@
 using IdentityModel.Client;
+using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Features.Auth.VerifyUser;
 
 namespace SenseCapitalTraineeTask.Features.Auth.GetToken;
 
+[UsedImplicitly]
 public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
 {
     private readonly IHttpClientFactory _httpClientFactory;

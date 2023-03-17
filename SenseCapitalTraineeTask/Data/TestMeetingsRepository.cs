@@ -41,7 +41,7 @@ public class TestDataRepository : IRepository<Meeting>
 
     public Meeting Get(Guid id)
     {
-        return _meetings.FirstOrDefault(e => e.Id == id);
+        return _meetings.FirstOrDefault(e => e.Id == id)!;
     }
 
     public Meeting Create(Meeting meeting)

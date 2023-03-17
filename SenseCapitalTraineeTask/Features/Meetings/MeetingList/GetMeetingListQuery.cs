@@ -2,4 +2,4 @@ using MediatR;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.MeetingList;
 
-public record GetMeetingListQuery() : IRequest<List<MeetingResponseDto>>;
+public record GetMeetingListQuery : IRequest<List<MeetingResponseDto>>;

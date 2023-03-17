@@ -1,8 +1,10 @@
+using JetBrains.Annotations;
 using MediatR;
 using SenseCapitalTraineeTask.Features.Auth.GetUsers;
 
 namespace SenseCapitalTraineeTask.Features.Auth.VerifyUser;
 
+[UsedImplicitly]
 public class VerifyUserHandler : IRequestHandler<VerifyUserQuery, bool>
 {
     private readonly IMediator _mediator;
