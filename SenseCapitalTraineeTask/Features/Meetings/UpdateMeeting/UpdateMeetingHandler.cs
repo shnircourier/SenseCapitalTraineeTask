@@ -1,12 +1,12 @@
 using AutoMapper;
 using MediatR;
+using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
-using SenseCapitalTraineeTask.Infrastructure.Exceptions;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 
-public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, MeetingResponse>
+public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
@@ -19,13 +19,13 @@ public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, Meetin
         _mapper = mapper;
     }
     
-    public Task<MeetingResponse> Handle(UpdateMeetingCommand request, CancellationToken cancellationToken)
+    public Task<MeetingResponseDto> Handle(UpdateMeetingCommand request, CancellationToken cancellationToken)
     {
         var meeting = _repository.Get(request.Id);
 
         if (meeting is null)
         {
-            throw new NotFoundException("Мероприятие не найдено");
+            throw new ScException("Мероприятие не найдено");
         }
 
         meeting.Description = request.Meeting.Description;
@@ -40,7 +40,7 @@ public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, Meetin
 
         meeting.RoomId = request.Meeting.RoomId;
 
-        var response = _mapper.Map<MeetingResponse>(_repository.Update(meeting));
+        var response = _mapper.Map<MeetingResponseDto>(_repository.Update(meeting));
 
         return Task.FromResult(response);
     }

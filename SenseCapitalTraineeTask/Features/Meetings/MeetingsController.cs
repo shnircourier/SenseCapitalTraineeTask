@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 using SenseCapitalTraineeTask.Features.Meetings.DeleteMeeting;
 using SenseCapitalTraineeTask.Features.Meetings.MeetingById;
@@ -9,7 +10,7 @@ using SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 namespace SenseCapitalTraineeTask.Features.Meetings;
 
 [ApiController]
-[Route("meeting")]
+[Route("meetings")]
 public class MeetingsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -20,42 +21,42 @@ public class MeetingsController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<List<MeetingResponse>>> Get()
+    public async Task<ScResult<List<MeetingResponseDto>>> Get()
     {
         var response = await _mediator.Send(new GetMeetingListQuery());
         
-        return Ok(response);
+        return new ScResult<List<MeetingResponseDto>>(response);
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<MeetingResponse>> Get([FromRoute] Guid id)
+    public async Task<ScResult<MeetingResponseDto>> Get([FromRoute] Guid id)
     {
         var response = await _mediator.Send(new GetMeetingByIdQuery(id));
 
-        return Ok(response);
+        return new ScResult<MeetingResponseDto>(response);
     }
 
     [HttpPost]
-    public async Task<ActionResult<MeetingResponse>> Create([FromBody] MeetingRequest request)
+    public async Task<ScResult<MeetingResponseDto>> Create([FromBody] MeetingRequestDto requestDto)
     {
-        var response = await _mediator.Send(new CreateMeetingCommand(request));
+        var response = await _mediator.Send(new CreateMeetingCommand(requestDto));
 
-        return Ok(response);
+        return new ScResult<MeetingResponseDto>(response);
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<ActionResult<MeetingResponse>> Update([FromBody] MeetingRequest request, [FromRoute] Guid id)
+    public async Task<ScResult<MeetingResponseDto>> Update([FromBody] MeetingRequestDto requestDto, [FromRoute] Guid id)
     {
-        var response = await _mediator.Send(new UpdateMeetingCommand(request, id));
+        var response = await _mediator.Send(new UpdateMeetingCommand(requestDto, id));
 
-        return Ok(response);
+        return new ScResult<MeetingResponseDto>(response);
     }
 
     [HttpDelete("{id:guid}")]
-    public async Task<ActionResult<MeetingResponse>> Delete([FromRoute] Guid id)
+    public async Task<ScResult<MeetingResponseDto>> Delete([FromRoute] Guid id)
     {
         var response = await _mediator.Send(new DeleteMeetingCommand(id));
 
-        return Ok(response);
+        return new ScResult<MeetingResponseDto>(response);
     }
 }

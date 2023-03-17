@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Features.Images.ImageGuids;
 
 namespace SenseCapitalTraineeTask.Features.Images;
@@ -16,10 +17,10 @@ public class ImagesController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<ImgGuidsResponse>> GetImgGuids()
+    public async Task<ScResult<ImgGuidsResponseDto>> GetImgGuids()
     {
         var response = await _mediator.Send(new GetImgGuidsQuery());
 
-        return Ok(response);
+        return new ScResult<ImgGuidsResponseDto>(response);
     }
 }

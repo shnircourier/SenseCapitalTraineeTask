@@ -4,7 +4,7 @@ using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Rooms.RoomGuids;
 
-public class GetRoomGuidsHandler : IRequestHandler<GetRoomGuidsQuery, RoomGuidsResponse>
+public class GetRoomGuidsHandler : IRequestHandler<GetRoomGuidsQuery, RoomGuidsResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
 
@@ -13,10 +13,10 @@ public class GetRoomGuidsHandler : IRequestHandler<GetRoomGuidsQuery, RoomGuidsR
         _repository = repository;
     }
     
-    public Task<RoomGuidsResponse> Handle(GetRoomGuidsQuery request, CancellationToken cancellationToken)
+    public Task<RoomGuidsResponseDto> Handle(GetRoomGuidsQuery request, CancellationToken cancellationToken)
     {
         var response = _repository.GetAvailableRoomGuids();
         
-        return Task.FromResult(new RoomGuidsResponse(response));
+        return Task.FromResult(new RoomGuidsResponseDto(response));
     }
 }

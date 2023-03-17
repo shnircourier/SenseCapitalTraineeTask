@@ -7,6 +7,6 @@ public class MeetingRequestMappingProfile : Profile
 {
     public MeetingRequestMappingProfile()
     {
-        CreateMap<MeetingRequest, Meeting>();
+        CreateMap<MeetingRequestDto, Meeting>();
     }
 }

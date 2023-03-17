@@ -13,15 +13,15 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
     {
         _mediator = mediator;
 
+        RuleLevelCascadeMode = CascadeMode.Stop;
+        
         RuleFor(x => x.Meeting.Title)
             .NotEmpty()
-            .MinimumLength(10)
-            .MaximumLength(128);
+            .Length(10, 128);
 
         RuleFor(x => x.Meeting.Description)
             .NotEmpty()
-            .MinimumLength(10)
-            .MaximumLength(128);
+            .Length(10, 256);
 
         RuleFor(x => x.Meeting.ImgId)
             .NotEmpty()
@@ -31,7 +31,7 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
 
                 return guids.HashSet.Contains(x);
             })
-            .WithMessage("Ссылка на несуществующий ключ");
+            .WithMessage("ImgId. Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.RoomId)
             .NotEmpty()
@@ -41,7 +41,7 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
 
                 return guids.HashSet.Contains(x);
             })
-            .WithMessage("Ссылка на несуществующий ключ");
+            .WithMessage("RoomId. Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.BeginAt)
             .NotEmpty()

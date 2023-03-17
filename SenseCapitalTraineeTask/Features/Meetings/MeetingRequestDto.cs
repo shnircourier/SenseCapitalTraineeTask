@@ -1,7 +1,6 @@
 namespace SenseCapitalTraineeTask.Features.Meetings;
 
-public record MeetingResponse(
-    Guid Id,
+public record MeetingRequestDto(
     DateTime BeginAt,
     DateTime EndAt,
     string Title,

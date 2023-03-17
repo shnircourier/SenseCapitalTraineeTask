@@ -13,18 +13,21 @@ public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingComm
     {
         _mediator = mediator;
 
+        RuleLevelCascadeMode = CascadeMode.Stop;
+        
         RuleFor(x => x.Meeting.Title)
             .NotEmpty()
-            .MinimumLength(10)
-            .MaximumLength(128);
+            .WithMessage("Поле обязательно к заполнению")
+            .Length(10, 128);
 
         RuleFor(x => x.Meeting.Description)
             .NotEmpty()
-            .MinimumLength(10)
-            .MaximumLength(128);
+            .WithMessage("Поле обязательно к заполнению")
+            .Length(10, 128);
 
         RuleFor(x => x.Meeting.ImgId)
             .NotEmpty()
+            .WithMessage("Поле обязательно к заполнению")
             .MustAsync(async (x, cToken ) =>
             {
                 var guids = await _mediator.Send(new GetImgGuidsQuery());
@@ -35,6 +38,7 @@ public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingComm
 
         RuleFor(x => x.Meeting.RoomId)
             .NotEmpty()
+            .WithMessage("Поле обязательно к заполнению")
             .MustAsync(async (x, cToken) =>
             {
                 var guids = await _mediator.Send(new GetRoomGuidsQuery());
@@ -45,11 +49,13 @@ public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingComm
 
         RuleFor(x => x.Meeting.BeginAt)
             .NotEmpty()
+            .WithMessage("Поле обязательно к заполнению")
             .Must((x,d ) => d < x.Meeting.EndAt)
             .WithMessage("Дата начала не может быть позже даты окончания");
 
         RuleFor(x => x.Meeting.EndAt)
             .NotEmpty()
+            .WithMessage("Поле обязательно к заполнению")
             .Must((x, d) => d > x.Meeting.BeginAt)
             .WithMessage("Дата окончания не может быть раньше даты начала");
     }
