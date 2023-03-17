@@ -65,4 +65,9 @@ public class TestDataRepository : IRepository<Meeting>
     {
         return _roomGuids;
     }
+
+    public Meeting CreateFreeTickets(Meeting meeting)
+    {
+        return Update(meeting);
+    }
 }

@@ -15,4 +15,8 @@ public class Meeting
     public Guid ImgId { get; set; }
 
     public Guid RoomId { get; set; }
+
+    public List<Ticket> Tickets { get; set; } = new();
+
+    public bool IsFull { get; set; }
 }

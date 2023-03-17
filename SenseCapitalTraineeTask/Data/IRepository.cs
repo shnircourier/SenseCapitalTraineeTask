@@ -15,4 +15,6 @@ public interface IRepository<T>
     HashSet<Guid> GetAvailableImgGuids();
 
     HashSet<Guid> GetAvailableRoomGuids();
+
+    T CreateFreeTickets(T entity);
 }

@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
+using SenseCapitalTraineeTask.Features.Meetings.CreateFreeTickets;
 using SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 using SenseCapitalTraineeTask.Features.Meetings.DeleteMeeting;
 using SenseCapitalTraineeTask.Features.Meetings.MeetingById;
@@ -56,6 +57,14 @@ public class MeetingsController : ControllerBase
     public async Task<ScResult<MeetingResponseDto>> Delete([FromRoute] Guid id)
     {
         var response = await _mediator.Send(new DeleteMeetingCommand(id));
+
+        return new ScResult<MeetingResponseDto>(response);
+    }
+
+    [HttpPost("tickets/create")]
+    public async Task<ScResult<MeetingResponseDto>> CreateFreeTickets([FromBody] CreateFreeTicketsRequestDto requestDto)
+    {
+        var response = await _mediator.Send(new CreateFreeTicketsCommand(requestDto));
 
         return new ScResult<MeetingResponseDto>(response);
     }
