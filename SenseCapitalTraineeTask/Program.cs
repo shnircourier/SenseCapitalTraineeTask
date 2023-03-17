@@ -41,7 +41,7 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, cfg =>
     {
-        cfg.Authority = builder.Configuration["Auth:Url"];
+        cfg.Authority = builder.Configuration["Auth:Authority"];
         cfg.Audience = "MyApi";
 
         cfg.RequireHttpsMetadata = false;

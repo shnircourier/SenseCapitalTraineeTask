@@ -8,6 +8,7 @@ services:
       dockerfile: SenseCapitalTraineeTask/Dockerfile
 
   identity:
+    container_name: identity
     image: ${DOCKER_REGISTRY-}myidentityserver
     build:
       context: .

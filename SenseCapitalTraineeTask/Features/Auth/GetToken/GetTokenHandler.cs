@@ -41,7 +41,14 @@ public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
         
         var authClient = _httpClientFactory.CreateClient();
 
-        var discovery = await authClient.GetDiscoveryDocumentAsync(_configuration["Auth:Url"], cancellationToken: cancellationToken);
+        var discovery = await authClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+        {
+            Address = _configuration["Auth:Authority"],
+            Policy =
+            {
+                RequireHttps = false
+            }
+        }, cancellationToken: cancellationToken);
 
         if (discovery.IsError)
         {
