@@ -1,3 +1,5 @@
+using SenseCapitalTraineeTask.Data.Entities;
+
 namespace SenseCapitalTraineeTask.Data;
 
 public interface IRepository<T>
@@ -16,5 +18,5 @@ public interface IRepository<T>
 
     HashSet<Guid> GetAvailableRoomGuids();
 
-    T CreateFreeTickets(T entity);
+    List<User> GetUser();
 }

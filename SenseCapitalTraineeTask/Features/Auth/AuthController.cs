@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Features.Auth.GetToken;
+using SenseCapitalTraineeTask.Features.Auth.GetUsers;
 
 namespace SenseCapitalTraineeTask.Features.Auth;
 
@@ -16,7 +17,15 @@ public class AuthController : ControllerBase
     {
         _mediator = mediator;
     }
-    
+
+    [HttpGet("get-users")]
+    public async Task<ScResult<List<UserResponseDto>>> GetUsers()
+    {
+        var response = await _mediator.Send(new GetUsersQuery());
+
+        return new ScResult<List<UserResponseDto>>(response);
+    }
+
     [HttpGet("get-token")]
     public async Task<ScResult<string>> GetToken()
     {
