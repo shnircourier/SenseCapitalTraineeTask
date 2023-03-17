@@ -7,6 +7,7 @@ public class TestDataRepository : IRepository<Meeting>
     private readonly List<Meeting> _meetings = new();
     private readonly HashSet<Guid> _imgGuids = new();
     private readonly HashSet<Guid> _roomGuids = new();
+    private readonly List<User> _users = new();
 
     public TestDataRepository()
     {
@@ -17,6 +18,20 @@ public class TestDataRepository : IRepository<Meeting>
         _roomGuids.Add(Guid.NewGuid());
         _roomGuids.Add(Guid.NewGuid());
         _roomGuids.Add(Guid.NewGuid());
+        
+        _users.Add(new User
+        {
+            Id = Guid.NewGuid(),
+            Password = "password",
+            Username = "password"
+        });
+        
+        _users.Add(new User
+        {
+            Id = Guid.NewGuid(),
+            Password = "password",
+            Username = "password1"
+        });
     }
 
     public List<Meeting> Get()
@@ -26,7 +41,7 @@ public class TestDataRepository : IRepository<Meeting>
 
     public Meeting Get(Guid id)
     {
-        return _meetings.FirstOrDefault(e => e.Id == id);
+        return _meetings.FirstOrDefault(e => e.Id == id)!;
     }
 
     public Meeting Create(Meeting meeting)
@@ -64,5 +79,10 @@ public class TestDataRepository : IRepository<Meeting>
     public HashSet<Guid> GetAvailableRoomGuids()
     {
         return _roomGuids;
+    }
+    
+    public List<User> GetUser()
+    {
+        return _users;
     }
 }

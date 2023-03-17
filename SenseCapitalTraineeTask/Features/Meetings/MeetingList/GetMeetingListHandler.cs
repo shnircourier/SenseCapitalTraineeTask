@@ -1,10 +1,12 @@
 using AutoMapper;
+using JetBrains.Annotations;
 using MediatR;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.MeetingList;
 
+[UsedImplicitly]
 public class GetMeetingListHandler : IRequestHandler<GetMeetingListQuery, List<MeetingResponseDto>>
 {
     private readonly IRepository<Meeting> _repository;

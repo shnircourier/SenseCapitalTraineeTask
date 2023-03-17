@@ -1,4 +1,5 @@
 using AutoMapper;
+using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Data;
@@ -6,6 +7,7 @@ using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.DeleteMeeting;
 
+[UsedImplicitly]
 public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingCommand, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;

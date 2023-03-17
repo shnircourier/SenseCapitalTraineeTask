@@ -1,3 +1,5 @@
+using SenseCapitalTraineeTask.Data.Entities;
+
 namespace SenseCapitalTraineeTask.Features.Meetings;
 
 public record MeetingResponseDto(
@@ -7,5 +9,6 @@ public record MeetingResponseDto(
     string Title,
     string Description,
     Guid ImgId,
-    Guid RoomId
-);
+    Guid RoomId,
+    List<Ticket> Tickets,
+    bool IsFull);

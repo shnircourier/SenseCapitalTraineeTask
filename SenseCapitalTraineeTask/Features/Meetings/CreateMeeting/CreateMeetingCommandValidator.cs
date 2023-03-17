@@ -1,10 +1,12 @@
 using FluentValidation;
+using JetBrains.Annotations;
 using MediatR;
 using SenseCapitalTraineeTask.Features.Images.ImageGuids;
 using SenseCapitalTraineeTask.Features.Rooms.RoomGuids;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 
+[UsedImplicitly]
 public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingCommand>
 {
     private readonly IMediator _mediator;

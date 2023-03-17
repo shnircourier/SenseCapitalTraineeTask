@@ -1,4 +1,5 @@
 using AutoMapper;
+using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Data;
@@ -6,12 +7,11 @@ using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.MeetingById;
 
+[UsedImplicitly]
 public class GetMeetingByIdHandler : IRequestHandler<GetMeetingByIdQuery, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
-
-    public Guid Id { get; set; }
 
     public GetMeetingByIdHandler(
         IRepository<Meeting> repository,

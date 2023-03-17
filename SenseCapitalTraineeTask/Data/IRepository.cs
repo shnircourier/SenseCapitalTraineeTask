@@ -1,3 +1,5 @@
+using SenseCapitalTraineeTask.Data.Entities;
+
 namespace SenseCapitalTraineeTask.Data;
 
 public interface IRepository<T>
@@ -15,4 +17,6 @@ public interface IRepository<T>
     HashSet<Guid> GetAvailableImgGuids();
 
     HashSet<Guid> GetAvailableRoomGuids();
+
+    List<User> GetUser();
 }

@@ -1,9 +1,11 @@
+using JetBrains.Annotations;
 using MediatR;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Rooms.RoomGuids;
 
+[UsedImplicitly]
 public class GetRoomGuidsHandler : IRequestHandler<GetRoomGuidsQuery, RoomGuidsResponseDto>
 {
     private readonly IRepository<Meeting> _repository;

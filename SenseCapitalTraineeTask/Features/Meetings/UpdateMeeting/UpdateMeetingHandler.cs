@@ -1,4 +1,5 @@
 using AutoMapper;
+using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Data;
@@ -6,6 +7,7 @@ using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 
+[UsedImplicitly]
 public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
