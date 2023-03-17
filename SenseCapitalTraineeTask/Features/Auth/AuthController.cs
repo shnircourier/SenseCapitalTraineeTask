@@ -26,10 +26,10 @@ public class AuthController : ControllerBase
         return new ScResult<List<UserResponseDto>>(response);
     }
 
-    [HttpGet("get-token")]
-    public async Task<ScResult<string>> GetToken()
+    [HttpPost("get-token")]
+    public async Task<ScResult<string>> GetToken([FromBody] UserRequestDto userRequestDto)
     {
-        var response = await _mediator.Send(new GetTokenQuery());
+        var response = await _mediator.Send(new GetTokenQuery(userRequestDto));
 
         return new ScResult<string>(response);
     }
