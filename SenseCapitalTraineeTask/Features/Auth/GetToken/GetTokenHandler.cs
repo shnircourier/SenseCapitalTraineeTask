@@ -16,7 +16,7 @@ public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
     {
         var authClient = _httpClientFactory.CreateClient();
 
-        var discovery = await authClient.GetDiscoveryDocumentAsync("https://localhost:44371", cancellationToken: cancellationToken);
+        var discovery = await authClient.GetDiscoveryDocumentAsync("https://localhost:44395", cancellationToken: cancellationToken);
 
         var response = await authClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
         {

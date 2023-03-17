@@ -37,7 +37,7 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, cfg =>
     {
-        cfg.Authority = "https://localhost:44371";
+        cfg.Authority = "https://localhost:44395";
         cfg.Audience = "MyApi";
     });
 builder.Services.AddHttpClient();
