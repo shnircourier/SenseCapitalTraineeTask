@@ -1,10 +1,13 @@
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
 using SenseCapitalTraineeTask.Features.Meetings;
 using SenseCapitalTraineeTask.Infrastructure.Middlewares;
 using SenseCapitalTraineeTask.Infrastructure.PipelineBehaviors;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +16,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(opts =>
+{
+    opts.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+    
+    opts.OperationFilter<SecurityRequirementsOperationFilter>();
+});
 builder.Services.AddSingleton<IRepository<Meeting>, TestDataRepository>();
 builder.Services.AddAutoMapper(typeof(MeetingRequestMappingProfile), typeof(MeetingResponseMappingProfile));
 builder.Services.AddMediatR(cfg => 
@@ -21,6 +34,14 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, cfg =>
+    {
+        cfg.Authority = "https://localhost:44371";
+        cfg.Audience = "MyApi";
+    });
+builder.Services.AddHttpClient();
+
 
 var app = builder.Build();
 
@@ -33,9 +54,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+app.UseAuthentication();
+
 app.UseAuthorization();
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseCors(cfg => cfg.AllowAnyOrigin());
 
 app.MapControllers();
 

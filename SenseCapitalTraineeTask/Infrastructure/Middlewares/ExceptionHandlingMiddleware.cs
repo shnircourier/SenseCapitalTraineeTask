@@ -1,6 +1,7 @@
 using System.Text.Json;
 using FluentValidation;
-using SenseCapitalTraineeTask.Infrastructure.Exceptions;
+using SC.Internship.Common.Exceptions;
+using SC.Internship.Common.ScResult;
 
 namespace SenseCapitalTraineeTask.Infrastructure.Middlewares;
 
@@ -22,10 +23,10 @@ public class ExceptionHandlingMiddleware : IMiddleware
     private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
     {
         var statusCode = GetStatusCode(exception);
-        var response = new
+        var getScError = GetErrors(exception);
+        var response = new ScResult
         {
-            status = statusCode,
-            errors = GetErrors(exception)
+            Error = getScError
         };
         httpContext.Response.ContentType = "application/json";
         httpContext.Response.StatusCode = statusCode;
@@ -36,33 +37,28 @@ public class ExceptionHandlingMiddleware : IMiddleware
         exception switch
         {
             ValidationException => StatusCodes.Status422UnprocessableEntity,
-            NotFoundException => StatusCodes.Status404NotFound,
+            ScException => StatusCodes.Status400BadRequest,
             _ => StatusCodes.Status500InternalServerError
         };
     
-    private static List<ExceptionModel> GetErrors(Exception exception)
+    private static ScError GetErrors(Exception exception)
     {
-        List<ExceptionModel> errors = new();
+        var scError = new ScError();
+        
         switch (exception)
         {
             case ValidationException validationException:
-                errors = validationException.Errors.Select(e => new ExceptionModel
-                {
-                    ErrorCode = e.ErrorCode,
-                    ErrorMessage = e.ErrorMessage
-                }).ToList();
+                scError.Message = validationException.Message;
+                scError.ModelState = validationException.Errors
+                    .ToDictionary(
+                        x => x.PropertyName,
+                        x => new List<string>(new[] { x.ErrorMessage }));
                 break;
-            case NotFoundException notFoundException:
-                var errorList = new List<ExceptionModel>();
-                errorList.Add(new ExceptionModel
-                {
-                    ErrorCode = "NotFoundException",
-                    ErrorMessage = notFoundException.Message
-                });
-                errors = errorList;
+            case ScException scException:
+                scError.Message = scException.Message;
                 break;
         }
 
-        return errors;
+        return scError;
     }
 }

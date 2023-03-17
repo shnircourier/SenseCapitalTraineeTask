@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Features.Rooms.RoomGuids;
 
 namespace SenseCapitalTraineeTask.Features.Rooms;
@@ -16,10 +17,10 @@ public class RoomsController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<RoomGuidsResponse>> GetRoomGuids()
+    public async Task<ScResult<RoomGuidsResponseDto>> GetRoomGuids()
     {
         var response = await _mediator.Send(new GetRoomGuidsQuery());
 
-        return Ok(response);
+        return new ScResult<RoomGuidsResponseDto>(response);
     }
 }

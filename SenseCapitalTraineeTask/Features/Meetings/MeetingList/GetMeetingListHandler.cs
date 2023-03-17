@@ -5,7 +5,7 @@ using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.MeetingList;
 
-public class GetMeetingListHandler : IRequestHandler<GetMeetingListQuery, List<MeetingResponse>>
+public class GetMeetingListHandler : IRequestHandler<GetMeetingListQuery, List<MeetingResponseDto>>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
@@ -18,9 +18,9 @@ public class GetMeetingListHandler : IRequestHandler<GetMeetingListQuery, List<M
         _mapper = mapper;
     }
     
-    public Task<List<MeetingResponse>> Handle(GetMeetingListQuery request, CancellationToken cancellationToken)
+    public Task<List<MeetingResponseDto>> Handle(GetMeetingListQuery request, CancellationToken cancellationToken)
     {
-        var response = _mapper.Map<List<MeetingResponse>>(_repository.Get());
+        var response = _mapper.Map<List<MeetingResponseDto>>(_repository.Get());
         
         return Task.FromResult(response);
     }
