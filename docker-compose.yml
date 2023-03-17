@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  main:
+    image: ${DOCKER_REGISTRY-}sensecapitaltraineetask
+    build:
+      context: .
+      dockerfile: SenseCapitalTraineeTask/Dockerfile
+
+  identity:
+    image: ${DOCKER_REGISTRY-}myidentityserver
+    build:
+      context: .
+      dockerfile: MyIdentityServer/Dockerfile
+      
+
+

@@ -39,6 +39,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         cfg.Authority = builder.Configuration["Auth:Url"];
         cfg.Audience = "MyApi";
+
+        cfg.RequireHttpsMetadata = false;
     });
 builder.Services.AddHttpClient();
 
