@@ -2,7 +2,6 @@ using FluentValidation;
 using JetBrains.Annotations;
 using MediatR;
 using SenseCapitalTraineeTask.Features.Auth.GetUsers;
-using SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUser;
 
