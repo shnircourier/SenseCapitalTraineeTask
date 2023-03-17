@@ -5,8 +5,12 @@ using SC.Internship.Common.ScResult;
 
 namespace SenseCapitalTraineeTask.Infrastructure.Middlewares;
 
+/// <summary>
+/// Обработчик исключений
+/// </summary>
 public class ExceptionHandlingMiddleware : IMiddleware
 {
+    /// <inheritdoc />
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         try

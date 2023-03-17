@@ -7,12 +7,20 @@ using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.MeetingById;
 
+/// <summary>
+/// Логика получения мероприятия по Id
+/// </summary>
 [UsedImplicitly]
 public class GetMeetingByIdHandler : IRequestHandler<GetMeetingByIdQuery, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="repository">БД</param>
+    /// <param name="mapper">маппер</param>
     public GetMeetingByIdHandler(
         IRepository<Meeting> repository,
         IMapper mapper)
@@ -20,7 +28,8 @@ public class GetMeetingByIdHandler : IRequestHandler<GetMeetingByIdQuery, Meetin
         _repository = repository;
         _mapper = mapper;
     }
-    
+
+    /// <inheritdoc />
     public Task<MeetingResponseDto> Handle(GetMeetingByIdQuery request, CancellationToken cancellationToken)
     {
         var response = _mapper.Map<MeetingResponseDto>(_repository.Get(request.Id));

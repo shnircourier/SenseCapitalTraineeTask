@@ -6,11 +6,15 @@ using SenseCapitalTraineeTask.Features.Rooms.RoomGuids;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 
+/// <summary>
+/// Валидатор данных на обновление мероприятия
+/// </summary>
 [UsedImplicitly]
 public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingCommand>
 {
     private readonly IMediator _mediator;
 
+    /// <inheritdoc />
     public UpdateMeetingCommandValidator(IMediator mediator)
     {
         _mediator = mediator;

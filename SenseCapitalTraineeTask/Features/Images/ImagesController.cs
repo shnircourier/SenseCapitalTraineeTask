@@ -5,17 +5,25 @@ using SenseCapitalTraineeTask.Features.Images.ImageGuids;
 
 namespace SenseCapitalTraineeTask.Features.Images;
 
+/// <summary>
+/// Контроллер картинок
+/// </summary>
 [ApiController]
 [Route("images")]
 public class ImagesController : ControllerBase
 {
     private readonly IMediator _mediator;
 
+    /// <inheritdoc />
     public ImagesController(IMediator mediator)
     {
         _mediator = mediator;
     }
     
+    /// <summary>
+    /// Получение хеш-множества id
+    /// </summary>
+    /// <returns>Множество id</returns>
     [HttpGet]
     public async Task<ScResult<ImgGuidsResponseDto>> GetImgGuids()
     {

@@ -7,12 +7,20 @@ using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 
+/// <summary>
+/// Логика обновление данных мероприятия
+/// </summary>
 [UsedImplicitly]
 public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="repository">БД</param>
+    /// <param name="mapper">Маппер</param>
     public UpdateMeetingHandler(
         IRepository<Meeting> repository,
         IMapper mapper)
@@ -20,7 +28,8 @@ public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, Meetin
         _repository = repository;
         _mapper = mapper;
     }
-    
+
+    /// <inheritdoc />
     public Task<MeetingResponseDto> Handle(UpdateMeetingCommand request, CancellationToken cancellationToken)
     {
         var meeting = _repository.Get(request.Id);

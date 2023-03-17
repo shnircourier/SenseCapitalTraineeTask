@@ -6,11 +6,15 @@ using SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUser;
 
+/// <summary>
+/// Валидатор данных на выдачу билета пользователю
+/// </summary>
 [UsedImplicitly]
 public class GiveTicketToUserCommandValidator : AbstractValidator<GiveTicketToUserCommand>
 {
     private readonly IMediator _mediator;
 
+    /// <inheritdoc />
     public GiveTicketToUserCommandValidator(IMediator mediator)
     {
         _mediator = mediator;

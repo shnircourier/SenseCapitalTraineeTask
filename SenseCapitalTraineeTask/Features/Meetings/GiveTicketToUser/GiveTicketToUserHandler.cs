@@ -7,18 +7,27 @@ using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUser;
 
+/// <summary>
+/// Логика выдачи билетов пользователю
+/// </summary>
 [UsedImplicitly]
 public class GiveTicketToUserHandler : IRequestHandler<GiveTicketToUserCommand, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="repository">Бд</param>
+    /// <param name="mapper">Маппер</param>
     public GiveTicketToUserHandler(IRepository<Meeting> repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
     }
-    
+
+    /// <inheritdoc />
     public Task<MeetingResponseDto> Handle(GiveTicketToUserCommand request, CancellationToken cancellationToken)
     {
         var meeting = _repository.Get(request.RequestDto.MeetingId);

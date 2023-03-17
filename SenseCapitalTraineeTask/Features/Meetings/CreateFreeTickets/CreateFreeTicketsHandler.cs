@@ -7,12 +7,20 @@ using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.CreateFreeTickets;
 
+/// <summary>
+/// Логика создания билетов
+/// </summary>
 [UsedImplicitly]
 public class CreateFreeTicketsHandler : IRequestHandler<CreateFreeTicketsCommand, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="repository">БД</param>
+    /// <param name="mapper">Маппер</param>
     public CreateFreeTicketsHandler(
         IRepository<Meeting> repository,
         IMapper mapper)
@@ -20,7 +28,8 @@ public class CreateFreeTicketsHandler : IRequestHandler<CreateFreeTicketsCommand
         _repository = repository;
         _mapper = mapper;
     }
-    
+
+    /// <inheritdoc />
     public Task<MeetingResponseDto> Handle(CreateFreeTicketsCommand request, CancellationToken cancellationToken)
     {
         var meeting = _repository.Get(request.RequestDto.Id);

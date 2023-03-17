@@ -6,12 +6,20 @@ using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 
+/// <summary>
+/// Логика создания мероприятия
+/// </summary>
 [UsedImplicitly]
 public class CreateMeetingHandler : IRequestHandler<CreateMeetingCommand, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="repository">БД</param>
+    /// <param name="mapper">Маппер</param>
     public CreateMeetingHandler(
         IRepository<Meeting> repository,
         IMapper mapper)
@@ -19,7 +27,8 @@ public class CreateMeetingHandler : IRequestHandler<CreateMeetingCommand, Meetin
         _repository = repository;
         _mapper = mapper;
     }
-    
+
+    /// <inheritdoc />
     public Task<MeetingResponseDto> Handle(CreateMeetingCommand request, CancellationToken cancellationToken)
     {
         var meeting = _mapper.Map<Meeting>(request.Meeting);
