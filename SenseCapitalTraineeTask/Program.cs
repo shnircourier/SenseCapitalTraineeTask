@@ -24,6 +24,7 @@ builder.Services.AddSwaggerGen(opts =>
 
     opts.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
+        Description = "JWT авторизация, необходимо вставить токен начиная с ключевого слова Bearer {ваш токен}",
         In = ParameterLocation.Header,
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey
