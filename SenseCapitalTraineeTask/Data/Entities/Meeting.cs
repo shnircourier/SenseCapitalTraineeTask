@@ -3,6 +3,9 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace SenseCapitalTraineeTask.Data.Entities;
 
+/// <summary>
+/// Модель мероприятия
+/// </summary>
 public class Meeting
 {
     [BsonId]

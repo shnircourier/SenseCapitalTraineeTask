@@ -3,6 +3,9 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace SenseCapitalTraineeTask.Data.Entities;
 
+/// <summary>
+/// Модель заглушка картинок
+/// </summary>
 public class Image
 {
     [BsonId]

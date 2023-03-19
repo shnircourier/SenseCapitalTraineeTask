@@ -3,17 +3,23 @@ using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Data.MongoDb;
 
+/// <inheritdoc />
 public class MongoDbMeetingRepository : IRepository<Meeting>
 {
     private readonly string _collection;
-    private readonly MongoDbConnectionFarctory<Meeting> _connection;
+    private readonly MongoDbConnectionFactory<Meeting> _connection;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="configuration">Конфиг</param>
     public MongoDbMeetingRepository(IConfiguration configuration)
     {
         _collection = configuration["Mongo:MeetingCollection"]!;
-        _connection = new MongoDbConnectionFarctory<Meeting>(configuration);
+        _connection = new MongoDbConnectionFactory<Meeting>(configuration);
     }
-    
+
+    /// <inheritdoc />
     public async Task<List<Meeting>> Get()
     {
         var result = await _connection
@@ -23,6 +29,7 @@ public class MongoDbMeetingRepository : IRepository<Meeting>
         return result.ToList();
     }
 
+    /// <inheritdoc />
     public async Task<Meeting> Get(string id)
     {
         var result = await _connection
@@ -32,6 +39,7 @@ public class MongoDbMeetingRepository : IRepository<Meeting>
         return result.FirstOrDefault();
     }
 
+    /// <inheritdoc />
     public async Task<Meeting> Create(Meeting entity)
     {
         await _connection
@@ -41,6 +49,7 @@ public class MongoDbMeetingRepository : IRepository<Meeting>
         return entity;
     }
 
+    /// <inheritdoc />
     public async Task<Meeting> Update(Meeting entity)
     {
         var filter = Builders<Meeting>.Filter.Eq("Id", entity.Id);
@@ -52,6 +61,7 @@ public class MongoDbMeetingRepository : IRepository<Meeting>
         return entity;
     }
 
+    /// <inheritdoc />
     public async Task<Meeting> Delete(Meeting entity)
     {
         await _connection
@@ -61,6 +71,7 @@ public class MongoDbMeetingRepository : IRepository<Meeting>
         return entity;
     }
 
+    /// <inheritdoc />
     public Task<List<Meeting>> CreateMany(List<Meeting> entities)
     {
         throw new NotImplementedException();

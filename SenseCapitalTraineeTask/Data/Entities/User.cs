@@ -3,6 +3,9 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace SenseCapitalTraineeTask.Data.Entities;
 
+/// <summary>
+/// Модель пользователя
+/// </summary>
 public record User
 {
     [BsonId]

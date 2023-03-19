@@ -3,17 +3,23 @@ using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Data.MongoDb;
 
+/// <inheritdoc />
 public class MongoDbTicketRepository : IRepository<Ticket>
 {
     private readonly string _collection;
-    private readonly MongoDbConnectionFarctory<Ticket> _connection;
+    private readonly MongoDbConnectionFactory<Ticket> _connection;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="configuration">Конфиг</param>
     public MongoDbTicketRepository(IConfiguration configuration)
     {
         _collection = configuration["Mongo:TicketCollection"]!;
-        _connection = new MongoDbConnectionFarctory<Ticket>(configuration);
+        _connection = new MongoDbConnectionFactory<Ticket>(configuration);
     }
-    
+
+    /// <inheritdoc />
     public async Task<List<Ticket>> Get()
     {
         var result = await _connection
@@ -23,6 +29,7 @@ public class MongoDbTicketRepository : IRepository<Ticket>
         return result.ToList();
     }
 
+    /// <inheritdoc />
     public async Task<Ticket> Get(string id)
     {
         var result = await _connection
@@ -32,6 +39,7 @@ public class MongoDbTicketRepository : IRepository<Ticket>
         return result.FirstOrDefault();
     }
 
+    /// <inheritdoc />
     public async Task<Ticket> Create(Ticket entity)
     {
         await _connection
@@ -41,6 +49,7 @@ public class MongoDbTicketRepository : IRepository<Ticket>
         return entity;
     }
 
+    /// <inheritdoc />
     public async Task<Ticket> Update(Ticket entity)
     {
         var filter = Builders<Ticket>.Filter.Eq("Id", entity.Id);
@@ -52,6 +61,7 @@ public class MongoDbTicketRepository : IRepository<Ticket>
         return entity;
     }
 
+    /// <inheritdoc />
     public async Task<Ticket> Delete(Ticket entity)
     {
         await _connection
@@ -61,6 +71,7 @@ public class MongoDbTicketRepository : IRepository<Ticket>
         return entity;
     }
 
+    /// <inheritdoc />
     public async Task<List<Ticket>> CreateMany(List<Ticket> entities)
     {
         await _connection
