@@ -41,6 +41,7 @@ public class ExceptionHandlingMiddleware : IMiddleware
         exception switch
         {
             ValidationException => StatusCodes.Status422UnprocessableEntity,
+            FormatException => StatusCodes.Status422UnprocessableEntity,
             ScException => StatusCodes.Status400BadRequest,
             _ => StatusCodes.Status500InternalServerError
         };
@@ -60,6 +61,9 @@ public class ExceptionHandlingMiddleware : IMiddleware
                 break;
             case ScException scException:
                 scError.Message = scException.Message;
+                break;
+            case FormatException formatException:
+                scError.Message = "Некорректный формат Id. Необходимо 24 символа(0-9, a-f)";
                 break;
         }
 
