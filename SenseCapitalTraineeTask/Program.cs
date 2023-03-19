@@ -39,6 +39,9 @@ builder.Services.AddSwaggerGen(opts =>
 //Репозитории
 builder.Services.AddScoped<IRepository<Meeting>, MongoDbMeetingRepository>();
 builder.Services.AddScoped<IRepository<Ticket>, MongoDbTicketRepository>();
+builder.Services.AddScoped<IRepository<User>, MongoDbUserRepository>();
+builder.Services.AddScoped<IRepository<Room>, MongoDbRoomRepository>();
+builder.Services.AddScoped<IRepository<Image>, MongoDbImageRepository>();
 
 
 

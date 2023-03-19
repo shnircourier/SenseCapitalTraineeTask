@@ -12,7 +12,7 @@ namespace SenseCapitalTraineeTask.Features.Auth.GetUsers;
 [UsedImplicitly]
 public class GetUsersHandler : IRequestHandler<GetUsersQuery, List<UserResponseDto>>
 {
-    private readonly IRepository<Meeting> _repository;
+    private readonly IRepository<User> _repository;
     private readonly IMapper _mapper;
 
     /// <summary>
@@ -20,20 +20,19 @@ public class GetUsersHandler : IRequestHandler<GetUsersQuery, List<UserResponseD
     /// </summary>
     /// <param name="repository">БД</param>
     /// <param name="mapper">Автомапер</param>
-    public GetUsersHandler(IRepository<Meeting> repository, IMapper mapper)
+    public GetUsersHandler(IRepository<User> repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
     }
 
     /// <inheritdoc />
-    public Task<List<UserResponseDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+    public async Task<List<UserResponseDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
     {
-        // var users = _repository.GetUser();
-        //
-        // var response = _mapper.Map<List<UserResponseDto>>(users);
-        //
-        // return Task.FromResult(response);
-        throw new NotImplementedException();
+        var users = await _repository.Get();
+        
+        var response = _mapper.Map<List<UserResponseDto>>(users);
+        
+        return response;
     }
 }

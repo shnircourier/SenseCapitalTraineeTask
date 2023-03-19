@@ -5,33 +5,38 @@ namespace SenseCapitalTraineeTask.Data.MongoDb;
 
 public class MongoDbMeetingRepository : IRepository<Meeting>
 {
-    private readonly IMongoCollection<Meeting> _collection;
+    private readonly string _collection;
+    private readonly MongoDbConnectionFarctory<Meeting> _connection;
 
     public MongoDbMeetingRepository(IConfiguration configuration)
     {
-        _collection = MongoDbConnectionFarctory<Meeting>.ConnectToMongo(
-            configuration["Mongo:MeetingCollection"]!,
-            configuration["Mongo:TestTaskDb"]!,
-            configuration["Mongo:ConnectionString"]!);
+        _collection = configuration["Mongo:MeetingCollection"]!;
+        _connection = new MongoDbConnectionFarctory<Meeting>(configuration);
     }
     
     public async Task<List<Meeting>> Get()
     {
-        var result = await _collection.FindAsync(_ => true);
+        var result = await _connection
+            .ConnectToMongo(_collection)
+            .FindAsync(_ => true);
 
         return result.ToList();
     }
 
     public async Task<Meeting> Get(string id)
     {
-        var result = await _collection.FindAsync(m => m.Id == id);
+        var result = await _connection
+            .ConnectToMongo(_collection)
+            .FindAsync(m => m.Id == id);
 
         return result.FirstOrDefault();
     }
 
     public async Task<Meeting> Create(Meeting entity)
     {
-        await _collection.InsertOneAsync(entity);
+        await _connection
+            .ConnectToMongo(_collection)
+            .InsertOneAsync(entity);
 
         return entity;
     }
@@ -40,14 +45,18 @@ public class MongoDbMeetingRepository : IRepository<Meeting>
     {
         var filter = Builders<Meeting>.Filter.Eq("Id", entity.Id);
 
-        var result = await _collection.ReplaceOneAsync(filter, entity, new ReplaceOptions { IsUpsert = false });
+        var result = await _connection
+            .ConnectToMongo(_collection)
+            .ReplaceOneAsync(filter, entity, new ReplaceOptions { IsUpsert = false });
 
         return entity;
     }
 
     public async Task<Meeting> Delete(Meeting entity)
     {
-        await _collection.DeleteOneAsync(m => m.Id == entity.Id);
+        await _connection
+            .ConnectToMongo(_collection)
+            .DeleteOneAsync(m => m.Id == entity.Id);
         
         return entity;
     }

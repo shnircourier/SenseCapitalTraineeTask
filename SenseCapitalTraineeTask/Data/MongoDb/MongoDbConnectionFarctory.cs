@@ -1,14 +1,19 @@
 using MongoDB.Driver;
-using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Data.MongoDb;
 
-public static class MongoDbConnectionFarctory<T>
+public class MongoDbConnectionFarctory<T>
 {
-    public static IMongoCollection<T> ConnectToMongo(string collectionName, string database, string url)
+    private readonly IConfiguration _configuration;
+
+    public MongoDbConnectionFarctory(IConfiguration configuration)
     {
-        var client = new MongoClient(url);
-        var db = client.GetDatabase(database);
+        _configuration = configuration;
+    }
+    public IMongoCollection<T> ConnectToMongo(string collectionName)
+    {
+        var client = new MongoClient(_configuration["Mongo:ConnectionString"]);
+        var db = client.GetDatabase(_configuration["Mongo:Database"]);
         return db.GetCollection<T>(collectionName);
     }
 }

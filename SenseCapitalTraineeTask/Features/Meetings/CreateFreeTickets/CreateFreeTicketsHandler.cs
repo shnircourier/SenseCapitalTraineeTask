@@ -1,7 +1,6 @@
 using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
-using MongoDB.Bson;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;

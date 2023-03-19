@@ -4,4 +4,4 @@ namespace SenseCapitalTraineeTask.Features.Rooms;
 /// Модель тела ответа
 /// </summary>
 /// <param name="HashSet"></param>
-public record RoomGuidsResponseDto(HashSet<Guid> HashSet);
+public record RoomGuidsResponseDto(HashSet<string> HashSet);
