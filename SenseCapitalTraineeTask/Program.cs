@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
 using SenseCapitalTraineeTask.Data.MongoDb;
+using SenseCapitalTraineeTask.Data.Seeds;
 using SenseCapitalTraineeTask.Features.Meetings;
 using SenseCapitalTraineeTask.Infrastructure.Middlewares;
 using SenseCapitalTraineeTask.Infrastructure.PipelineBehaviors;
@@ -45,15 +46,13 @@ builder.Services.AddScoped<IRepository<Image>, MongoDbImageRepository>();
 
 
 
-//Библиотеки
+//Сервисы
 builder.Services.AddAutoMapper(typeof(MeetingRequestMappingProfile), typeof(MeetingResponseMappingProfile));
 builder.Services.AddMediatR(cfg => 
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddHttpClient();
-
-//Посредники
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, cfg =>
@@ -70,6 +69,18 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDataSeeder(() =>
+    {
+        using var scoped = app.Services.CreateScope();
+        var userRep = scoped.ServiceProvider.GetRequiredService<IRepository<User>>();
+        var imageRep = scoped.ServiceProvider.GetRequiredService<IRepository<Image>>();
+        var roomRep = scoped.ServiceProvider.GetRequiredService<IRepository<Room>>();
+
+        MongoDbUserSeeder.Populate(userRep);
+        MongoDbImageSeeder.Populate(imageRep);
+        MongoDbRoomSeeder.Populate(roomRep);
+        
+    });
     app.UseSwagger();
     app.UseSwaggerUI();
 }

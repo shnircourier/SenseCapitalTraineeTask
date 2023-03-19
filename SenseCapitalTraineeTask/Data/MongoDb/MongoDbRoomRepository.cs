@@ -10,7 +10,7 @@ public class MongoDbRoomRepository : IRepository<Room>
 
     public MongoDbRoomRepository(IConfiguration configuration)
     {
-        _collection = configuration["Mongo:ImageCollection"]!;
+        _collection = configuration["Mongo:RoomCollection"]!;
         _connection = new MongoDbConnectionFarctory<Room>(configuration);
     }
     public async Task<List<Room>> Get()
