@@ -29,10 +29,10 @@ public class GetMeetingListHandler : IRequestHandler<GetMeetingListQuery, List<M
     }
 
     /// <inheritdoc />
-    public Task<List<MeetingResponseDto>> Handle(GetMeetingListQuery request, CancellationToken cancellationToken)
+    public async Task<List<MeetingResponseDto>> Handle(GetMeetingListQuery request, CancellationToken cancellationToken)
     {
-        var response = _mapper.Map<List<MeetingResponseDto>>(_repository.Get());
+        var response = _mapper.Map<List<MeetingResponseDto>>(await _repository.Get());
         
-        return Task.FromResult(response);
+        return response;
     }
 }

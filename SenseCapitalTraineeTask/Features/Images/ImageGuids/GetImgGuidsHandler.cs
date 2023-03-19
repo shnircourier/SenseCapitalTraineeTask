@@ -25,8 +25,9 @@ public class GetImgGuidsHandler : IRequestHandler<GetImgGuidsQuery, ImgGuidsResp
     /// <inheritdoc />
     public Task<ImgGuidsResponseDto> Handle(GetImgGuidsQuery request, CancellationToken cancellationToken)
     {
-        var response = _repository.GetAvailableImgGuids();
-        
-        return Task.FromResult(new ImgGuidsResponseDto(response));
+        // var response = _repository.GetAvailableImgGuids();
+        //
+        // return Task.FromResult(new ImgGuidsResponseDto(response));
+        throw new NotImplementedException();
     }
 }

@@ -29,12 +29,12 @@ public class CreateMeetingHandler : IRequestHandler<CreateMeetingCommand, Meetin
     }
 
     /// <inheritdoc />
-    public Task<MeetingResponseDto> Handle(CreateMeetingCommand request, CancellationToken cancellationToken)
+    public async Task<MeetingResponseDto> Handle(CreateMeetingCommand request, CancellationToken cancellationToken)
     {
         var meeting = _mapper.Map<Meeting>(request.Meeting);
+
+        var response = _mapper.Map<MeetingResponseDto>(await _repository.Create(meeting));
         
-        var response = _mapper.Map<MeetingResponseDto>(_repository.Create(meeting));
-        
-        return Task.FromResult(response);
+        return response;
     }
 }

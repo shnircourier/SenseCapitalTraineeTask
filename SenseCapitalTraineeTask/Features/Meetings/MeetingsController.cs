@@ -45,8 +45,8 @@ public class MeetingsController : ControllerBase
     /// <returns>Модель мероприятия</returns>
     /// <response code="200">Модель мероприятия</response>
     /// <response code="400">Модель не найдена</response>
-    [HttpGet("{id:guid}")]
-    public async Task<ScResult<MeetingResponseDto>> Get([FromRoute] Guid id)
+    [HttpGet("{id}")]
+    public async Task<ScResult<MeetingResponseDto>> Get([FromRoute] string id)
     {
         var response = await _mediator.Send(new GetMeetingByIdQuery(id));
 
@@ -77,8 +77,8 @@ public class MeetingsController : ControllerBase
     /// <response code="200">Модель мероприятия</response>
     /// <response code="400">Модель не найдена</response>
     /// <response code="422">Ошибка валидации</response>
-    [HttpPut("{id:guid}")]
-    public async Task<ScResult<MeetingResponseDto>> Update([FromBody] MeetingRequestDto requestDto, [FromRoute] Guid id)
+    [HttpPut("{id}")]
+    public async Task<ScResult<MeetingResponseDto>> Update([FromBody] MeetingRequestDto requestDto, [FromRoute] string id)
     {
         var response = await _mediator.Send(new UpdateMeetingCommand(requestDto, id));
 
@@ -90,8 +90,8 @@ public class MeetingsController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpDelete("{id:guid}")]
-    public async Task<ScResult<MeetingResponseDto>> Delete([FromRoute] Guid id)
+    [HttpDelete("{id}")]
+    public async Task<ScResult<MeetingResponseDto>> Delete([FromRoute] string id)
     {
         var response = await _mediator.Send(new DeleteMeetingCommand(id));
 

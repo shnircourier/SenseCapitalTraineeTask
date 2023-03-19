@@ -8,12 +8,12 @@ public class TicketDto
     /// <summary>
     /// Идентификатор
     /// </summary>
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 
     /// <summary>
     /// Идентификатор владельца
     /// </summary>
-    public Guid OwnerId { get; set; }
+    public string OwnerId { get; set; }
 
     /// <summary>
     /// Место

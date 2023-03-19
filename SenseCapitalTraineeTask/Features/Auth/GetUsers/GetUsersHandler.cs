@@ -29,10 +29,11 @@ public class GetUsersHandler : IRequestHandler<GetUsersQuery, List<UserResponseD
     /// <inheritdoc />
     public Task<List<UserResponseDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
     {
-        var users = _repository.GetUser();
-
-        var response = _mapper.Map<List<UserResponseDto>>(users);
-
-        return Task.FromResult(response);
+        // var users = _repository.GetUser();
+        //
+        // var response = _mapper.Map<List<UserResponseDto>>(users);
+        //
+        // return Task.FromResult(response);
+        throw new NotImplementedException();
     }
 }

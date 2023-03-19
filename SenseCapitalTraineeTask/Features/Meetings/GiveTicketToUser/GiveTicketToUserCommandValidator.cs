@@ -23,13 +23,13 @@ public class GiveTicketToUserCommandValidator : AbstractValidator<GiveTicketToUs
             .NotEmpty();
 
         RuleFor(x => x.RequestDto.UserId)
-            .NotEmpty()
-            .MustAsync(async (x, _) =>
-            {
-                var users = await _mediator.Send(new GetUsersQuery());
-
-                return users.FirstOrDefault(u => u.Id == x) is not null;
-            })
-            .WithMessage("Пользователя не существует");
+            .NotEmpty();
+        // .MustAsync(async (x, _) =>
+        // {
+        //     var users = await _mediator.Send(new GetUsersQuery());
+        //
+        //     return users.FirstOrDefault(u => u.Id == x) is not null;
+        // })
+        // .WithMessage("Пользователя не существует");
     }
 }

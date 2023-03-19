@@ -1,8 +1,13 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace SenseCapitalTraineeTask.Data.Entities;
 
 public class Meeting
 {
-    public Guid Id { get; set; }
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; }
 
     public DateTime BeginAt { get; set; }
 
@@ -12,9 +17,9 @@ public class Meeting
 
     public string Description { get; set; }
 
-    public Guid ImgId { get; set; }
+    public string ImgId { get; set; }
 
-    public Guid RoomId { get; set; }
+    public string RoomId { get; set; }
 
     public List<Ticket> Tickets { get; set; } = new();
 

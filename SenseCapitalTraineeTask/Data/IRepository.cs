@@ -4,19 +4,15 @@ namespace SenseCapitalTraineeTask.Data;
 
 public interface IRepository<T>
 {
-    List<T> Get();
+    Task<List<T>> Get();
 
-    T Get(Guid id);
+    Task<T> Get(string id);
 
-    T Create(T entity);
+    Task<T> Create(T entity);
 
-    T Update(T entity);
+    Task<T> Update(T entity);
 
-    T Delete(Guid id);
+    Task<T> Delete(T entity);
 
-    HashSet<Guid> GetAvailableImgGuids();
-
-    HashSet<Guid> GetAvailableRoomGuids();
-
-    List<User> GetUser();
+    Task<List<T>> CreateMany(List<T> entities);
 }

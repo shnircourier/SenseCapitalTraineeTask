@@ -33,25 +33,25 @@ public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingComm
 
         RuleFor(x => x.Meeting.ImgId)
             .NotEmpty()
-            .WithMessage("Поле обязательно к заполнению")
-            .MustAsync(async (x, cToken ) =>
-            {
-                var guids = await _mediator.Send(new GetImgGuidsQuery());
+            .WithMessage("Поле обязательно к заполнению");
+            // .MustAsync(async (x, cToken ) =>
+            // {
+            //     var guids = await _mediator.Send(new GetImgGuidsQuery());
+            //
+            //     return guids.HashSet.Contains(x);
+            // })
+            // .WithMessage("Ссылка на несуществующий ключ");
 
-                return guids.HashSet.Contains(x);
-            })
-            .WithMessage("Ссылка на несуществующий ключ");
-
-        RuleFor(x => x.Meeting.RoomId)
-            .NotEmpty()
-            .WithMessage("Поле обязательно к заполнению")
-            .MustAsync(async (x, cToken) =>
-            {
-                var guids = await _mediator.Send(new GetRoomGuidsQuery());
-
-                return guids.HashSet.Contains(x);
-            })
-            .WithMessage("Ссылка на несуществующий ключ");
+            RuleFor(x => x.Meeting.RoomId)
+                .NotEmpty()
+                .WithMessage("Поле обязательно к заполнению");
+            // .MustAsync(async (x, cToken) =>
+            // {
+            //     var guids = await _mediator.Send(new GetRoomGuidsQuery());
+            //
+            //     return guids.HashSet.Contains(x);
+            // })
+            // .WithMessage("Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.BeginAt)
             .NotEmpty()

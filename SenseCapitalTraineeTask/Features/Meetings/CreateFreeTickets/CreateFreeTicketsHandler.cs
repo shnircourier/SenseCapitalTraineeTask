@@ -1,6 +1,7 @@
 using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
+using MongoDB.Bson;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
@@ -13,48 +14,51 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CreateFreeTickets;
 [UsedImplicitly]
 public class CreateFreeTicketsHandler : IRequestHandler<CreateFreeTicketsCommand, MeetingResponseDto>
 {
-    private readonly IRepository<Meeting> _repository;
+    private readonly IRepository<Meeting> _meetingRepository;
+    private readonly IRepository<Ticket> _ticketRepository;
     private readonly IMapper _mapper;
 
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="repository">БД</param>
+    /// <param name="meetingRepository">Коллекция мероприятий</param>
+    /// <param name="ticketRepository">Коллекция билетов</param>
     /// <param name="mapper">Маппер</param>
     public CreateFreeTicketsHandler(
-        IRepository<Meeting> repository,
+        IRepository<Meeting> meetingRepository,
+        IRepository<Ticket> ticketRepository,
         IMapper mapper)
     {
-        _repository = repository;
+        _meetingRepository = meetingRepository;
+        _ticketRepository = ticketRepository;
         _mapper = mapper;
     }
 
     /// <inheritdoc />
-    public Task<MeetingResponseDto> Handle(CreateFreeTicketsCommand request, CancellationToken cancellationToken)
+    public async Task<MeetingResponseDto> Handle(CreateFreeTicketsCommand request, CancellationToken cancellationToken)
     {
-        var meeting = _repository.Get(request.RequestDto.Id);
+        var meeting = await _meetingRepository.Get(request.RequestDto.Id);
         
         if (meeting is null)
         {
             throw new ScException("Мероприятие не найдено");
         }
-
+        
         var newFreeTickets = new List<Ticket>();
-
+        
         for (var i = 0; i < request.RequestDto.Amount; i++)
         {
             newFreeTickets.Add(new Ticket
             {
-                Id = Guid.NewGuid(),
                 OwnerId = null,
                 Seat = i + 1
             });
         }
-
-        meeting.Tickets = newFreeTickets;
-
-        var newMeetingWithTickets = _mapper.Map<MeetingResponseDto>(_repository.Update(meeting));
-
-        return Task.FromResult(newMeetingWithTickets);
+        
+        meeting.Tickets = await _ticketRepository.CreateMany(newFreeTickets);
+        
+        var newMeetingWithTickets = _mapper.Map<MeetingResponseDto>(await _meetingRepository.Update(meeting));
+        
+        return newMeetingWithTickets;
     }
 }

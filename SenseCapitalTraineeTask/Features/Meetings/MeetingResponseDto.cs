@@ -14,12 +14,12 @@ namespace SenseCapitalTraineeTask.Features.Meetings;
 /// <param name="Tickets">Список билетов</param>
 /// <param name="IsFull">Заполнена ли</param>
 public record MeetingResponseDto(
-    Guid Id,
+    string Id,
     DateTime BeginAt,
     DateTime EndAt,
     string Title,
     string Description,
-    Guid ImgId,
-    Guid RoomId,
+    string ImgId,
+    string RoomId,
     List<Ticket> Tickets,
     bool IsFull);

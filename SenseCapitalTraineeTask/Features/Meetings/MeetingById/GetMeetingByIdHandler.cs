@@ -30,15 +30,17 @@ public class GetMeetingByIdHandler : IRequestHandler<GetMeetingByIdQuery, Meetin
     }
 
     /// <inheritdoc />
-    public Task<MeetingResponseDto> Handle(GetMeetingByIdQuery request, CancellationToken cancellationToken)
+    public async Task<MeetingResponseDto> Handle(GetMeetingByIdQuery request, CancellationToken cancellationToken)
     {
-        var response = _mapper.Map<MeetingResponseDto>(_repository.Get(request.Id));
+        var meeting = await _repository.Get(request.Id);
 
-        if (response is null)
+        if (meeting is null)
         {
             throw new ScException("Мероприятие не найдено");
         }
         
-        return Task.FromResult(response);
+        var response = _mapper.Map<MeetingResponseDto>(meeting);
+        
+        return response;
     }
 }

@@ -30,24 +30,24 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
             .Length(10, 256);
 
         RuleFor(x => x.Meeting.ImgId)
-            .NotEmpty()
-            .MustAsync(async (x, cToken ) =>
-            {
-                var guids = await _mediator.Send(new GetImgGuidsQuery());
-
-                return guids.HashSet.Contains(x);
-            })
-            .WithMessage("ImgId. Ссылка на несуществующий ключ");
+            .NotEmpty();
+            // .MustAsync(async (x, cToken ) =>
+            // {
+            //     var guids = await _mediator.Send(new GetImgGuidsQuery());
+            //
+            //     return guids.HashSet.Contains(x);
+            // })
+            // .WithMessage("ImgId. Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.RoomId)
-            .NotEmpty()
-            .MustAsync(async (x, cToken) =>
-            {
-                var guids = await _mediator.Send(new GetRoomGuidsQuery());
-
-                return guids.HashSet.Contains(x);
-            })
-            .WithMessage("RoomId. Ссылка на несуществующий ключ");
+            .NotEmpty();
+            // .MustAsync(async (x, cToken) =>
+            // {
+            //     var guids = await _mediator.Send(new GetRoomGuidsQuery());
+            //
+            //     return guids.HashSet.Contains(x);
+            // })
+            // .WithMessage("RoomId. Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.BeginAt)
             .NotEmpty()

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
+using SenseCapitalTraineeTask.Data.MongoDb;
 using SenseCapitalTraineeTask.Features.Meetings;
 using SenseCapitalTraineeTask.Infrastructure.Middlewares;
 using SenseCapitalTraineeTask.Infrastructure.PipelineBehaviors;
@@ -32,12 +33,24 @@ builder.Services.AddSwaggerGen(opts =>
     
     opts.OperationFilter<SecurityRequirementsOperationFilter>();
 });
-builder.Services.AddSingleton<IRepository<Meeting>, TestDataRepository>();
+
+
+
+//Репозитории
+builder.Services.AddScoped<IRepository<Meeting>, MongoDbMeetingRepository>();
+builder.Services.AddScoped<IRepository<Ticket>, MongoDbTicketRepository>();
+
+
+
+//Библиотеки
 builder.Services.AddAutoMapper(typeof(MeetingRequestMappingProfile), typeof(MeetingResponseMappingProfile));
 builder.Services.AddMediatR(cfg => 
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+builder.Services.AddHttpClient();
+
+//Посредники
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, cfg =>
@@ -47,7 +60,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
         cfg.RequireHttpsMetadata = false;
     });
-builder.Services.AddHttpClient();
 
 
 var app = builder.Build();

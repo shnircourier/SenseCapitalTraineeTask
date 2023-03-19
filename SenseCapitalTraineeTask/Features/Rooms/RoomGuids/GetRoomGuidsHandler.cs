@@ -25,8 +25,9 @@ public class GetRoomGuidsHandler : IRequestHandler<GetRoomGuidsQuery, RoomGuidsR
     /// <inheritdoc />
     public Task<RoomGuidsResponseDto> Handle(GetRoomGuidsQuery request, CancellationToken cancellationToken)
     {
-        var response = _repository.GetAvailableRoomGuids();
-        
-        return Task.FromResult(new RoomGuidsResponseDto(response));
+        // var response = _repository.GetAvailableRoomGuids();
+        //
+        // return Task.FromResult(new RoomGuidsResponseDto(response));
+        throw new NotImplementedException();
     }
 }
