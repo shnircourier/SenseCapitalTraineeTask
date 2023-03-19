@@ -3,6 +3,6 @@ namespace SenseCapitalTraineeTask.Features.Meetings;
 /// <summary>
 /// Модель создания билетов
 /// </summary>
-/// <param name="Id">Id мероприятия</param>
+/// <param name="MeetingId">Id мероприятия</param>
 /// <param name="Amount">Кол-во билетов(мест)</param>
-public record CreateFreeTicketsRequestDto(string Id, int Amount);
+public record CreateFreeTicketsRequestDto(string MeetingId, int Amount);
