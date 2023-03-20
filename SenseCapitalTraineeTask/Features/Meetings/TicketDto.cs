@@ -8,8 +8,9 @@ public class TicketDto
     /// <summary>
     /// Идентификатор
     /// </summary>
-    // Id инициализируется неявным образом
+#pragma warning disable CS8618
     public string Id { get; set; }
+#pragma warning restore CS8618
 
     /// <summary>
     /// Идентификатор владельца

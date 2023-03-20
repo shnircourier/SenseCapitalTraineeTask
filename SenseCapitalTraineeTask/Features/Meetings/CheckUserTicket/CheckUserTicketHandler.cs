@@ -5,15 +5,23 @@ using SenseCapitalTraineeTask.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.CheckUserTicket;
 
+/// <summary>
+/// Логика проверки билета пользователя
+/// </summary>
 public class CheckUserTicketHandler : IRequestHandler<CheckUserTicketQuery>
 {
     private readonly IRepository<Meeting> _repository;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="repository">бд</param>
     public CheckUserTicketHandler(IRepository<Meeting> repository)
     {
         _repository = repository;
     }
-    
+
+    /// <inheritdoc />
     public async Task Handle(CheckUserTicketQuery request, CancellationToken cancellationToken)
     {
         var meeting = await _repository.Get(request.MeetingId);

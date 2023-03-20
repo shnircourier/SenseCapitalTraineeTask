@@ -9,15 +9,24 @@ namespace SenseCapitalTraineeTask.Data.Entities;
 /// </summary>
 public record User
 {
+    /// <summary>
+    /// Идентификатор
+    /// </summary>
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     [UsedImplicitly]
-    // Id инициализируется неявным образом
+#pragma warning disable CS8618
     public string Id { get; set; }
 
-    // Username не может быть null
+    /// <summary>
+    /// Имя пользователя
+    /// </summary>
     public string Username { [UsedImplicitly] get; set; }
-
-    // Password не может быть null
+    
+    /// <summary>
+    /// Пароль пользователя
+    /// </summary>
     public string Password { [UsedImplicitly] get; set; }
+    
+#pragma warning restore CS8618
 }

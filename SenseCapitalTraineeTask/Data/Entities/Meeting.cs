@@ -8,28 +8,54 @@ namespace SenseCapitalTraineeTask.Data.Entities;
 /// </summary>
 public class Meeting
 {
+#pragma warning disable CS8618
+    /// <summary>
+    /// Идентификатор
+    /// </summary>
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    // Id инициализируется неявным образом
     public string Id { get; set; }
-
+    
+    /// <summary>
+    /// Дата начала
+    /// </summary>
     public DateTime BeginAt { get; set; }
 
+    /// <summary>
+    /// Дата конца
+    /// </summary>
     public DateTime EndAt { get; set; }
-
-    // Title не может быть null
+    
+    /// <summary>
+    /// Заголовок
+    /// </summary>
     public string Title { get; set; }
 
     // Description не может быть null
+    /// <summary>
+    /// Описание
+    /// </summary>
     public string Description { get; set; }
-
-    // ImgId не может быть null
+    
+    /// <summary>
+    /// Id картинки
+    /// </summary>
     public string ImgId { get; set; }
-
-    // RoomId не может быть null
+    
+    /// <summary>
+    /// Id помещения
+    /// </summary>
     public string RoomId { get; set; }
 
+    /// <summary>
+    /// Лист билетов
+    /// </summary>
     public List<Ticket> Tickets { get; set; } = new();
 
+    /// <summary>
+    /// Заполнено ли помещение
+    /// </summary>
     public bool IsFull { get; set; }
+    
+#pragma warning restore CS8618
 }

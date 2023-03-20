@@ -9,8 +9,12 @@ namespace SenseCapitalTraineeTask.Data.Entities;
 /// </summary>
 public class Image
 {
+    /// <summary>
+    /// Идентификатор
+    /// </summary>
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    // Id инициализируется неявным образом
+#pragma warning disable CS8618
     public string Id { get; [UsedImplicitly] set; }
+#pragma warning restore CS8618
 }

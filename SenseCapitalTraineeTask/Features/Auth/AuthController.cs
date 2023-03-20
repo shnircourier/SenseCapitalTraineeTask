@@ -7,6 +7,9 @@ using SenseCapitalTraineeTask.Features.Auth.GetUsers;
 
 namespace SenseCapitalTraineeTask.Features.Auth;
 
+/// <summary>
+/// Контроллер авторизации
+/// </summary>
 [ApiController]
 [Route("auth")]
 public class AuthController : ControllerBase

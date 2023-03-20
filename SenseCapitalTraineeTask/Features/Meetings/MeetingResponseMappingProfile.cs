@@ -8,6 +8,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings;
 /// </summary>
 public class MeetingResponseMappingProfile : Profile
 {
+    /// <inheritdoc />
     public MeetingResponseMappingProfile()
     {
         CreateMap<Meeting, MeetingResponseDto>();
