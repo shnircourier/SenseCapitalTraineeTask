@@ -38,14 +38,14 @@ public class CheckUserTicketHandler : IRequestHandler<CheckUserTicketQuery>
             throw new ScException($"Билет с идентификатором {request.RequestDto.TicketId} не найден");
         }
         
-        if (ticket?.OwnerId is not null && ticket?.OwnerId != request.RequestDto.UserId)
+        if (ticket.OwnerId is not null && ticket.OwnerId != request.RequestDto.UserId)
         {
             throw new ScException("Данный билет принадлежит другому владельцу");
         }
 
         var isSeatRequired = meeting.Tickets.Any(t => t.Seat is not null);
 
-        if (isSeatRequired && request.RequestDto.Seat != ticket?.Seat)
+        if (isSeatRequired && request.RequestDto.Seat != ticket.Seat)
         {
             throw new ScException("Места не совпадают");
         }
