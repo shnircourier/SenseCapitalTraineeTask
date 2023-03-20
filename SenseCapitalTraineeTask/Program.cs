@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
+using SenseCapitalTraineeTask.Data.MongoDb;
+using SenseCapitalTraineeTask.Data.Seeds;
 using SenseCapitalTraineeTask.Features.Meetings;
 using SenseCapitalTraineeTask.Infrastructure.Middlewares;
 using SenseCapitalTraineeTask.Infrastructure.PipelineBehaviors;
@@ -32,12 +34,25 @@ builder.Services.AddSwaggerGen(opts =>
     
     opts.OperationFilter<SecurityRequirementsOperationFilter>();
 });
-builder.Services.AddSingleton<IRepository<Meeting>, TestDataRepository>();
+
+
+
+//Репозитории
+builder.Services.AddScoped<IRepository<Meeting>, MongoDbMeetingRepository>();
+builder.Services.AddScoped<IRepository<Ticket>, MongoDbTicketRepository>();
+builder.Services.AddScoped<IRepository<User>, MongoDbUserRepository>();
+builder.Services.AddScoped<IRepository<Room>, MongoDbRoomRepository>();
+builder.Services.AddScoped<IRepository<Image>, MongoDbImageRepository>();
+
+
+
+//Сервисы
 builder.Services.AddAutoMapper(typeof(MeetingRequestMappingProfile), typeof(MeetingResponseMappingProfile));
 builder.Services.AddMediatR(cfg => 
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+builder.Services.AddHttpClient();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, cfg =>
@@ -47,7 +62,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
         cfg.RequireHttpsMetadata = false;
     });
-builder.Services.AddHttpClient();
 
 
 var app = builder.Build();
@@ -55,6 +69,18 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDataSeeder(() =>
+    {
+        using var scoped = app.Services.CreateScope();
+        var userRep = scoped.ServiceProvider.GetRequiredService<IRepository<User>>();
+        var imageRep = scoped.ServiceProvider.GetRequiredService<IRepository<Image>>();
+        var roomRep = scoped.ServiceProvider.GetRequiredService<IRepository<Room>>();
+
+        MongoDbUserSeeder.Populate(userRep);
+        MongoDbImageSeeder.Populate(imageRep);
+        MongoDbRoomSeeder.Populate(roomRep);
+        
+    });
     app.UseSwagger();
     app.UseSwaggerUI();
 }

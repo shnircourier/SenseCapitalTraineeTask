@@ -7,4 +7,4 @@ namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 /// </summary>
 /// <param name="Meeting">Модель мероприятия</param>
 /// <param name="Id">Id мерорприятия</param>
-public record UpdateMeetingCommand(MeetingRequestDto Meeting, Guid Id) : IRequest<MeetingResponseDto>;
+public record UpdateMeetingCommand(MeetingRequestDto Meeting, string Id) : IRequest<MeetingResponseDto>;

@@ -30,17 +30,19 @@ public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingCommand, Meetin
     }
 
     /// <inheritdoc />
-    public Task<MeetingResponseDto> Handle(DeleteMeetingCommand request, CancellationToken cancellationToken)
+    public async Task<MeetingResponseDto> Handle(DeleteMeetingCommand request, CancellationToken cancellationToken)
     {
-        var meeting = _repository.Delete(request.Id);
-        
+        var meeting = await _repository.Get(request.Id);
+
         if (meeting is null)
         {
             throw new ScException("Мероприятие не найдено");
         }
+        
+        await _repository.Delete(meeting);
 
         var response = _mapper.Map<MeetingResponseDto>(meeting);
         
-        return Task.FromResult(response);
+        return response;
     }
 }

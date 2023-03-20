@@ -14,6 +14,6 @@ public record MeetingRequestDto(
     DateTime EndAt,
     string Title,
     string Description,
-    Guid ImgId,
-    Guid RoomId
+    string ImgId,
+    string RoomId
 );

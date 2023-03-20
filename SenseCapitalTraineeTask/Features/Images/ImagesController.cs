@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Features.Images.ImageGuids;
@@ -9,6 +10,7 @@ namespace SenseCapitalTraineeTask.Features.Images;
 /// Контроллер картинок
 /// </summary>
 [ApiController]
+[Authorize]
 [Route("images")]
 public class ImagesController : ControllerBase
 {

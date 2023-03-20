@@ -1,6 +1,8 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
+using SenseCapitalTraineeTask.Features.Meetings.CheckUserTicket;
 using SenseCapitalTraineeTask.Features.Meetings.CreateFreeTickets;
 using SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 using SenseCapitalTraineeTask.Features.Meetings.DeleteMeeting;
@@ -16,6 +18,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings;
 /// </summary>
 [ApiController]
 [Route("meetings")]
+[Authorize]
 public class MeetingsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -45,8 +48,8 @@ public class MeetingsController : ControllerBase
     /// <returns>Модель мероприятия</returns>
     /// <response code="200">Модель мероприятия</response>
     /// <response code="400">Модель не найдена</response>
-    [HttpGet("{id:guid}")]
-    public async Task<ScResult<MeetingResponseDto>> Get([FromRoute] Guid id)
+    [HttpGet("{id}")]
+    public async Task<ScResult<MeetingResponseDto>> Get([FromRoute] string id)
     {
         var response = await _mediator.Send(new GetMeetingByIdQuery(id));
 
@@ -77,8 +80,8 @@ public class MeetingsController : ControllerBase
     /// <response code="200">Модель мероприятия</response>
     /// <response code="400">Модель не найдена</response>
     /// <response code="422">Ошибка валидации</response>
-    [HttpPut("{id:guid}")]
-    public async Task<ScResult<MeetingResponseDto>> Update([FromBody] MeetingRequestDto requestDto, [FromRoute] Guid id)
+    [HttpPut("{id}")]
+    public async Task<ScResult<MeetingResponseDto>> Update([FromBody] MeetingRequestDto requestDto, [FromRoute] string id)
     {
         var response = await _mediator.Send(new UpdateMeetingCommand(requestDto, id));
 
@@ -90,8 +93,8 @@ public class MeetingsController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpDelete("{id:guid}")]
-    public async Task<ScResult<MeetingResponseDto>> Delete([FromRoute] Guid id)
+    [HttpDelete("{id}")]
+    public async Task<ScResult<MeetingResponseDto>> Delete([FromRoute] string id)
     {
         var response = await _mediator.Send(new DeleteMeetingCommand(id));
 
@@ -102,13 +105,14 @@ public class MeetingsController : ControllerBase
     /// Создать билеты на мероприятие
     /// </summary>
     /// <param name="requestDto"></param>
+    /// <param name="id">Идентификатор мероприятия</param>
     /// <returns></returns>
     /// <response code="200">Модель мероприятия</response>
     /// <response code="422">Ошибка валидации</response>
-    [HttpPost("tickets/create")]
-    public async Task<ScResult<MeetingResponseDto>> CreateFreeTickets([FromBody] CreateFreeTicketsRequestDto requestDto)
+    [HttpPost("{id}/tickets/create")]
+    public async Task<ScResult<MeetingResponseDto>> CreateFreeTickets([FromBody] CreateFreeTicketsRequestDto requestDto, [FromRoute] string id)
     {
-        var response = await _mediator.Send(new CreateFreeTicketsCommand(requestDto));
+        var response = await _mediator.Send(new CreateFreeTicketsCommand(requestDto, id));
 
         return new ScResult<MeetingResponseDto>(response);
     }
@@ -117,14 +121,33 @@ public class MeetingsController : ControllerBase
     /// Выдать пользователю билет
     /// </summary>
     /// <param name="requestDto"></param>
+    /// <param name="id">Идентификтор мероприятия</param>
     /// <returns></returns>
     /// <response code="200">Модель мероприятия</response>
     /// <response code="400">Билеты закончились</response>
-    [HttpPost("tickets/user")]
-    public async Task<ScResult<MeetingResponseDto>> GiveTicketToUser([FromBody] TicketRequestDto requestDto)
+    [HttpPost("{id}/tickets/user")]
+    public async Task<ScResult<MeetingResponseDto>> GiveTicketToUser([FromBody] TicketRequestDto requestDto, [FromRoute] string id)
     {
-        var response = await _mediator.Send(new GiveTicketToUserCommand(requestDto));
+        var response = await _mediator.Send(new GiveTicketToUserCommand(requestDto, id));
 
         return new ScResult<MeetingResponseDto>(response);
+    }
+
+    /// <summary>
+    /// Проверить билет мероприятия
+    /// </summary>
+    /// <param name="requestDto">Модель запроса</param>
+    /// <param name="id">Идентификатор мероприятия</param>
+    /// <returns></returns>
+    /// <response code="400">Мероприятие не найдено</response>
+    /// <response code="400">Билет не найден</response>
+    /// <response code="400">Билет не принадлежит пользователю</response>
+    /// <response code="400">Места не совпадают</response>
+    [HttpPost("{id}/ticket/check")]
+    public async Task<ScResult> CheckTicket([FromBody] CheckTicketRequestDto requestDto, [FromRoute] string id)
+    {
+        await _mediator.Send(new CheckUserTicketQuery(id, requestDto));
+
+        return new ScResult();
     }
 }

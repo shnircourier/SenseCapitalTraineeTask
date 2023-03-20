@@ -8,12 +8,14 @@ public class TicketDto
     /// <summary>
     /// Идентификатор
     /// </summary>
-    public Guid Id { get; set; }
+#pragma warning disable CS8618
+    public string Id { get; set; }
+#pragma warning restore CS8618
 
     /// <summary>
     /// Идентификатор владельца
     /// </summary>
-    public Guid OwnerId { get; set; }
+    public string? OwnerId { get; set; }
 
     /// <summary>
     /// Место

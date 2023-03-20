@@ -52,7 +52,7 @@ public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
 
         if (discovery.IsError)
         {
-            throw new ScException($"Сервис авторизации по адресу {_configuration["Auth:Url"]} временно недоступен");
+            throw new ScException($"Сервис авторизации по адресу {_configuration["Auth:Authority"]} временно недоступен");
         }
         
         var response = await authClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest

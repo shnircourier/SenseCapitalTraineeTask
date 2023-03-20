@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Features.Rooms.RoomGuids;
@@ -9,6 +10,7 @@ namespace SenseCapitalTraineeTask.Features.Rooms;
 /// Контроллер получения id помещений 
 /// </summary>
 [ApiController]
+[Authorize]
 [Route("rooms")]
 public class RoomsController : ControllerBase
 {

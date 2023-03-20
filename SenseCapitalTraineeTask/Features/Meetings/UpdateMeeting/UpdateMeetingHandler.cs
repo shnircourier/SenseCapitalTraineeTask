@@ -30,9 +30,9 @@ public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, Meetin
     }
 
     /// <inheritdoc />
-    public Task<MeetingResponseDto> Handle(UpdateMeetingCommand request, CancellationToken cancellationToken)
+    public async Task<MeetingResponseDto> Handle(UpdateMeetingCommand request, CancellationToken cancellationToken)
     {
-        var meeting = _repository.Get(request.Id);
+        var meeting = await _repository.Get(request.Id);
 
         if (meeting is null)
         {
@@ -45,14 +45,14 @@ public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, Meetin
 
         meeting.BeginAt = request.Meeting.BeginAt;
 
-        meeting.BeginAt = request.Meeting.EndAt;
+        meeting.EndAt = request.Meeting.EndAt;
 
         meeting.ImgId = request.Meeting.ImgId;
 
         meeting.RoomId = request.Meeting.RoomId;
 
-        var response = _mapper.Map<MeetingResponseDto>(_repository.Update(meeting));
+        var response = _mapper.Map<MeetingResponseDto>(await _repository.Update(meeting));
 
-        return Task.FromResult(response);
+        return response;
     }
 }

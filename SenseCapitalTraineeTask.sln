@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyIdentityServer", "MyIdent
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{EA314397-453D-45DB-89B3-9F9C03FC42F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenseCapitalTraineeTask.Mock", "SenseCapitalTraineeTask.Mock\SenseCapitalTraineeTask.Mock.csproj", "{F45A738D-0A83-4767-BBA3-E0E934BCCF52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{EA314397-453D-45DB-89B3-9F9C03FC42F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA314397-453D-45DB-89B3-9F9C03FC42F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA314397-453D-45DB-89B3-9F9C03FC42F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F45A738D-0A83-4767-BBA3-E0E934BCCF52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F45A738D-0A83-4767-BBA3-E0E934BCCF52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F45A738D-0A83-4767-BBA3-E0E934BCCF52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F45A738D-0A83-4767-BBA3-E0E934BCCF52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

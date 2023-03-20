@@ -1,22 +1,49 @@
-using SenseCapitalTraineeTask.Data.Entities;
-
 namespace SenseCapitalTraineeTask.Data;
 
+/// <summary>
+/// Интерфейс репозитория
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public interface IRepository<T>
 {
-    List<T> Get();
+    /// <summary>
+    /// Метод получения коллекции данных
+    /// </summary>
+    /// <returns></returns>
+    Task<List<T>> Get();
 
-    T Get(Guid id);
+    /// <summary>
+    /// Получение записи по ее ключу
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    Task<T> Get(string id);
 
-    T Create(T entity);
+    /// <summary>
+    /// Добавление записи
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    Task<T> Create(T entity);
 
-    T Update(T entity);
+    /// <summary>
+    /// Обновление записи
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    Task<T> Update(T entity);
 
-    T Delete(Guid id);
+    /// <summary>
+    /// Удаление записи
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    Task<T> Delete(T entity);
 
-    HashSet<Guid> GetAvailableImgGuids();
-
-    HashSet<Guid> GetAvailableRoomGuids();
-
-    List<User> GetUser();
+    /// <summary>
+    /// Множественное добавление записей
+    /// </summary>
+    /// <param name="entities"></param>
+    /// <returns></returns>
+    Task<List<T>> CreateMany(List<T> entities);
 }

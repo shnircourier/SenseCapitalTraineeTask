@@ -1,11 +1,23 @@
 version: '3.4'
 
 services:
+  mongodb:
+    container_name: data
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+  
   main:
     image: ${DOCKER_REGISTRY-}sensecapitaltraineetask
     build:
       context: .
       dockerfile: SenseCapitalTraineeTask/Dockerfile
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
 
   identity:
     container_name: identity
@@ -13,6 +25,14 @@ services:
     build:
       context: .
       dockerfile: MyIdentityServer/Dockerfile
+    networks:
+      - app-network
       
+      
+volumes:
+  mongodb_data:
+    
+networks:
+  app-network:
 
 

@@ -12,13 +12,9 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 [UsedImplicitly]
 public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingCommand>
 {
-    private readonly IMediator _mediator;
-
     /// <inheritdoc />
     public CreateMeetingCommandValidator(IMediator mediator)
     {
-        _mediator = mediator;
-
         RuleLevelCascadeMode = CascadeMode.Stop;
         
         RuleFor(x => x.Meeting.Title)
@@ -31,20 +27,20 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
 
         RuleFor(x => x.Meeting.ImgId)
             .NotEmpty()
-            .MustAsync(async (x, cToken ) =>
+            .MustAsync(async (x, _ ) =>
             {
-                var guids = await _mediator.Send(new GetImgGuidsQuery());
-
+                var guids = await mediator.Send(new GetImgGuidsQuery());
+            
                 return guids.HashSet.Contains(x);
             })
             .WithMessage("ImgId. Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.RoomId)
             .NotEmpty()
-            .MustAsync(async (x, cToken) =>
+            .MustAsync(async (x, _) =>
             {
-                var guids = await _mediator.Send(new GetRoomGuidsQuery());
-
+                var guids = await mediator.Send(new GetRoomGuidsQuery());
+            
                 return guids.HashSet.Contains(x);
             })
             .WithMessage("RoomId. Ссылка на несуществующий ключ");

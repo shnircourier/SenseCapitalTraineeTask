@@ -4,4 +4,4 @@ namespace SenseCapitalTraineeTask.Features.Images;
 /// Модель тела ответа
 /// </summary>
 /// <param name="HashSet"></param>
-public record ImgGuidsResponseDto(HashSet<Guid> HashSet);
+public record ImgGuidsResponseDto(HashSet<string> HashSet);

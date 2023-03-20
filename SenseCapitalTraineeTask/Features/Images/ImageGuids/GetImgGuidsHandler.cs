@@ -11,22 +11,24 @@ namespace SenseCapitalTraineeTask.Features.Images.ImageGuids;
 [UsedImplicitly]
 public class GetImgGuidsHandler : IRequestHandler<GetImgGuidsQuery, ImgGuidsResponseDto>
 {
-    private readonly IRepository<Meeting> _repository;
+    private readonly IRepository<Image> _repository;
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="repository">БД</param>
-    public GetImgGuidsHandler(IRepository<Meeting> repository)
+    public GetImgGuidsHandler(IRepository<Image> repository)
     {
         _repository = repository;
     }
 
     /// <inheritdoc />
-    public Task<ImgGuidsResponseDto> Handle(GetImgGuidsQuery request, CancellationToken cancellationToken)
+    public async Task<ImgGuidsResponseDto> Handle(GetImgGuidsQuery request, CancellationToken cancellationToken)
     {
-        var response = _repository.GetAvailableImgGuids();
+        var response = await _repository.Get();
+
+        var images = response.Select(i => i.Id).ToHashSet();
         
-        return Task.FromResult(new ImgGuidsResponseDto(response));
+        return new ImgGuidsResponseDto(images);
     }
 }

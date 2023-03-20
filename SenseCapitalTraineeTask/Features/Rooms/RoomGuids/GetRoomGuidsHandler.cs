@@ -11,22 +11,24 @@ namespace SenseCapitalTraineeTask.Features.Rooms.RoomGuids;
 [UsedImplicitly]
 public class GetRoomGuidsHandler : IRequestHandler<GetRoomGuidsQuery, RoomGuidsResponseDto>
 {
-    private readonly IRepository<Meeting> _repository;
+    private readonly IRepository<Room> _repository;
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="repository">БД</param>
-    public GetRoomGuidsHandler(IRepository<Meeting> repository)
+    public GetRoomGuidsHandler(IRepository<Room> repository)
     {
         _repository = repository;
     }
 
     /// <inheritdoc />
-    public Task<RoomGuidsResponseDto> Handle(GetRoomGuidsQuery request, CancellationToken cancellationToken)
+    public async Task<RoomGuidsResponseDto> Handle(GetRoomGuidsQuery request, CancellationToken cancellationToken)
     {
-        var response = _repository.GetAvailableRoomGuids();
+        var response = await _repository.Get();
+
+        var rooms = response.Select(r => r.Id).ToHashSet();
         
-        return Task.FromResult(new RoomGuidsResponseDto(response));
+        return new RoomGuidsResponseDto(rooms);
     }
 }
