@@ -36,7 +36,7 @@ public class CreateFreeTicketsHandler : IRequestHandler<CreateFreeTicketsCommand
     /// <inheritdoc />
     public async Task<MeetingResponseDto> Handle(CreateFreeTicketsCommand request, CancellationToken cancellationToken)
     {
-        var meeting = await _meetingRepository.Get(request.RequestDto.MeetingId);
+        var meeting = await _meetingRepository.Get(request.MeetingId);
         
         if (meeting is null)
         {
@@ -50,7 +50,7 @@ public class CreateFreeTicketsHandler : IRequestHandler<CreateFreeTicketsCommand
             newFreeTickets.Add(new Ticket
             {
                 OwnerId = null,
-                Seat = i + 1
+                Seat = request.RequestDto.IsSeatRequired? i + 1 : null
             });
         }
         

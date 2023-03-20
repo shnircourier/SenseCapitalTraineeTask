@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -10,9 +11,13 @@ public record User
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
+    [UsedImplicitly]
+    // Id инициализируется неявным образом
     public string Id { get; set; }
 
-    public string Username { get; set; }
+    // Username не может быть null
+    public string Username { [UsedImplicitly] get; set; }
 
-    public string Password { get; set; }
+    // Password не может быть null
+    public string Password { [UsedImplicitly] get; set; }
 }

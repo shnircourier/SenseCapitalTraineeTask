@@ -62,7 +62,7 @@ public class ExceptionHandlingMiddleware : IMiddleware
             case ScException scException:
                 scError.Message = scException.Message;
                 break;
-            case FormatException formatException:
+            case FormatException:
                 scError.Message = "Некорректный формат Id. Необходимо 24 символа(0-9, a-f)";
                 break;
         }

@@ -12,13 +12,9 @@ namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 [UsedImplicitly]
 public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingCommand>
 {
-    private readonly IMediator _mediator;
-
     /// <inheritdoc />
     public UpdateMeetingCommandValidator(IMediator mediator)
     {
-        _mediator = mediator;
-
         RuleLevelCascadeMode = CascadeMode.Stop;
         
         RuleFor(x => x.Meeting.Title)
@@ -36,7 +32,7 @@ public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingComm
             .WithMessage("Поле обязательно к заполнению")
             .MustAsync(async (x, _ ) =>
             {
-                var guids = await _mediator.Send(new GetImgGuidsQuery());
+                var guids = await mediator.Send(new GetImgGuidsQuery());
             
                 return guids.HashSet.Contains(x);
             })
@@ -47,7 +43,7 @@ public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingComm
                 .WithMessage("Поле обязательно к заполнению")
                 .MustAsync(async (x, _) =>
                 {
-                    var guids = await _mediator.Send(new GetRoomGuidsQuery());
+                    var guids = await mediator.Send(new GetRoomGuidsQuery());
                 
                     return guids.HashSet.Contains(x);
                 })

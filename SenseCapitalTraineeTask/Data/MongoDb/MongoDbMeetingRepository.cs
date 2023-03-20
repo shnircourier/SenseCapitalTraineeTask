@@ -54,6 +54,7 @@ public class MongoDbMeetingRepository : IRepository<Meeting>
     {
         var filter = Builders<Meeting>.Filter.Eq("Id", entity.Id);
 
+        //Переменная не используется но необходима поскольку метод CreateMany имеет результат
         var result = await _connection
             .ConnectToMongo(_collection)
             .ReplaceOneAsync(filter, entity, new ReplaceOptions { IsUpsert = false });

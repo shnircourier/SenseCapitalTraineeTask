@@ -51,7 +51,7 @@ public class AuthController : ControllerBase
     }
 
     /// <summary>
-    /// Тестовый закрытый путь
+    /// Тестовый закрытый путь из 2-го задания
     /// </summary>
     /// <response code="200">Ок</response>
     /// <response code="401">Запрещено</response>

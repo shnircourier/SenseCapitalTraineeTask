@@ -54,6 +54,7 @@ public class MongoDbTicketRepository : IRepository<Ticket>
     {
         var filter = Builders<Ticket>.Filter.Eq("Id", entity.Id);
 
+        //Переменная не используется но необходима поскольку метод ReplaceOneAsync имеет результат
         var result = await _connection
             .ConnectToMongo(_collection)
             .ReplaceOneAsync(filter, entity, new ReplaceOptions { IsUpsert = false });

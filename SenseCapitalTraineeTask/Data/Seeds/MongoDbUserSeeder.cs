@@ -15,6 +15,7 @@ public static class MongoDbUserSeeder
     {
         if (repository.Get().Result.Count == 0)
         {
+            //Переменная не используется но необходима поскольку метод CreateMany имеет результат
             var resp = repository.CreateMany(new List<User>
             {
                 new()

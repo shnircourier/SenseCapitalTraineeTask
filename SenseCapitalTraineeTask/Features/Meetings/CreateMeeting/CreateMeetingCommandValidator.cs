@@ -12,13 +12,9 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 [UsedImplicitly]
 public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingCommand>
 {
-    private readonly IMediator _mediator;
-
     /// <inheritdoc />
     public CreateMeetingCommandValidator(IMediator mediator)
     {
-        _mediator = mediator;
-
         RuleLevelCascadeMode = CascadeMode.Stop;
         
         RuleFor(x => x.Meeting.Title)
@@ -33,7 +29,7 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
             .NotEmpty()
             .MustAsync(async (x, _ ) =>
             {
-                var guids = await _mediator.Send(new GetImgGuidsQuery());
+                var guids = await mediator.Send(new GetImgGuidsQuery());
             
                 return guids.HashSet.Contains(x);
             })
@@ -43,7 +39,7 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
             .NotEmpty()
             .MustAsync(async (x, _) =>
             {
-                var guids = await _mediator.Send(new GetRoomGuidsQuery());
+                var guids = await mediator.Send(new GetRoomGuidsQuery());
             
                 return guids.HashSet.Contains(x);
             })

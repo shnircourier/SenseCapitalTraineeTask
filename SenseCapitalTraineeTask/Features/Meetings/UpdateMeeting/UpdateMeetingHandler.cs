@@ -45,7 +45,7 @@ public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, Meetin
 
         meeting.BeginAt = request.Meeting.BeginAt;
 
-        meeting.BeginAt = request.Meeting.EndAt;
+        meeting.EndAt = request.Meeting.EndAt;
 
         meeting.ImgId = request.Meeting.ImgId;
 

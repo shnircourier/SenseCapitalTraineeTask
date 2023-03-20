@@ -30,7 +30,7 @@ public class GiveTicketToUserHandler : IRequestHandler<GiveTicketToUserCommand, 
     /// <inheritdoc />
     public async Task<MeetingResponseDto> Handle(GiveTicketToUserCommand request, CancellationToken cancellationToken)
     {
-        var meeting = await _repository.Get(request.RequestDto.MeetingId);
+        var meeting = await _repository.Get(request.MeetingId);
         
         if (meeting is null)
         {

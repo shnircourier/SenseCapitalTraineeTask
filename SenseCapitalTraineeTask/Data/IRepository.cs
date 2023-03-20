@@ -1,5 +1,3 @@
-using SenseCapitalTraineeTask.Data.Entities;
-
 namespace SenseCapitalTraineeTask.Data;
 
 /// <summary>
