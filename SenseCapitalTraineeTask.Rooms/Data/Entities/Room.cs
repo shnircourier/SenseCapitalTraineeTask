@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace SenseCapitalTraineeTask.Data.Entities;
+namespace SenseCapitalTraineeTask.Rooms.Data.Entities;
 
 /// <summary>
 /// Модель заглушки помещения

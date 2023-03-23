@@ -1,6 +1,6 @@
-using SenseCapitalTraineeTask.Data.Entities;
+using SenseCapitalTraineeTask.Rooms.Data.Entities;
 
-namespace SenseCapitalTraineeTask.Data.Seeds;
+namespace SenseCapitalTraineeTask.Rooms.Data.Seeds;
 
 /// <summary>
 /// Сидер помещений

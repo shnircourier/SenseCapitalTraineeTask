@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenseCapitalTraineeTask.Moc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenseCapitalTraineeTask.Images", "SenseCapitalTraineeTask.Images\SenseCapitalTraineeTask.Images.csproj", "{5DFC38CA-D49C-4314-BC09-FC337959D9F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenseCapitalTraineeTask.Rooms", "SenseCapitalTraineeTask.Rooms\SenseCapitalTraineeTask.Rooms.csproj", "{E3735591-05C0-40CB-A940-9253948200FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{5DFC38CA-D49C-4314-BC09-FC337959D9F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DFC38CA-D49C-4314-BC09-FC337959D9F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DFC38CA-D49C-4314-BC09-FC337959D9F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3735591-05C0-40CB-A940-9253948200FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3735591-05C0-40CB-A940-9253948200FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3735591-05C0-40CB-A940-9253948200FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3735591-05C0-40CB-A940-9253948200FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

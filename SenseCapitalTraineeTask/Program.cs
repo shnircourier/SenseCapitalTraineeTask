@@ -41,7 +41,6 @@ builder.Services.AddSwaggerGen(opts =>
 builder.Services.AddScoped<IRepository<Meeting>, MongoDbMeetingRepository>();
 builder.Services.AddScoped<IRepository<Ticket>, MongoDbTicketRepository>();
 builder.Services.AddScoped<IRepository<User>, MongoDbUserRepository>();
-builder.Services.AddScoped<IRepository<Room>, MongoDbRoomRepository>();
 
 
 
@@ -72,11 +71,9 @@ if (app.Environment.IsDevelopment())
     {
         using var scoped = app.Services.CreateScope();
         var userRep = scoped.ServiceProvider.GetRequiredService<IRepository<User>>();
-        var roomRep = scoped.ServiceProvider.GetRequiredService<IRepository<Room>>();
 
         MongoDbUserSeeder.Populate(userRep);
-        MongoDbRoomSeeder.Populate(roomRep);
-        
+
     });
     app.UseSwagger();
     app.UseSwaggerUI();

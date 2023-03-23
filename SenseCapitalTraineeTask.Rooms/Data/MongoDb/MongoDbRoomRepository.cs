@@ -1,25 +1,19 @@
 using MongoDB.Driver;
-using SenseCapitalTraineeTask.Data.Entities;
+using SenseCapitalTraineeTask.Rooms.Data.Entities;
 
-namespace SenseCapitalTraineeTask.Data.MongoDb;
+namespace SenseCapitalTraineeTask.Rooms.Data.MongoDb;
 
-/// <inheritdoc />
 public class MongoDbRoomRepository : IRepository<Room>
 {
     private readonly string _collection;
     private readonly MongoDbConnectionFactory<Room> _connection;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="configuration">Конфиг</param>
+    
     public MongoDbRoomRepository(IConfiguration configuration)
     {
         _collection = configuration["Mongo:RoomCollection"]!;
         _connection = new MongoDbConnectionFactory<Room>(configuration);
     }
-
-    /// <inheritdoc />
+    
     public async Task<List<Room>> Get()
     {
         var result = await _connection
@@ -29,31 +23,15 @@ public class MongoDbRoomRepository : IRepository<Room>
         return result.ToList();
     }
 
-    /// <inheritdoc />
-    public Task<Room> Get(string id)
+    public async Task<Room> Get(string id)
     {
-        throw new NotImplementedException();
+        var result = await _connection
+            .ConnectToMongo(_collection)
+            .FindAsync(i => i.Id == id);
+
+        return result.FirstOrDefault();
     }
 
-    /// <inheritdoc />
-    public Task<Room> Create(Room entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <inheritdoc />
-    public Task<Room> Update(Room entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <inheritdoc />
-    public Task<Room> Delete(Room entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <inheritdoc />
     public async Task<List<Room>> CreateMany(List<Room> entities)
     {
         await _connection
