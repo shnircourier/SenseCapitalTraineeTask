@@ -1,8 +1,6 @@
 using FluentValidation;
 using JetBrains.Annotations;
 using MediatR;
-using SenseCapitalTraineeTask.Features.Images.ImageGuids;
-using SenseCapitalTraineeTask.Features.Rooms.RoomGuids;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 
@@ -26,24 +24,24 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
             .Length(10, 256);
 
         RuleFor(x => x.Meeting.ImgId)
-            .NotEmpty()
-            .MustAsync(async (x, _ ) =>
-            {
-                var guids = await mediator.Send(new GetImgGuidsQuery());
-            
-                return guids.HashSet.Contains(x);
-            })
-            .WithMessage("ImgId. Ссылка на несуществующий ключ");
+            .NotEmpty();
+            // .MustAsync(async (x, _ ) =>
+            // {
+            //     var guids = await mediator.Send(new GetImgGuidsQuery());
+            //
+            //     return guids.HashSet.Contains(x);
+            // })
+            // .WithMessage("ImgId. Ссылка на несуществующий ключ");
 
-        RuleFor(x => x.Meeting.RoomId)
-            .NotEmpty()
-            .MustAsync(async (x, _) =>
-            {
-                var guids = await mediator.Send(new GetRoomGuidsQuery());
-            
-                return guids.HashSet.Contains(x);
-            })
-            .WithMessage("RoomId. Ссылка на несуществующий ключ");
+            RuleFor(x => x.Meeting.RoomId)
+                .NotEmpty();
+            // .MustAsync(async (x, _) =>
+            // {
+            //     var guids = await mediator.Send(new GetRoomGuidsQuery());
+            //
+            //     return guids.HashSet.Contains(x);
+            // })
+            // .WithMessage("RoomId. Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.BeginAt)
             .NotEmpty()

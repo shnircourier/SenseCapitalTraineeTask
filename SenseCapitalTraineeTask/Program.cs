@@ -42,7 +42,6 @@ builder.Services.AddScoped<IRepository<Meeting>, MongoDbMeetingRepository>();
 builder.Services.AddScoped<IRepository<Ticket>, MongoDbTicketRepository>();
 builder.Services.AddScoped<IRepository<User>, MongoDbUserRepository>();
 builder.Services.AddScoped<IRepository<Room>, MongoDbRoomRepository>();
-builder.Services.AddScoped<IRepository<Image>, MongoDbImageRepository>();
 
 
 
@@ -73,11 +72,9 @@ if (app.Environment.IsDevelopment())
     {
         using var scoped = app.Services.CreateScope();
         var userRep = scoped.ServiceProvider.GetRequiredService<IRepository<User>>();
-        var imageRep = scoped.ServiceProvider.GetRequiredService<IRepository<Image>>();
         var roomRep = scoped.ServiceProvider.GetRequiredService<IRepository<Room>>();
 
         MongoDbUserSeeder.Populate(userRep);
-        MongoDbImageSeeder.Populate(imageRep);
         MongoDbRoomSeeder.Populate(roomRep);
         
     });

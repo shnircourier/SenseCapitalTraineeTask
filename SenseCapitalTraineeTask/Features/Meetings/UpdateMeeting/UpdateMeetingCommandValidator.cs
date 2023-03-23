@@ -1,8 +1,6 @@
 using FluentValidation;
 using JetBrains.Annotations;
 using MediatR;
-using SenseCapitalTraineeTask.Features.Images.ImageGuids;
-using SenseCapitalTraineeTask.Features.Rooms.RoomGuids;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 
@@ -28,26 +26,26 @@ public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingComm
             .Length(10, 128);
 
         RuleFor(x => x.Meeting.ImgId)
-            .NotEmpty()
-            .WithMessage("Поле обязательно к заполнению")
-            .MustAsync(async (x, _ ) =>
-            {
-                var guids = await mediator.Send(new GetImgGuidsQuery());
-            
-                return guids.HashSet.Contains(x);
-            })
-            .WithMessage("Ссылка на несуществующий ключ");
+            .NotEmpty();
+            // .WithMessage("Поле обязательно к заполнению")
+            // .MustAsync(async (x, _ ) =>
+            // {
+            //     var guids = await mediator.Send(new GetImgGuidsQuery());
+            //
+            //     return guids.HashSet.Contains(x);
+            // })
+            // .WithMessage("Ссылка на несуществующий ключ");
 
             RuleFor(x => x.Meeting.RoomId)
-                .NotEmpty()
-                .WithMessage("Поле обязательно к заполнению")
-                .MustAsync(async (x, _) =>
-                {
-                    var guids = await mediator.Send(new GetRoomGuidsQuery());
-                
-                    return guids.HashSet.Contains(x);
-                })
-                .WithMessage("Ссылка на несуществующий ключ");
+                .NotEmpty();
+                // .WithMessage("Поле обязательно к заполнению")
+                // .MustAsync(async (x, _) =>
+                // {
+                //     var guids = await mediator.Send(new GetRoomGuidsQuery());
+                //
+                //     return guids.HashSet.Contains(x);
+                // })
+                // .WithMessage("Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.BeginAt)
             .NotEmpty()

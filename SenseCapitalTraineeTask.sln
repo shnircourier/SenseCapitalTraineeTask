@@ -13,6 +13,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenseCapitalTraineeTask.Mock", "SenseCapitalTraineeTask.Mock\SenseCapitalTraineeTask.Mock.csproj", "{F45A738D-0A83-4767-BBA3-E0E934BCCF52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenseCapitalTraineeTask.Images", "SenseCapitalTraineeTask.Images\SenseCapitalTraineeTask.Images.csproj", "{5DFC38CA-D49C-4314-BC09-FC337959D9F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F45A738D-0A83-4767-BBA3-E0E934BCCF52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F45A738D-0A83-4767-BBA3-E0E934BCCF52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F45A738D-0A83-4767-BBA3-E0E934BCCF52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DFC38CA-D49C-4314-BC09-FC337959D9F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DFC38CA-D49C-4314-BC09-FC337959D9F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DFC38CA-D49C-4314-BC09-FC337959D9F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DFC38CA-D49C-4314-BC09-FC337959D9F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

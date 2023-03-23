@@ -1,6 +1,6 @@
-using SenseCapitalTraineeTask.Data.Entities;
+using SenseCapitalTraineeTask.Images.Data.Entities;
 
-namespace SenseCapitalTraineeTask.Data.Seeds;
+namespace SenseCapitalTraineeTask.Images.Data.Seeds;
 
 /// <summary>
 /// Сидер картинок
