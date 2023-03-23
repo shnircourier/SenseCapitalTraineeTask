@@ -1,10 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenseCapitalTraineeTask", "SenseCapitalTraineeTask\SenseCapitalTraineeTask.csproj", "{7D8CE1F5-6BC6-4367-AC7A-CD8A44F23073}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenseCapitalTraineeTask", "SenseCapitalTraineeTask\SenseCapitalTraineeTask.csproj", "{7D8CE1F5-6BC6-4367-AC7A-CD8A44F23073}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{26EEE37C-AB46-47A1-8B36-C8705E59E000}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SC.Internship.Common", "SC.Internship.Common\SC.Internship.Common\SC.Internship.Common.csproj", "{A81A1EF5-F25D-4830-B39E-E14BD68A4FE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{3C02F9D0-69C7-4C38-BD79-4444D67201BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyIdentityServer", "MyIdentityServer\MyIdentityServer.csproj", "{2D488C12-12DA-4B65-BCE1-5CCE0D4577E6}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{EA314397-453D-45DB-89B3-9F9C03FC42F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenseCapitalTraineeTask.Mock", "SenseCapitalTraineeTask.Mock\SenseCapitalTraineeTask.Mock.csproj", "{F45A738D-0A83-4767-BBA3-E0E934BCCF52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,13 +23,27 @@ Global
 		{7D8CE1F5-6BC6-4367-AC7A-CD8A44F23073}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D8CE1F5-6BC6-4367-AC7A-CD8A44F23073}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D8CE1F5-6BC6-4367-AC7A-CD8A44F23073}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26EEE37C-AB46-47A1-8B36-C8705E59E000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26EEE37C-AB46-47A1-8B36-C8705E59E000}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26EEE37C-AB46-47A1-8B36-C8705E59E000}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26EEE37C-AB46-47A1-8B36-C8705E59E000}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C02F9D0-69C7-4C38-BD79-4444D67201BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C02F9D0-69C7-4C38-BD79-4444D67201BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C02F9D0-69C7-4C38-BD79-4444D67201BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C02F9D0-69C7-4C38-BD79-4444D67201BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A81A1EF5-F25D-4830-B39E-E14BD68A4FE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A81A1EF5-F25D-4830-B39E-E14BD68A4FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A81A1EF5-F25D-4830-B39E-E14BD68A4FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A81A1EF5-F25D-4830-B39E-E14BD68A4FE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D488C12-12DA-4B65-BCE1-5CCE0D4577E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D488C12-12DA-4B65-BCE1-5CCE0D4577E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D488C12-12DA-4B65-BCE1-5CCE0D4577E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D488C12-12DA-4B65-BCE1-5CCE0D4577E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA314397-453D-45DB-89B3-9F9C03FC42F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA314397-453D-45DB-89B3-9F9C03FC42F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA314397-453D-45DB-89B3-9F9C03FC42F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA314397-453D-45DB-89B3-9F9C03FC42F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F45A738D-0A83-4767-BBA3-E0E934BCCF52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F45A738D-0A83-4767-BBA3-E0E934BCCF52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F45A738D-0A83-4767-BBA3-E0E934BCCF52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F45A738D-0A83-4767-BBA3-E0E934BCCF52}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CFFA89BF-A453-47E1-B46D-47E92B6B6A14}
 	EndGlobalSection
 EndGlobal
