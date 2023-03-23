@@ -1,10 +1,12 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SenseCapitalTraineeTask.Images.Features.ImageById;
 using SenseCapitalTraineeTask.Images.Features.ImageList;
 
 namespace SenseCapitalTraineeTask.Images.Features;
 
+[Authorize]
 [ApiController]
 [Route("images")]
 public class ImagesController : ControllerBase
@@ -25,7 +27,7 @@ public class ImagesController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<string> Get(string id)
+    public async Task<string?> Get(string id)
     {
         var response = await _mediator.Send(new ImageByIdQuery(id));
 

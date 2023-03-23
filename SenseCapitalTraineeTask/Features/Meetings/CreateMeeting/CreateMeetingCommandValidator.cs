@@ -1,6 +1,9 @@
+using System.Text.Json;
 using FluentValidation;
 using JetBrains.Annotations;
 using MediatR;
+using SenseCapitalTraineeTask.Features.Images.ImageById;
+using SenseCapitalTraineeTask.Features.Rooms.RoomById;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 
@@ -24,24 +27,28 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
             .Length(10, 256);
 
         RuleFor(x => x.Meeting.ImgId)
-            .NotEmpty();
-            // .MustAsync(async (x, _ ) =>
-            // {
-            //     var guids = await mediator.Send(new GetImgGuidsQuery());
-            //
-            //     return guids.HashSet.Contains(x);
-            // })
-            // .WithMessage("ImgId. Ссылка на несуществующий ключ");
+            .NotEmpty()
+            .Matches(@"^[0-9a-fA-F]{24}$")
+            .WithMessage("ImgId. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
+            .MustAsync(async (x, _) =>
+            {
+                var response = await mediator.Send(new ImageByIdQuery(x));
 
-            RuleFor(x => x.Meeting.RoomId)
-                .NotEmpty();
-            // .MustAsync(async (x, _) =>
-            // {
-            //     var guids = await mediator.Send(new GetRoomGuidsQuery());
-            //
-            //     return guids.HashSet.Contains(x);
-            // })
-            // .WithMessage("RoomId. Ссылка на несуществующий ключ");
+                return response.Length != 0;
+            })
+            .WithMessage("ImgId. Ссылка на несуществующий ключ");
+
+        RuleFor(x => x.Meeting.RoomId)
+            .NotEmpty()
+            .Matches(@"^[0-9a-fA-F]{24}$")
+            .WithMessage("RoomId. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
+            .MustAsync(async (x, _) =>
+            {
+                var response = await mediator.Send(new RoomByIdQuery(x));
+
+                return response.Length != 0;
+            })
+            .WithMessage("RoomId. Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.BeginAt)
             .NotEmpty()

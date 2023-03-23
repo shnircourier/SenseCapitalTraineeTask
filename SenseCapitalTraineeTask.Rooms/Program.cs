@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SenseCapitalTraineeTask.Rooms.Data;
 using SenseCapitalTraineeTask.Rooms.Data.Entities;
 using SenseCapitalTraineeTask.Rooms.Data.MongoDb;
@@ -9,6 +10,15 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IRepository<Room>, MongoDbRoomRepository>();
 builder.Services.AddMediatR(cfg => 
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, cfg =>
+    {
+        cfg.Authority = builder.Configuration["Auth:Authority"];
+        cfg.Audience = "MyApi";
+
+        cfg.RequireHttpsMetadata = false;
+    });
 
 
 var app = builder.Build();
@@ -23,6 +33,10 @@ if (app.Environment.IsDevelopment())
         MongoDbRoomSeeder.Populate(roomsRep);
     });
 }
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.UseCors(cfg => cfg.AllowAnyOrigin());
 

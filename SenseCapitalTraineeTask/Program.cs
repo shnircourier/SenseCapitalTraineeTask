@@ -8,6 +8,7 @@ using SenseCapitalTraineeTask.Data.Entities;
 using SenseCapitalTraineeTask.Data.MongoDb;
 using SenseCapitalTraineeTask.Data.Seeds;
 using SenseCapitalTraineeTask.Features.Meetings;
+using SenseCapitalTraineeTask.Identity;
 using SenseCapitalTraineeTask.Infrastructure.Middlewares;
 using SenseCapitalTraineeTask.Infrastructure.PipelineBehaviors;
 using Swashbuckle.AspNetCore.Filters;
@@ -60,6 +61,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
         cfg.RequireHttpsMetadata = false;
     });
+builder.Services.AddScoped<IdentityService>();
 
 
 var app = builder.Build();

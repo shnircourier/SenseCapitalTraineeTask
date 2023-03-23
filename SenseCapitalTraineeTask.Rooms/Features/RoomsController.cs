@@ -1,10 +1,12 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SenseCapitalTraineeTask.Rooms.Features.RoomById;
 using SenseCapitalTraineeTask.Rooms.Features.RoomList;
 
 namespace SenseCapitalTraineeTask.Rooms.Features;
 
+[Authorize]
 [ApiController]
 [Route("rooms")]
 public class RoomsController : ControllerBase
@@ -25,7 +27,7 @@ public class RoomsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<string> Get(string id)
+    public async Task<string?> Get(string id)
     {
         var response = await _mediator.Send(new RoomByIdQuery(id));
 
