@@ -2,7 +2,6 @@ using System.Text.Json;
 using MediatR;
 using Polly;
 using Polly.Retry;
-using SC.Internship.Common.Exceptions;
 using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Identity;
 
@@ -26,7 +25,9 @@ public class RoomByIdHandler : IRequestHandler<RoomByIdQuery, ScResult<string>>
 
         return await _retryPolicy.ExecuteAsync(async () =>
         {
-            var response = await client.GetAsync($"http://"+Environment.GetEnvironmentVariable("ASPNETCORE_ROOMS_URL")+"/rooms/{request.Id}", cancellationToken);
+            var roomUrl = Environment.GetEnvironmentVariable("ASPNETCORE_ROOMS_URL");
+
+            var response = await client.GetAsync(roomUrl + $"/rooms/{request.Id}", cancellationToken);
 
             var content = await response.Content.ReadAsStringAsync(cancellationToken);
 

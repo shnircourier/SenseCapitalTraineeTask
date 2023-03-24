@@ -25,7 +25,9 @@ public class ImageByIdHandler : IRequestHandler<ImageByIdQuery, ScResult<string>
 
         return await _retryPolicy.ExecuteAsync(async () =>
         {
-            var response = await client.GetAsync($"http://"+Environment.GetEnvironmentVariable("ASPNETCORE_IMAGES_URL")+$"/images/{request.Id}", cancellationToken);
+            var imageUrl = Environment.GetEnvironmentVariable("ASPNETCORE_IMAGES_URL");
+            
+            var response = await client.GetAsync(imageUrl + $"/images/{request.Id}", cancellationToken);
 
             var content = await response.Content.ReadAsStringAsync(cancellationToken);
 
