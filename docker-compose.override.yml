@@ -3,12 +3,10 @@ version: '3.4'
 services:
   main:
     environment:
-      - ASPNETCORE_MONGO=mongodb://data:27017
-      - ASPNETCORE_ROOMS_URL=http://rooms
-      - ASPNETCORE_IMAGES_URL=http://images
-      - ASPNETCORE_IDENTITY_URL=http://identity
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+    env_file:
+      - ./SenseCapitalTraineeTask/env.list
     ports:
       - "29001:80"
       - "29000:443"
@@ -28,9 +26,10 @@ services:
 
   images:
     environment:
-      - ASPNETCORE_IDENTITY_URL=http://identity
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+    env_file:
+      - ./SenseCapitalTraineeTask.Images/env.list
     ports:
       - "26000:80"
       - "26001:443"
@@ -40,9 +39,10 @@ services:
 
   rooms:
     environment:
-      - ASPNETCORE_IDENTITY_URL=http://identity
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+    env_file:
+      - ./SenseCapitalTraineeTask.Rooms/env.list
     ports:
       - "25000:80"
       - "25001:443"
