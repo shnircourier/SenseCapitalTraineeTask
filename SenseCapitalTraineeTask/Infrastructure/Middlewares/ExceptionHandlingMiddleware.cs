@@ -44,6 +44,7 @@ public class ExceptionHandlingMiddleware : IMiddleware
     private static int GetStatusCode(Exception exception) =>
         exception switch
         {
+            HttpRequestException => StatusCodes.Status503ServiceUnavailable,
             ValidationException => StatusCodes.Status422UnprocessableEntity,
             FormatException => StatusCodes.Status422UnprocessableEntity,
             ScException => StatusCodes.Status400BadRequest,
@@ -68,6 +69,9 @@ public class ExceptionHandlingMiddleware : IMiddleware
                 break;
             case FormatException:
                 scError.Message = "Некорректный формат Id. Необходимо 24 символа(0-9, a-f)";
+                break;
+            case HttpRequestException:
+                scError.Message = "Не удалось соединиться с сервисом";
                 break;
         }
 

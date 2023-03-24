@@ -18,6 +18,11 @@ public class ImageByIdHandler : IRequestHandler<ImageByIdQuery, string>
     {
         var result = await _repository.Get(request.Id);
 
-        return result.Id ?? throw new ScException("Картинка не найдена");
+        if (result is null)
+        {
+            throw new ScException("Картинка не найдена");
+        }
+
+        return result.Id!;
     }
 }

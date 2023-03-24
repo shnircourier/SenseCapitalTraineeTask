@@ -1,5 +1,8 @@
 using System.Text.Json;
 using MediatR;
+using Polly;
+using Polly.Retry;
+using SC.Internship.Common.Exceptions;
 using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Identity;
 
@@ -7,28 +10,34 @@ namespace SenseCapitalTraineeTask.Features.Rooms.RoomById;
 
 public class RoomByIdHandler : IRequestHandler<RoomByIdQuery, ScResult<string>>
 {
+    private const int MaxRetries = 3;
     private readonly IdentityService _identityService;
+    private readonly AsyncRetryPolicy<ScResult<string>> _retryPolicy;
 
     public RoomByIdHandler(IdentityService identityService)
     {
         _identityService = identityService;
+        _retryPolicy = Policy<ScResult<string>>.Handle<HttpRequestException>().RetryAsync(MaxRetries);
     }
     
     public async Task<ScResult<string>> Handle(RoomByIdQuery request, CancellationToken cancellationToken)
     {
         var client = await _identityService.GetAuthorizedClient();
 
-        var response = await client.GetAsync($"http://localhost:5290/rooms/{request.Id}", cancellationToken);
-
-        var content = await response.Content.ReadAsStringAsync(cancellationToken);
-        
-        var options = new JsonSerializerOptions
+        return await _retryPolicy.ExecuteAsync(async () =>
         {
-            PropertyNameCaseInsensitive = true
-        };
+            var response = await client.GetAsync($"http://localhost:5590/rooms/{request.Id}", cancellationToken);
 
-        var data = JsonSerializer.Deserialize<ScResult<string>>(content, options);
+            var content = await response.Content.ReadAsStringAsync(cancellationToken);
 
-        return data!;
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var data = JsonSerializer.Deserialize<ScResult<string>>(content, options);
+
+            return data!;
+        });
     }
 }
