@@ -4,7 +4,6 @@ using MediatR;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
-using SenseCapitalTraineeTask.Infrastructure;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.DeleteMeeting;
 
@@ -22,7 +21,8 @@ public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingCommand, Meetin
     /// 
     /// </summary>
     /// <param name="repository">БД</param>
-    /// <param name="mapper">Маппер</param>
+    /// <param name="mapper">Mapper</param>
+    /// <param name="senderService"></param>
     public DeleteMeetingHandler(
         IRepository<Meeting> repository,
         IMapper mapper,

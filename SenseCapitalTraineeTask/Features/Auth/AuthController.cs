@@ -39,11 +39,11 @@ public class AuthController : ControllerBase
 
     
     /// <summary>
-    /// Получить JWT токен
+    /// Получить JWT
     /// </summary>
     /// <param name="userRequestDto">Модель пользователя</param>
-    /// <returns>JWT токен в виде строки</returns>
-    /// <response code="400">Неправильный логин или пароль</response>
+    /// <returns>JWT в виде строки</returns>
+    /// <response code="400">Неправильное имя пользователя или пароль</response>
     /// <response code="400">Ошибка обращения к IdentityServer</response>
     [HttpPost("get-token")]
     public async Task<ScResult<string>> GetToken([FromBody] UserRequestDto userRequestDto)
@@ -59,6 +59,7 @@ public class AuthController : ControllerBase
     /// <response code="200">Ок</response>
     /// <response code="401">Запрещено</response>
     [Authorize]
+    // ReSharper disable once StringLiteralTypo
     [HttpGet("stub/authstub")]
     public ActionResult CheckToken()
     {

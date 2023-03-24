@@ -7,6 +7,9 @@ using SenseCapitalTraineeTask.Features.Meetings.UpdateMeetingsImageId;
 
 namespace SenseCapitalTraineeTask.Features.Meetings;
 
+/// <summary>
+/// Обработчик события удаления картинки
+/// </summary>
 public class DeleteImageListenerService : IHostedService
 {
     private readonly IServiceScopeFactory _scopeFactory;
@@ -14,10 +17,14 @@ public class DeleteImageListenerService : IHostedService
     private readonly IModel _channel;
     private const string QueueName = "ImageDeleteEvent";
     
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="scopeFactory"></param>
     public DeleteImageListenerService(IServiceScopeFactory scopeFactory)
     {
         _scopeFactory = scopeFactory;
-        var factory = new ConnectionFactory()
+        var factory = new ConnectionFactory
         {
             HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST"),
             UserName = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME"),
@@ -29,12 +36,13 @@ public class DeleteImageListenerService : IHostedService
         _channel = _connection.CreateModel();
         _channel.QueueDeclare(QueueName, durable: true, exclusive: false);
     }
-    
+
+    /// <inheritdoc />
     public Task StartAsync(CancellationToken cancellationToken)
     {
         var consumer = new EventingBasicConsumer(_channel);
 
-        consumer.Received += async (model, eventArgs) =>
+        consumer.Received += async (_, eventArgs) =>
         {
             var body = eventArgs.Body.ToArray();
 
@@ -48,6 +56,7 @@ public class DeleteImageListenerService : IHostedService
         return Task.CompletedTask;
     }
 
+    /// <inheritdoc />
     public Task StopAsync(CancellationToken cancellationToken)
     {
         _channel.Close();

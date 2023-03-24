@@ -35,7 +35,7 @@ public class ImagesController : ControllerBase
     {
         var response = await _mediator.Send(new ImageByIdQuery(id));
 
-        return new ScResult<string>(response);;
+        return new ScResult<string>(response);
     }
     
     [HttpGet("test/{id}")]

@@ -7,7 +7,7 @@ using SenseCapitalTraineeTask.Features.Rooms.RoomById;
 namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 
 /// <summary>
-/// Валидатор данных на обновление мероприятия
+/// Validator данных на обновление мероприятия
 /// </summary>
 [UsedImplicitly]
 public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingCommand>

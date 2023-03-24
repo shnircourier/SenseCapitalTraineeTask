@@ -1,9 +1,11 @@
+using JetBrains.Annotations;
 using MediatR;
 using SenseCapitalTraineeTask.Images.Data;
 using SenseCapitalTraineeTask.Images.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Images.Features.ImageList;
 
+[UsedImplicitly]
 public class ImageListHandler : IRequestHandler<ImageListQuery, List<string>>
 {
     private readonly IRepository<Image> _repository;
@@ -17,6 +19,6 @@ public class ImageListHandler : IRequestHandler<ImageListQuery, List<string>>
     {
         var result = await _repository.Get();
 
-        return result.Select(r => r.Id).ToList();
+        return result.Select(r => r.Id).ToList()!;
     }
 }

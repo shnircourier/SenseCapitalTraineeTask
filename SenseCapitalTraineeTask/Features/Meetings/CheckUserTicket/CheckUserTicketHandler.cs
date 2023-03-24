@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Data;
@@ -8,6 +9,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CheckUserTicket;
 /// <summary>
 /// Логика проверки билета пользователя
 /// </summary>
+[UsedImplicitly]
 public class CheckUserTicketHandler : IRequestHandler<CheckUserTicketQuery>
 {
     private readonly IRepository<Meeting> _repository;

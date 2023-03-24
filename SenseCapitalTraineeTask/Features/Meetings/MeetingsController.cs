@@ -48,6 +48,7 @@ public class MeetingsController : ControllerBase
     /// <returns>Модель мероприятия</returns>
     /// <response code="200">Модель мероприятия</response>
     /// <response code="400">Модель не найдена</response>
+    // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     [HttpGet("{id}")]
     public async Task<ScResult<MeetingResponseDto>> Get([FromRoute] string id)
     {
@@ -60,7 +61,7 @@ public class MeetingsController : ControllerBase
     /// Создание мероприятия
     /// </summary>
     /// <param name="requestDto">Тело запроса</param>
-    /// <returns>Созданая модель</returns>
+    /// <returns>Созданная модель</returns>
     /// <response code="200">Модель мероприятия</response>
     /// <response code="422">Ошибка валидации</response>
     [HttpPost]
@@ -80,6 +81,7 @@ public class MeetingsController : ControllerBase
     /// <response code="200">Модель мероприятия</response>
     /// <response code="400">Модель не найдена</response>
     /// <response code="422">Ошибка валидации</response>
+    // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     [HttpPut("{id}")]
     public async Task<ScResult<MeetingResponseDto>> Update([FromBody] MeetingRequestDto requestDto, [FromRoute] string id)
     {
@@ -93,6 +95,7 @@ public class MeetingsController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
+    // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     [HttpDelete("{id}")]
     public async Task<ScResult<MeetingResponseDto>> Delete([FromRoute] string id)
     {
@@ -109,6 +112,7 @@ public class MeetingsController : ControllerBase
     /// <returns></returns>
     /// <response code="200">Модель мероприятия</response>
     /// <response code="422">Ошибка валидации</response>
+    // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     [HttpPost("{id}/tickets/create")]
     public async Task<ScResult<MeetingResponseDto>> CreateFreeTickets([FromBody] CreateFreeTicketsRequestDto requestDto, [FromRoute] string id)
     {
@@ -121,10 +125,11 @@ public class MeetingsController : ControllerBase
     /// Выдать пользователю билет
     /// </summary>
     /// <param name="requestDto"></param>
-    /// <param name="id">Идентификтор мероприятия</param>
+    /// <param name="id">Идентификатор мероприятия</param>
     /// <returns></returns>
     /// <response code="200">Модель мероприятия</response>
     /// <response code="400">Билеты закончились</response>
+    // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     [HttpPost("{id}/tickets/user")]
     public async Task<ScResult<MeetingResponseDto>> GiveTicketToUser([FromBody] TicketRequestDto requestDto, [FromRoute] string id)
     {
@@ -143,6 +148,7 @@ public class MeetingsController : ControllerBase
     /// <response code="400">Билет не найден</response>
     /// <response code="400">Билет не принадлежит пользователю</response>
     /// <response code="400">Места не совпадают</response>
+    // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     [HttpPost("{id}/ticket/check")]
     public async Task<ScResult> CheckTicket([FromBody] CheckTicketRequestDto requestDto, [FromRoute] string id)
     {

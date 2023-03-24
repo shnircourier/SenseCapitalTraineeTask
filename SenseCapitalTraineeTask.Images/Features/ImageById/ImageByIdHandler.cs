@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Images.Data;
@@ -5,6 +6,7 @@ using SenseCapitalTraineeTask.Images.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Images.Features.ImageById;
 
+[UsedImplicitly]
 public class ImageByIdHandler : IRequestHandler<ImageByIdQuery, string>
 {
     private readonly IRepository<Image> _repository;

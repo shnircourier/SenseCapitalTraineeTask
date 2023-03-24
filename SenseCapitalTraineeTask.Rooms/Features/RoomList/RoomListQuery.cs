@@ -4,4 +4,4 @@ using MediatR;
 namespace SenseCapitalTraineeTask.Rooms.Features.RoomList;
 
 [UsedImplicitly]
-public record RoomListQuery() : IRequest<List<string>>;
+public record RoomListQuery : IRequest<List<string>>;

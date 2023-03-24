@@ -1,4 +1,5 @@
 using System.Text.Json;
+using JetBrains.Annotations;
 using MediatR;
 using Polly;
 using Polly.Retry;
@@ -7,18 +8,27 @@ using SenseCapitalTraineeTask.Identity;
 
 namespace SenseCapitalTraineeTask.Features.Rooms.RoomById;
 
+/// <summary>
+/// Обращение к стороннему сервису помещений
+/// </summary>
+[UsedImplicitly]
 public class RoomByIdHandler : IRequestHandler<RoomByIdQuery, ScResult<string>>
 {
     private const int MaxRetries = 3;
     private readonly IdentityService _identityService;
     private readonly AsyncRetryPolicy<ScResult<string>> _retryPolicy;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="identityService"></param>
     public RoomByIdHandler(IdentityService identityService)
     {
         _identityService = identityService;
         _retryPolicy = Policy<ScResult<string>>.Handle<HttpRequestException>().RetryAsync(MaxRetries);
     }
-    
+
+    /// <inheritdoc />
     public async Task<ScResult<string>> Handle(RoomByIdQuery request, CancellationToken cancellationToken)
     {
         var client = await _identityService.GetAuthorizedClient();

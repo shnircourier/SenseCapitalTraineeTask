@@ -4,7 +4,7 @@ using SenseCapitalTraineeTask.Data.Entities;
 namespace SenseCapitalTraineeTask.Features.Meetings;
 
 /// <summary>
-/// Маппер модели мероприятия
+/// Профиль модели мероприятия
 /// </summary>
 public class MeetingRequestMappingProfile : Profile
 {

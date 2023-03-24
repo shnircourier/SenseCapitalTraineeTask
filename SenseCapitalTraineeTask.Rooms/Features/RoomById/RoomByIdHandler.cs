@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Rooms.Data;
@@ -5,6 +6,7 @@ using SenseCapitalTraineeTask.Rooms.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Rooms.Features.RoomById;
 
+[UsedImplicitly]
 public class RoomByIdHandler : IRequestHandler<RoomByIdQuery, string>
 {
     private readonly IRepository<Room> _repository;
@@ -23,6 +25,6 @@ public class RoomByIdHandler : IRequestHandler<RoomByIdQuery, string>
             throw new ScException("Помещение не найдена");
         }
         
-        return result.Id;
+        return result.Id!;
     }
 }

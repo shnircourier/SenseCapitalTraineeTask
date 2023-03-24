@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 namespace SenseCapitalTraineeTask.Data;
 
 /// <summary>
-/// Метод расширения для запуска сидеров
+/// Метод расширения для запуска заполнения тестовыми данными
 /// </summary>
 public static class UseDataSeederExtension
 {

@@ -3,17 +3,29 @@ using SC.Internship.Common.Exceptions;
 
 namespace SenseCapitalTraineeTask.Identity;
 
+/// <summary>
+/// Сервис получения авторизованного клиента
+/// </summary>
 public class IdentityService
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IConfiguration _configuration;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="httpClientFactory"></param>
+    /// <param name="configuration"></param>
     public IdentityService(IHttpClientFactory httpClientFactory, IConfiguration configuration)
     {
         _httpClientFactory = httpClientFactory;
         _configuration = configuration;
     }
 
+    /// <summary>
+    /// Получение авторизованного клиента
+    /// </summary>
+    /// <returns></returns>
     public async Task<HttpClient> GetAuthorizedClient()
     {
         var client = _httpClientFactory.CreateClient();

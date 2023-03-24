@@ -4,4 +4,4 @@ using MediatR;
 namespace SenseCapitalTraineeTask.Images.Features.ImageList;
 
 [UsedImplicitly]
-public record ImageListQuery() : IRequest<List<string>>;
+public record ImageListQuery : IRequest<List<string>>;

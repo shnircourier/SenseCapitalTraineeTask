@@ -7,7 +7,7 @@ using SenseCapitalTraineeTask.Features.Auth.VerifyUser;
 namespace SenseCapitalTraineeTask.Features.Auth.GetToken;
 
 /// <summary>
-/// Логика получения токена с identity server
+/// Логика получения JWT с identity server
 /// </summary>
 [UsedImplicitly]
 public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
@@ -21,7 +21,7 @@ public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
     /// </summary>
     /// <param name="httpClientFactory">Клиент</param>
     /// <param name="mediator">Медиатор</param>
-    /// <param name="configuration">Конфиг</param>
+    /// <param name="configuration">Конфигурация</param>
     public GetTokenHandler(IHttpClientFactory httpClientFactory, IMediator mediator, IConfiguration configuration)
     {
         _httpClientFactory = httpClientFactory;
@@ -36,7 +36,7 @@ public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
 
         if (!isExist)
         {
-            throw new ScException("Неправильный логин или пароль");
+            throw new ScException("Неправильный имя пользователя или пароль");
         }
         
         var authClient = _httpClientFactory.CreateClient();

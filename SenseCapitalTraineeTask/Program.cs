@@ -27,7 +27,7 @@ builder.Services.AddSwaggerGen(opts =>
 
     opts.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
-        Description = "JWT авторизация, необходимо вставить токен начиная с ключевого слова Bearer {ваш токен}",
+        Description = "JWT авторизация, необходимо вставить token начиная с ключевого слова Bearer {ваш token}",
         In = ParameterLocation.Header,
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey
@@ -38,7 +38,7 @@ builder.Services.AddSwaggerGen(opts =>
 
 
 
-//Репозитории
+//Repositories
 builder.Services.AddScoped<IRepository<Meeting>, MongoDbMeetingRepository>();
 builder.Services.AddScoped<IRepository<Ticket>, MongoDbTicketRepository>();
 builder.Services.AddScoped<IRepository<User>, MongoDbUserRepository>();

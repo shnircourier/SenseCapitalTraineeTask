@@ -1,7 +1,7 @@
 namespace SenseCapitalTraineeTask.Data;
 
 /// <summary>
-/// Интерфейс репозитория
+/// Repository интерфейс
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public interface IRepository<T>
@@ -48,6 +48,11 @@ public interface IRepository<T>
     /// <returns></returns>
     Task<T> Delete(T entity);
 
+    /// <summary>
+    /// Множественное удаление по id помещения
+    /// </summary>
+    /// <param name="roomId"></param>
+    /// <returns></returns>
     Task DeleteManyMeetingByRoomId(string roomId);
 
     /// <summary>

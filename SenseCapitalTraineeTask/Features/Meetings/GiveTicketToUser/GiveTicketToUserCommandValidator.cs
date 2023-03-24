@@ -6,7 +6,7 @@ using SenseCapitalTraineeTask.Features.Auth.GetUsers;
 namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUser;
 
 /// <summary>
-/// Валидатор данных на выдачу билета пользователю
+/// Validator данных на выдачу билета пользователю
 /// </summary>
 [UsedImplicitly]
 public class GiveTicketToUserCommandValidator : AbstractValidator<GiveTicketToUserCommand>

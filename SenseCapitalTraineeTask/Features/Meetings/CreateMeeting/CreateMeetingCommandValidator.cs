@@ -1,4 +1,3 @@
-using System.Text.Json;
 using FluentValidation;
 using JetBrains.Annotations;
 using MediatR;
@@ -8,7 +7,7 @@ using SenseCapitalTraineeTask.Features.Rooms.RoomById;
 namespace SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 
 /// <summary>
-/// Валидатор создания мероприятия
+/// Validator создания мероприятия
 /// </summary>
 [UsedImplicitly]
 public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingCommand>

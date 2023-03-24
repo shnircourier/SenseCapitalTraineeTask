@@ -12,7 +12,7 @@ public class MongoDbUserRepository : IRepository<User>
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="configuration">Конфиг</param>
+    /// <param name="configuration">Конфигурация</param>
     public MongoDbUserRepository(IConfiguration configuration)
     {
         _collection = configuration["Mongo:UserCollection"]!;

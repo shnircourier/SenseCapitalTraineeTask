@@ -1,9 +1,11 @@
+using JetBrains.Annotations;
 using MediatR;
 using SenseCapitalTraineeTask.Rooms.Data;
 using SenseCapitalTraineeTask.Rooms.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Rooms.Features.RoomList;
 
+[UsedImplicitly]
 public class RoomListHandler : IRequestHandler<RoomListQuery, List<string>>
 {
     private readonly IRepository<Room> _repository;
@@ -17,6 +19,6 @@ public class RoomListHandler : IRequestHandler<RoomListQuery, List<string>>
     {
         var result = await _repository.Get();
 
-        return result.Select(r => r.Id).ToList();
+        return result.Select(r => r.Id).ToList()!;
     }
 }

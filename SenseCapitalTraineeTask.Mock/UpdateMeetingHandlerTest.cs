@@ -3,7 +3,6 @@ using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
 using SenseCapitalTraineeTask.Features.Meetings;
-using SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 using SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 
 namespace SenseCapitalTraineeTask.Mock;

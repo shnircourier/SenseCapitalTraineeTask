@@ -20,7 +20,7 @@ public class GiveTicketToUserHandler : IRequestHandler<GiveTicketToUserCommand, 
     /// 
     /// </summary>
     /// <param name="repository">Бд</param>
-    /// <param name="mapper">Маппер</param>
+    /// <param name="mapper">Mapper</param>
     public GiveTicketToUserHandler(IRepository<Meeting> repository, IMapper mapper)
     {
         _repository = repository;

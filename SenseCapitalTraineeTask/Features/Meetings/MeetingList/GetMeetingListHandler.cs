@@ -19,7 +19,7 @@ public class GetMeetingListHandler : IRequestHandler<GetMeetingListQuery, List<M
     /// 
     /// </summary>
     /// <param name="repository">БД</param>
-    /// <param name="mapper">Маппер</param>
+    /// <param name="mapper">Mapper</param>
     public GetMeetingListHandler(
         IRepository<Meeting> repository,
         IMapper mapper)

@@ -3,7 +3,7 @@ using MongoDB.Driver;
 namespace SenseCapitalTraineeTask.Data.MongoDb;
 
 /// <summary>
-/// Хелпер связи с монго
+/// Функция связи с mongo
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public class MongoDbConnectionFactory<T>
@@ -13,13 +13,13 @@ public class MongoDbConnectionFactory<T>
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="configuration">Конфиг</param>
+    /// <param name="configuration">Конфигурация</param>
     public MongoDbConnectionFactory(IConfiguration configuration)
     {
         _configuration = configuration;
     }
     /// <summary>
-    /// Метод обращения к монго
+    /// Метод обращения к mongo
     /// </summary>
     /// <param name="collectionName"></param>
     /// <returns></returns>
