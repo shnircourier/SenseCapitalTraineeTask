@@ -9,6 +9,16 @@ services:
     networks:
       - app-network
   
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.8-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=myuser
+      - RABBITMQ_DEFAULT_PASS=mypassword
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  
   main:
     image: ${DOCKER_REGISTRY-}sensecapitaltraineetask
     build:
