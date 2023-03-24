@@ -4,4 +4,4 @@ using MediatR;
 namespace SenseCapitalTraineeTask.Images.Features.ImageById;
 
 [UsedImplicitly]
-public record ImageByIdQuery(string Id) : IRequest<string?>;
+public record ImageByIdQuery(string Id) : IRequest<string>;

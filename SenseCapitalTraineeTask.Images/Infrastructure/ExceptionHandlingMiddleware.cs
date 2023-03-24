@@ -1,9 +1,8 @@
 using System.Text.Json;
-using FluentValidation;
 using SC.Internship.Common.Exceptions;
 using SC.Internship.Common.ScResult;
 
-namespace SenseCapitalTraineeTask.Infrastructure.Middlewares;
+namespace SenseCapitalTraineeTask.Images.Infrastructure;
 
 /// <summary>
 /// Обработчик исключений
@@ -44,7 +43,6 @@ public class ExceptionHandlingMiddleware : IMiddleware
     private static int GetStatusCode(Exception exception) =>
         exception switch
         {
-            ValidationException => StatusCodes.Status422UnprocessableEntity,
             FormatException => StatusCodes.Status422UnprocessableEntity,
             ScException => StatusCodes.Status400BadRequest,
             _ => StatusCodes.Status500InternalServerError
@@ -53,23 +51,13 @@ public class ExceptionHandlingMiddleware : IMiddleware
     private static ScError GetErrors(Exception exception)
     {
         var scError = new ScError();
-        
-        switch (exception)
+
+        scError.Message = exception switch
         {
-            case ValidationException validationException:
-                scError.Message = validationException.Message;
-                scError.ModelState = validationException.Errors
-                    .ToDictionary(
-                        x => x.PropertyName,
-                        x => new List<string>(new[] { x.ErrorMessage }));
-                break;
-            case ScException scException:
-                scError.Message = scException.Message;
-                break;
-            case FormatException:
-                scError.Message = "Некорректный формат Id. Необходимо 24 символа(0-9, a-f)";
-                break;
-        }
+            ScException scException => scException.Message,
+            FormatException => "Некорректный формат Id. Необходимо 24 символа(0-9, a-f)",
+            _ => scError.Message
+        };
 
         return scError;
     }

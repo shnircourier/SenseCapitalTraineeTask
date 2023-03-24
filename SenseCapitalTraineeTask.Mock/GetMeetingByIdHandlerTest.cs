@@ -28,6 +28,7 @@ public class GetMeetingByIdHandlerTest
         const string title = "Description";
         const bool isFull = false;
         var tickets = new List<Ticket>();
+        const decimal ticketPrice = 0;
         
 
         var query = new GetMeetingByIdQuery(id);
@@ -42,10 +43,11 @@ public class GetMeetingByIdHandlerTest
             ImgId = id,
             RoomId = id,
             IsFull = isFull,
-            Tickets = tickets
+            Tickets = tickets,
+            TicketPrice = ticketPrice
         };
 
-        var meetingDto = new MeetingResponseDto(id, beginAt, endAt, title, description, id, id, tickets, isFull);
+        var meetingDto = new MeetingResponseDto(id, beginAt, endAt, title, description, id, id, tickets, isFull, ticketPrice);
         
         _meetingRepositoryMock.Setup(x => x.Get(id))
             .ReturnsAsync(meeting);

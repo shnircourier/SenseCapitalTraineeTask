@@ -3,6 +3,7 @@ using SenseCapitalTraineeTask.Rooms.Data;
 using SenseCapitalTraineeTask.Rooms.Data.Entities;
 using SenseCapitalTraineeTask.Rooms.Data.MongoDb;
 using SenseCapitalTraineeTask.Rooms.Data.Seeds;
+using SenseCapitalTraineeTask.Rooms.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         cfg.RequireHttpsMetadata = false;
     });
 
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 var app = builder.Build();
 
@@ -33,6 +35,8 @@ if (app.Environment.IsDevelopment())
         MongoDbRoomSeeder.Populate(roomsRep);
     });
 }
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthentication();
 

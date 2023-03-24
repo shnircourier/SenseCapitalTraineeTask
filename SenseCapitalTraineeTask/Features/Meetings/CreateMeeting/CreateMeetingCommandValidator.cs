@@ -17,6 +17,10 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
     public CreateMeetingCommandValidator(IMediator mediator)
     {
         RuleLevelCascadeMode = CascadeMode.Stop;
+
+        RuleFor(x => x.Meeting.TicketPrice)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("Цена билета не может быть отрицательной");
         
         RuleFor(x => x.Meeting.Title)
             .NotEmpty()
@@ -34,7 +38,7 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
             {
                 var response = await mediator.Send(new ImageByIdQuery(x));
 
-                return response.Length != 0;
+                return response.Result is not null;
             })
             .WithMessage("ImgId. Ссылка на несуществующий ключ");
 
@@ -46,7 +50,7 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
             {
                 var response = await mediator.Send(new RoomByIdQuery(x));
 
-                return response.Length != 0;
+                return response.Result is not null;
             })
             .WithMessage("RoomId. Ссылка на несуществующий ключ");
 

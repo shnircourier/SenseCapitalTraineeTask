@@ -4,4 +4,4 @@ using MediatR;
 namespace SenseCapitalTraineeTask.Rooms.Features.RoomById;
 
 [UsedImplicitly]
-public record RoomByIdQuery(string Id) : IRequest<string?>; 
+public record RoomByIdQuery(string Id) : IRequest<string>; 

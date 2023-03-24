@@ -17,6 +17,10 @@ public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingComm
     {
         RuleLevelCascadeMode = CascadeMode.Stop;
         
+        RuleFor(x => x.Meeting.TicketPrice)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("Цена билета не может быть отрицательной");
+        
         RuleFor(x => x.Meeting.Title)
             .NotEmpty()
             .WithMessage("Поле обязательно к заполнению")
@@ -29,14 +33,13 @@ public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingComm
 
         RuleFor(x => x.Meeting.ImgId)
             .NotEmpty()
-            .NotEmpty()
             .Matches(@"^[0-9a-fA-F]{24}$")
             .WithMessage("ImgId. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
             .MustAsync(async (x, _) =>
             {
                 var response = await mediator.Send(new ImageByIdQuery(x));
 
-                return response.Length != 0;
+                return response.Result is not null;
             })
             .WithMessage("ImgId. Ссылка на несуществующий ключ");
 
@@ -48,7 +51,7 @@ public class UpdateMeetingCommandValidator : AbstractValidator<UpdateMeetingComm
             {
                 var response = await mediator.Send(new RoomByIdQuery(x));
 
-                return response.Length != 0;
+                return response.Result is not null;
             })
             .WithMessage("RoomId. Ссылка на несуществующий ключ");
 

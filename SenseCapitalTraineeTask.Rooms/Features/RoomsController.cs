@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Rooms.Features.RoomById;
 using SenseCapitalTraineeTask.Rooms.Features.RoomList;
 
@@ -19,18 +20,18 @@ public class RoomsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<string>> Get()
+    public async Task<ScResult<List<string>>> Get()
     {
         var response = await _mediator.Send(new RoomListQuery());
 
-        return response;
+        return new ScResult<List<string>>(response);
     }
 
     [HttpGet("{id}")]
-    public async Task<string?> Get(string id)
+    public async Task<ScResult<string>> Get(string id)
     {
         var response = await _mediator.Send(new RoomByIdQuery(id));
 
-        return response;
+        return new ScResult<string>(response);
     }
 }

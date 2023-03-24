@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Images.Features.ImageById;
 using SenseCapitalTraineeTask.Images.Features.ImageList;
 
@@ -19,18 +20,18 @@ public class ImagesController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<List<string>> Get()
+    public async Task<ScResult<List<string>>> Get()
     {
         var response = await _mediator.Send(new ImageListQuery());
 
-        return response;
+        return new ScResult<List<string>>(response);
     }
 
     [HttpGet("{id}")]
-    public async Task<string?> Get(string id)
+    public async Task<ScResult<string>> Get(string id)
     {
         var response = await _mediator.Send(new ImageByIdQuery(id));
 
-        return response;
+        return new ScResult<string>(response);;
     }
 }
