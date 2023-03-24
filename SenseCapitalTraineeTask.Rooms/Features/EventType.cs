@@ -1,4 +1,4 @@
-namespace SenseCapitalTraineeTask.Features.Meetings;
+namespace SenseCapitalTraineeTask.Rooms.Features;
 
 public enum EventType
 {

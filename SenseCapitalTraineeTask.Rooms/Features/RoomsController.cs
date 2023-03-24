@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Rooms.Features.RoomById;
 using SenseCapitalTraineeTask.Rooms.Features.RoomList;
+using SenseCapitalTraineeTask.Rooms.Infrastructure;
 
 namespace SenseCapitalTraineeTask.Rooms.Features;
 
@@ -13,10 +14,12 @@ namespace SenseCapitalTraineeTask.Rooms.Features;
 public class RoomsController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly RabbitMqSenderService _service;
 
-    public RoomsController(IMediator mediator)
+    public RoomsController(IMediator mediator, RabbitMqSenderService service)
     {
         _mediator = mediator;
+        _service = service;
     }
 
     [HttpGet]
@@ -33,5 +36,20 @@ public class RoomsController : ControllerBase
         var response = await _mediator.Send(new RoomByIdQuery(id));
 
         return new ScResult<string>(response);
+    }
+
+    [HttpGet("test/{id}")]
+    public ActionResult TestPathForSendingMessage(string id)
+    {
+        var eventBody = new EventBody
+        {
+            DeletedId = id,
+            EventType = EventType.SpaceDeleteEvent,
+            QueueName = "SpaceDeleteEvent"
+        };
+        
+        _service.SendingMessage(eventBody);
+        
+        return Ok();
     }
 }

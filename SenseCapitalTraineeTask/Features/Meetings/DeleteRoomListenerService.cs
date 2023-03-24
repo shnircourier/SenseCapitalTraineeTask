@@ -9,14 +9,15 @@ namespace SenseCapitalTraineeTask.Features.Meetings;
 
 public class DeleteRoomListenerService : IHostedService
 {
+    private readonly IServiceScopeFactory _scopeFactory;
     private readonly IMediator _mediator;
     private readonly IConnection _connection;
     private readonly IModel _channel;
     private const string QueueName = "SpaceDeleteEvent";
     
-    public DeleteRoomListenerService(IMediator mediator)
+    public DeleteRoomListenerService(IServiceScopeFactory scopeFactory)
     {
-        _mediator = mediator;
+        _scopeFactory = scopeFactory;
         var factory = new ConnectionFactory()
         {
             HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST"),
@@ -58,8 +59,14 @@ public class DeleteRoomListenerService : IHostedService
     
     private async Task ProcessMessageAsync(string message, CancellationToken cancellationToken)
     {
-        var data = JsonSerializer.Deserialize<MeetingEventBody>(message);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+        var data = JsonSerializer.Deserialize<MeetingEventBody>(message, options);
 
-        await _mediator.Send(new DeleteManyMeetingsByRoomIdCommand(data!.DeletedId), cancellationToken);
+        using var scope = _scopeFactory.CreateScope();
+        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+        await mediator.Send(new DeleteManyMeetingsByRoomIdCommand(data!.DeletedId), cancellationToken);
     }
 }

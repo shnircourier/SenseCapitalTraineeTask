@@ -25,7 +25,11 @@ public class RabbitMqSenderService
 
     public void SendingMessage<T>(T message)
     {
-        var jsonString = JsonSerializer.Serialize(message);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+        var jsonString = JsonSerializer.Serialize(message, options);
         var body = Encoding.UTF8.GetBytes(jsonString);
         
         _chanel.BasicPublish("", QueueName, body: body);

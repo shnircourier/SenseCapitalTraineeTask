@@ -9,14 +9,14 @@ namespace SenseCapitalTraineeTask.Features.Meetings;
 
 public class DeleteImageListenerService : IHostedService
 {
-    private readonly IMediator _mediator;
+    private readonly IServiceScopeFactory _scopeFactory;
     private readonly IConnection _connection;
     private readonly IModel _channel;
     private const string QueueName = "ImageDeleteEvent";
     
-    public DeleteImageListenerService(IMediator mediator)
+    public DeleteImageListenerService(IServiceScopeFactory scopeFactory)
     {
-        _mediator = mediator;
+        _scopeFactory = scopeFactory;
         var factory = new ConnectionFactory()
         {
             HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST"),
@@ -58,8 +58,14 @@ public class DeleteImageListenerService : IHostedService
     
     private async Task ProcessMessageAsync(string message, CancellationToken cancellationToken)
     {
-        var data = JsonSerializer.Deserialize<MeetingEventBody>(message);
-
-        await _mediator.Send(new UpdateMeetingsImageIdCommand(data!.DeletedId), cancellationToken);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+        var data = JsonSerializer.Deserialize<MeetingEventBody>(message, options);
+        
+        using var scope = _scopeFactory.CreateScope();
+        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+        await mediator.Send(new UpdateMeetingsImageIdCommand(data!.DeletedId), cancellationToken);
     }
 }
