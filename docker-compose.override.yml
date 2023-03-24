@@ -28,7 +28,6 @@ services:
 
   images:
     environment:
-      - ASPNETCORE_MONGO=mongodb://data:27017
       - ASPNETCORE_IDENTITY_URL=http://identity
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -41,7 +40,6 @@ services:
 
   rooms:
     environment:
-      - ASPNETCORE_MONGO=mongodb://data:27017
       - ASPNETCORE_IDENTITY_URL=http://identity
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80

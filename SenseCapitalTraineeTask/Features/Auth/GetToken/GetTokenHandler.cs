@@ -43,7 +43,7 @@ public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
 
         var discovery = await authClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
         {
-            Address = _configuration["Auth:Authority"],
+            Address = Environment.GetEnvironmentVariable("ASPNETCORE_IDENTITY_URL") ?? _configuration["Auth:Authority"],
             Policy =
             {
                 RequireHttps = false
@@ -52,7 +52,7 @@ public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
 
         if (discovery.IsError)
         {
-            throw new ScException($"Сервис авторизации по адресу {_configuration["Auth:Authority"]} временно недоступен");
+            throw new ScException($"Сервис авторизации по адресу {Environment.GetEnvironmentVariable("ASPNETCORE_IDENTITY_URL") ?? _configuration["Auth:Authority"]} временно недоступен");
         }
         
         var response = await authClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
