@@ -34,11 +34,21 @@ public interface IRepository<T>
     Task<T> Update(T entity);
 
     /// <summary>
+    /// Множественное обновление поля ImgId
+    /// </summary>
+    /// <param name="imageId"></param>
+    /// <param name="newValue"></param>
+    /// <returns></returns>
+    Task UpdateManyImageId(string imageId, string? newValue);
+
+    /// <summary>
     /// Удаление записи
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
     Task<T> Delete(T entity);
+
+    Task DeleteManyMeetingByRoomId(string roomId);
 
     /// <summary>
     /// Множественное добавление записей

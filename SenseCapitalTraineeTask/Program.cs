@@ -63,6 +63,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 builder.Services.AddScoped<IdentityService>();
 
+builder.Services.AddScoped<RabbitMqSenderService>();
+builder.Services.AddHostedService<DeleteImageListenerService>();
+
 
 var app = builder.Build();
 

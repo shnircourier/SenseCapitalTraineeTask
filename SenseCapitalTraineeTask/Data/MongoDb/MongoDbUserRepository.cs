@@ -48,7 +48,19 @@ public class MongoDbUserRepository : IRepository<User>
     }
 
     /// <inheritdoc />
+    public Task UpdateManyImageId(string imageId, string? newValue)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
     public Task<User> Delete(User entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task DeleteManyMeetingByRoomId(string roomId)
     {
         throw new NotImplementedException();
     }

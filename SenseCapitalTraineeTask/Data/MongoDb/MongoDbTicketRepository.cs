@@ -63,6 +63,12 @@ public class MongoDbTicketRepository : IRepository<Ticket>
     }
 
     /// <inheritdoc />
+    public Task UpdateManyImageId(string imageId, string? newValue)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
     public async Task<Ticket> Delete(Ticket entity)
     {
         await _connection
@@ -70,6 +76,12 @@ public class MongoDbTicketRepository : IRepository<Ticket>
             .DeleteOneAsync(m => m.Id == entity.Id);
         
         return entity;
+    }
+
+    /// <inheritdoc />
+    public Task DeleteManyMeetingByRoomId(string roomId)
+    {
+        throw new NotImplementedException();
     }
 
     /// <inheritdoc />

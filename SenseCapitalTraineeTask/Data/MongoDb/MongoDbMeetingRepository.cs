@@ -62,6 +62,16 @@ public class MongoDbMeetingRepository : IRepository<Meeting>
         return entity;
     }
 
+    public async Task UpdateManyImageId(string imageId, string? newValue)
+    {
+        var filter = Builders<Meeting>.Filter.Eq(x => x.ImgId, imageId);
+        var update = Builders<Meeting>.Update.Set(x => x.ImgId, newValue);
+
+        var result = await _connection
+            .ConnectToMongo(_collection)
+            .UpdateManyAsync(filter, update);
+    }
+
     /// <inheritdoc />
     public async Task<Meeting> Delete(Meeting entity)
     {
@@ -70,6 +80,16 @@ public class MongoDbMeetingRepository : IRepository<Meeting>
             .DeleteOneAsync(m => m.Id == entity.Id);
         
         return entity;
+    }
+
+    /// <inheritdoc />
+    public async Task DeleteManyMeetingByRoomId(string roomId)
+    {
+        var filter = Builders<Meeting>.Filter.Eq(x => x.RoomId, roomId);
+
+        var result = await _connection
+            .ConnectToMongo(_collection)
+            .DeleteManyAsync(filter);
     }
 
     /// <inheritdoc />

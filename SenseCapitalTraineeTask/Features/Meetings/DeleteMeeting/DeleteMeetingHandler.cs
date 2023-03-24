@@ -4,6 +4,7 @@ using MediatR;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
+using SenseCapitalTraineeTask.Infrastructure;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.DeleteMeeting;
 
@@ -15,6 +16,7 @@ public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingCommand, Meetin
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
+    private readonly RabbitMqSenderService _senderService;
 
     /// <summary>
     /// 
@@ -23,10 +25,12 @@ public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingCommand, Meetin
     /// <param name="mapper">Маппер</param>
     public DeleteMeetingHandler(
         IRepository<Meeting> repository,
-        IMapper mapper)
+        IMapper mapper,
+        RabbitMqSenderService senderService)
     {
         _repository = repository;
         _mapper = mapper;
+        _senderService = senderService;
     }
 
     /// <inheritdoc />
@@ -40,6 +44,13 @@ public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingCommand, Meetin
         }
         
         await _repository.Delete(meeting);
+        
+        _senderService.SendingMessage(new MeetingEventBody
+        {
+            DeletedId = meeting.Id,
+            EventType = EventType.MeetingDeleteEvent,
+            QueueName = "MeetingDeleteEvent"
+        });
 
         var response = _mapper.Map<MeetingResponseDto>(meeting);
         
