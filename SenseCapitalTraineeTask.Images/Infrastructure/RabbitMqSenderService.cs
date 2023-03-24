@@ -20,7 +20,7 @@ public class RabbitMqSenderService
 
         var connection = factory.CreateConnection();
         _chanel = connection.CreateModel();
-        _chanel.QueueDeclare(QueueName, durable: true, exclusive: true);
+        _chanel.QueueDeclare(QueueName, durable: true, exclusive: false);
     }
 
     public void SendingMessage<T>(T message)

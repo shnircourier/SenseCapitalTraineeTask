@@ -22,11 +22,12 @@ public class DeleteRoomListenerService : IHostedService
             HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST"),
             UserName = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME"),
             Password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD"),
+            RequestedHeartbeat = TimeSpan.FromSeconds(30)
         };
 
         _connection = factory.CreateConnection();
         _channel = _connection.CreateModel();
-        _channel.QueueDeclare(QueueName, durable: true, exclusive: true);
+        _channel.QueueDeclare(QueueName, durable: true, exclusive: false);
     }
     
     public Task StartAsync(CancellationToken cancellationToken)
