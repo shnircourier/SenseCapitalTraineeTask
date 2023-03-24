@@ -26,7 +26,7 @@ public class RoomByIdHandler : IRequestHandler<RoomByIdQuery, ScResult<string>>
 
         return await _retryPolicy.ExecuteAsync(async () =>
         {
-            var response = await client.GetAsync($"http://localhost:5590/rooms/{request.Id}", cancellationToken);
+            var response = await client.GetAsync($"http://"+Environment.GetEnvironmentVariable("ASPNETCORE_ROOMS_URL")+"/rooms/{request.Id}", cancellationToken);
 
             var content = await response.Content.ReadAsStringAsync(cancellationToken);
 

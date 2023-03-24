@@ -3,6 +3,10 @@ version: '3.4'
 services:
   main:
     environment:
+      - ASPNETCORE_MONGO=mongodb://data:27017
+      - ASPNETCORE_ROOMS_URL=http://rooms
+      - ASPNETCORE_IMAGES_URL=http://images
+      - ASPNETCORE_IDENTITY_URL=http://identity
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
@@ -18,6 +22,32 @@ services:
     ports:
       - "28000:80"
       - "28001:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  images:
+    environment:
+      - ASPNETCORE_MONGO=mongodb://data:27017
+      - ASPNETCORE_IDENTITY_URL=http://identity
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "26000:80"
+      - "26001:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  rooms:
+    environment:
+      - ASPNETCORE_MONGO=mongodb://data:27017
+      - ASPNETCORE_IDENTITY_URL=http://identity
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "25000:80"
+      - "25001:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

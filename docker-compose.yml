@@ -29,6 +29,24 @@ services:
       - app-network
       
       
+  images:
+    container_name: images
+    image: ${DOCKER_REGISTRY-}sensecapitaltraineetaskimages
+    build:
+      context: .
+      dockerfile: SenseCapitalTraineeTask.Images/Dockerfile
+    networks:
+      - app-network
+
+  rooms:
+    container_name: rooms
+    image: ${DOCKER_REGISTRY-}sensecapitaltraineetaskrooms
+    build:
+      context: .
+      dockerfile: SenseCapitalTraineeTask.Rooms/Dockerfile
+    networks:
+      - app-network
+
 volumes:
   mongodb_data:
     

@@ -38,7 +38,7 @@ public class IdentityService
         
         var discovery = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
         {
-            Address = _configuration["Auth:Authority"],
+            Address = Environment.GetEnvironmentVariable("ASPNETCORE_IDENTITY_URL") ?? _configuration["Auth:Authority"],
             Policy =
             {
                 RequireHttps = false
@@ -47,7 +47,7 @@ public class IdentityService
         
         if (discovery.IsError)
         {
-            throw new ScException($"Сервис авторизации по адресу {_configuration["Auth:Authority"]} временно недоступен");
+            throw new ScException($"Сервис авторизации по адресу {Environment.GetEnvironmentVariable("ASPNETCORE_IDENTITY_URL") ?? _configuration["Auth:Authority"]} временно недоступен");
         }
 
         return discovery;

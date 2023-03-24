@@ -25,7 +25,7 @@ public class MongoDbConnectionFactory<T>
     /// <returns></returns>
     public IMongoCollection<T> ConnectToMongo(string collectionName)
     {
-        var client = new MongoClient(_configuration["Mongo:ConnectionString"]);
+        var client = new MongoClient(Environment.GetEnvironmentVariable("ASPNETCORE_MONGO") ?? _configuration["Mongo:ConnectionString"]);
         var db = client.GetDatabase(_configuration["Mongo:Database"]);
         return db.GetCollection<T>(collectionName);
     }

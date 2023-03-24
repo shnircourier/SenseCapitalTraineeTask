@@ -15,7 +15,7 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, cfg =>
     {
-        cfg.Authority = builder.Configuration["Auth:Authority"];
+        cfg.Authority = Environment.GetEnvironmentVariable("ASPNETCORE_IDENTITY_URL") ?? builder.Configuration["Auth:Authority"];
         cfg.Audience = "MyApi";
 
         cfg.RequireHttpsMetadata = false;
