@@ -37,19 +37,11 @@ public class PaymentsController : ControllerBase
         return new ScResult<PaymentOperation>(response);
     }
 
-    [HttpPatch("confirm")]
-    public async Task<ScResult<PaymentOperation>> ConfirmPayment([FromBody] UpdatePaymentStatusRequest request)
+    [HttpPatch("status")]
+    public async Task<ScResult<PaymentOperation>> UpdateStatus([FromBody] UpdatePaymentStatusRequest request)
     {
         var response = await _mediator.Send(new UpdatePaymentStatusCommand(request));
 
         return new ScResult<PaymentOperation>(response);
     }
-
-    [HttpPatch("cancel")]
-    public async Task<ScResult<PaymentOperation>> CancelPayment([FromBody] UpdatePaymentStatusRequest request)
-    {
-        var response = await _mediator.Send(new UpdatePaymentStatusCommand(request));
-
-        return new ScResult<PaymentOperation>(response);
-    } 
 }
