@@ -12,19 +12,34 @@ namespace SenseCapitalTraineeTask.Features.Meetings.DeleteManyMeetingsByRoomId;
 public class DeleteManyMeetingsByRoomIdHandler : IRequestHandler<DeleteManyMeetingsByRoomIdCommand>
 {
     private readonly IRepository<Meeting> _repository;
+    private readonly RabbitMqSenderService _senderService;
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="repository"></param>
-    public DeleteManyMeetingsByRoomIdHandler(IRepository<Meeting> repository)
+    /// <param name="senderService"></param>
+    public DeleteManyMeetingsByRoomIdHandler(IRepository<Meeting> repository, RabbitMqSenderService senderService)
     {
         _repository = repository;
+        _senderService = senderService;
     }
 
     /// <inheritdoc />
     public async Task Handle(DeleteManyMeetingsByRoomIdCommand request, CancellationToken cancellationToken)
     {
         await _repository.DeleteManyMeetingByRoomId(request.RoomId);
+
+        var meetings = await _repository.GetMeetingsByRoomId(request.RoomId);
+        
+        meetings.ForEach(m =>
+        {
+            _senderService.SendingMessage(new MeetingEventBody
+            {
+                DeletedId = m.Id,
+                EventType = EventType.MeetingDeleteEvent,
+                QueueName = "MeetingDeleteEvent"
+            });
+        });
     }
 }

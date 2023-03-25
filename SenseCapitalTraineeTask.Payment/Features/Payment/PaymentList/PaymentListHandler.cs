@@ -1,8 +1,10 @@
+using JetBrains.Annotations;
 using MediatR;
 using SenseCapitalTraineeTask.Payment.Data;
 
 namespace SenseCapitalTraineeTask.Payment.Features.Payment.PaymentList;
 
+[UsedImplicitly]
 public class PaymentListHandler : IRequestHandler<PaymentListQuery, List<PaymentOperation>>
 {
     private readonly PaymentData _paymentData;

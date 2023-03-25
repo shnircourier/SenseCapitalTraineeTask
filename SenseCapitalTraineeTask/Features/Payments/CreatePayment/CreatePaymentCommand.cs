@@ -1,6 +1,11 @@
+using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.ScResult;
 
 namespace SenseCapitalTraineeTask.Features.Payments.CreatePayment;
 
-public record CreatePaymentCommand(string? Description) : IRequest<ScResult<PaymentOperation>>;
+/// <summary>
+/// 
+/// </summary>
+/// <param name="Description"></param>
+public record CreatePaymentCommand([UsedImplicitly] string? Description) : IRequest<ScResult<PaymentOperation>>;

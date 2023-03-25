@@ -21,15 +21,33 @@ services:
       - "15672:15672"
     networks:
       - app-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:15672" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
   
   main:
+    container_name: main
     image: ${DOCKER_REGISTRY-}sensecapitaltraineetask
     build:
       context: .
       dockerfile: SenseCapitalTraineeTask/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    env_file:
+      - ./SenseCapitalTraineeTask/env.list
+    ports:
+      - "29001:80"
+      - "29000:443"
+    restart: on-failure
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
-      - mongodb
       - rabbitmq
+      - mongodb
     networks:
       - app-network
 
@@ -39,6 +57,15 @@ services:
     build:
       context: .
       dockerfile: MyIdentityServer/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "28000:80"
+      - "28001:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     networks:
       - app-network
       
@@ -49,6 +76,17 @@ services:
     build:
       context: .
       dockerfile: SenseCapitalTraineeTask.Images/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    env_file:
+      - ./SenseCapitalTraineeTask.Images/env.list
+    ports:
+      - "26000:80"
+      - "26001:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
       - rabbitmq
     networks:
@@ -60,6 +98,17 @@ services:
     build:
       context: .
       dockerfile: SenseCapitalTraineeTask.Rooms/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    env_file:
+      - ./SenseCapitalTraineeTask.Rooms/env.list
+    ports:
+      - "25000:80"
+      - "25001:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
       - rabbitmq
     networks:
@@ -71,6 +120,17 @@ services:
     build:
       context: .
       dockerfile: SenseCapitalTraineeTask.Payment/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    env_file:
+      - ./SenseCapitalTraineeTask.Payment/env.list
+    ports:
+      - "27000:80"
+      - "27001:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     networks:
       - app-network
 

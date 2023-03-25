@@ -1,5 +1,7 @@
 using MongoDB.Driver;
 using SenseCapitalTraineeTask.Data.Entities;
+// ReSharper disable IdentifierTypo
+// ReSharper disable StringLiteralTypo
 
 namespace SenseCapitalTraineeTask.Data.MongoDb;
 
@@ -31,6 +33,12 @@ public class MongoDbUserRepository : IRepository<User>
 
     /// <inheritdoc />
     public Task<User> Get(string id)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task<List<User>> GetMeetingsByRoomId(string id)
     {
         throw new NotImplementedException();
     }

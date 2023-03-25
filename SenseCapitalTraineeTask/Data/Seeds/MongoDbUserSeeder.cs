@@ -1,4 +1,5 @@
 using SenseCapitalTraineeTask.Data.Entities;
+// ReSharper disable IdentifierTypo
 
 namespace SenseCapitalTraineeTask.Data.Seeds;
 

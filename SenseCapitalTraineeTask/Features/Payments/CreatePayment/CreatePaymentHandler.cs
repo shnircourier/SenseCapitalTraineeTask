@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using JetBrains.Annotations;
 using MediatR;
 using Polly;
 using Polly.Retry;
@@ -9,6 +10,10 @@ using SenseCapitalTraineeTask.Identity;
 
 namespace SenseCapitalTraineeTask.Features.Payments.CreatePayment;
 
+/// <summary>
+/// Логика отправки запроса на создание платежа
+/// </summary>
+[UsedImplicitly]
 public class CreatePaymentHandler : IRequestHandler<CreatePaymentCommand, ScResult<PaymentOperation>>
 {
     private const int MaxRetries = 3;
@@ -16,13 +21,19 @@ public class CreatePaymentHandler : IRequestHandler<CreatePaymentCommand, ScResu
     private readonly ILogger<CreatePaymentHandler> _logger;
     private readonly AsyncRetryPolicy<ScResult<PaymentOperation>> _retryPolicy;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="identityService"></param>
+    /// <param name="logger"></param>
     public CreatePaymentHandler(IdentityService identityService, ILogger<CreatePaymentHandler> logger)
     {
         _identityService = identityService;
         _logger = logger;
         _retryPolicy = Policy<ScResult<PaymentOperation>>.Handle<HttpRequestException>().RetryAsync(MaxRetries);
     }
-    
+
+    /// <inheritdoc />
     public async Task<ScResult<PaymentOperation>> Handle(CreatePaymentCommand request, CancellationToken cancellationToken)
     {
         var client = await _identityService.GetAuthorizedClient();

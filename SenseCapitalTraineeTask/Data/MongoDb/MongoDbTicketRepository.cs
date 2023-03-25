@@ -1,5 +1,7 @@
 using MongoDB.Driver;
 using SenseCapitalTraineeTask.Data.Entities;
+// ReSharper disable IdentifierTypo
+// ReSharper disable StringLiteralTypo
 
 namespace SenseCapitalTraineeTask.Data.MongoDb;
 
@@ -37,6 +39,12 @@ public class MongoDbTicketRepository : IRepository<Ticket>
             .FindAsync(m => m.Id == id);
 
         return result.FirstOrDefault();
+    }
+
+    /// <inheritdoc />
+    public Task<List<Ticket>> GetMeetingsByRoomId(string id)
+    {
+        throw new NotImplementedException();
     }
 
     /// <inheritdoc />

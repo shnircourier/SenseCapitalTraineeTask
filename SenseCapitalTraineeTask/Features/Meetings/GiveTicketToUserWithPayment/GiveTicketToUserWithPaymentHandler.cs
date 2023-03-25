@@ -1,4 +1,5 @@
 using AutoMapper;
+using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Data;
@@ -9,6 +10,10 @@ using SenseCapitalTraineeTask.Features.Payments.UpdatePayment;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUserWithPayment;
 
+/// <summary>
+/// Логика передачи билета пользователю за деньги
+/// </summary>
+[UsedImplicitly]
 public class GiveTicketToUserWithPaymentHandler : IRequestHandler<GiveTicketToUserWithPaymentCommand, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
@@ -16,6 +21,13 @@ public class GiveTicketToUserWithPaymentHandler : IRequestHandler<GiveTicketToUs
     private readonly IMediator _mediator;
     private readonly ILogger<GiveTicketToUserWithPaymentHandler> _logger;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="repository"></param>
+    /// <param name="mapper"></param>
+    /// <param name="mediator"></param>
+    /// <param name="logger"></param>
     public GiveTicketToUserWithPaymentHandler(
         IRepository<Meeting> repository,
         IMapper mapper, 
@@ -27,7 +39,8 @@ public class GiveTicketToUserWithPaymentHandler : IRequestHandler<GiveTicketToUs
         _mediator = mediator;
         _logger = logger;
     }
-    
+
+    /// <inheritdoc />
     public async Task<MeetingResponseDto> Handle(GiveTicketToUserWithPaymentCommand request, CancellationToken cancellationToken)
     {
         var meeting = await _repository.Get(request.MeetingId);
@@ -79,7 +92,7 @@ public class GiveTicketToUserWithPaymentHandler : IRequestHandler<GiveTicketToUs
 
             return response;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             var paymentRequest = new UpdatePaymentRequest
             {
@@ -88,6 +101,7 @@ public class GiveTicketToUserWithPaymentHandler : IRequestHandler<GiveTicketToUs
                 State = PaymentState.Canceled
             };
 
+            // ReSharper disable once UnusedVariable
             var canceledPayment = await _mediator.Send(new UpdatePaymentCommand(paymentRequest), cancellationToken);
             throw new ScException("Ошибка при проведении транзакции оплаты");
         }

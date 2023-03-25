@@ -1,9 +1,11 @@
+using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Payment.Data;
 
 namespace SenseCapitalTraineeTask.Payment.Features.Payment.UpdatePaymentStatus;
 
+[UsedImplicitly]
 public class UpdatePaymentStatusHandler : IRequestHandler<UpdatePaymentStatusCommand, PaymentOperation>
 {
     private readonly PaymentData _paymentData;

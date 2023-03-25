@@ -20,6 +20,13 @@ public interface IRepository<T>
     Task<T> Get(string id);
 
     /// <summary>
+    /// Получить список мероприятии по определенному помещению
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    Task<List<T>> GetMeetingsByRoomId(string id);
+
+    /// <summary>
     /// Добавление записи
     /// </summary>
     /// <param name="entity"></param>

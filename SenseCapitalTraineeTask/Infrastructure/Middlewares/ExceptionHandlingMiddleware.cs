@@ -3,6 +3,7 @@ using FluentValidation;
 using SC.Internship.Common.Exceptions;
 using SC.Internship.Common.ScResult;
 
+// ReSharper disable once IdentifierTypo
 namespace SenseCapitalTraineeTask.Infrastructure.Middlewares;
 
 /// <summary>

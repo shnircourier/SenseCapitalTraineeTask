@@ -1,4 +1,7 @@
 using MongoDB.Driver;
+// ReSharper disable CommentTypo
+// ReSharper disable IdentifierTypo
+// ReSharper disable StringLiteralTypo
 
 namespace SenseCapitalTraineeTask.Data.MongoDb;
 

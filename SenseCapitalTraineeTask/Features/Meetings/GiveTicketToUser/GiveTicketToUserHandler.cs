@@ -5,8 +5,6 @@ using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
 using SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUserWithPayment;
-using SenseCapitalTraineeTask.Features.Payments;
-using SenseCapitalTraineeTask.Features.Payments.CreatePayment;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUser;
 

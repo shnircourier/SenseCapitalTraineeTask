@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+
 namespace SenseCapitalTraineeTask.Payment.Data;
 
 public class PaymentOperation
@@ -6,11 +8,11 @@ public class PaymentOperation
 
     public PaymentState State { get; set; }
     
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { [UsedImplicitly] get; set; }
 
-    public DateTime? ConfirmedAt { get; set; }
+    public DateTime? ConfirmedAt { [UsedImplicitly] get; set; }
 
-    public DateTime? CanceledAt { get; set; }
+    public DateTime? CanceledAt { [UsedImplicitly] get; set; }
 
-    public string? Description { get; set; }
+    public string? Description { [UsedImplicitly] get; set; }
 }

@@ -1,12 +1,13 @@
+using JetBrains.Annotations;
 using SenseCapitalTraineeTask.Payment.Data;
 
 namespace SenseCapitalTraineeTask.Payment.Features.Payment;
 
 public class UpdatePaymentStatusRequest
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; [UsedImplicitly] set; }
     
-    public PaymentState State { get; set; }
+    public PaymentState State { get; [UsedImplicitly] set; }
     
-    public string? Description { get; set; }
+    public string? Description { get; [UsedImplicitly] set; }
 }
