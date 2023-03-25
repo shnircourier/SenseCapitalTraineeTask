@@ -65,9 +65,18 @@ services:
     networks:
       - app-network
 
+  sensecapitaltraineetask.payment:
+    image: ${DOCKER_REGISTRY-}sensecapitaltraineetaskpayment
+    build:
+      context: .
+      dockerfile: SenseCapitalTraineeTask.Payment/Dockerfile
+    networks:
+      - app-network
+
 volumes:
   mongodb_data:
     
 networks:
   app-network:
+
 
