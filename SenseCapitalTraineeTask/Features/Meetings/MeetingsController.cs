@@ -22,11 +22,13 @@ namespace SenseCapitalTraineeTask.Features.Meetings;
 public class MeetingsController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly ILogger<MeetingsController> _logger;
 
     /// <inheritdoc />
-    public MeetingsController(IMediator mediator)
+    public MeetingsController(IMediator mediator, ILogger<MeetingsController> logger)
     {
         _mediator = mediator;
+        _logger = logger;
     }
     
     /// <summary>
@@ -37,6 +39,8 @@ public class MeetingsController : ControllerBase
     public async Task<ScResult<List<MeetingResponseDto>>> Get()
     {
         var response = await _mediator.Send(new GetMeetingListQuery());
+        
+        _logger.LogInformation("Ответ: {0}", response);
         
         return new ScResult<List<MeetingResponseDto>>(response);
     }
@@ -52,7 +56,11 @@ public class MeetingsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ScResult<MeetingResponseDto>> Get([FromRoute] string id)
     {
+        _logger.LogInformation("Запрос: {0}", id);
+        
         var response = await _mediator.Send(new GetMeetingByIdQuery(id));
+        
+        _logger.LogInformation("Ответ: {0}", response);
 
         return new ScResult<MeetingResponseDto>(response);
     }
@@ -67,7 +75,11 @@ public class MeetingsController : ControllerBase
     [HttpPost]
     public async Task<ScResult<MeetingResponseDto>> Create([FromBody] MeetingRequestDto requestDto)
     {
+        _logger.LogInformation("Запрос: {0}", requestDto);
+        
         var response = await _mediator.Send(new CreateMeetingCommand(requestDto));
+        
+        _logger.LogInformation("Ответ: {0}", response);
 
         return new ScResult<MeetingResponseDto>(response);
     }
@@ -85,7 +97,11 @@ public class MeetingsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ScResult<MeetingResponseDto>> Update([FromBody] MeetingRequestDto requestDto, [FromRoute] string id)
     {
+        _logger.LogInformation("Запрос: [FromBody] {0}; [FromRoute] {1}", requestDto, id);
+        
         var response = await _mediator.Send(new UpdateMeetingCommand(requestDto, id));
+        
+        _logger.LogInformation("Ответ: {0}", response);
 
         return new ScResult<MeetingResponseDto>(response);
     }
@@ -99,8 +115,12 @@ public class MeetingsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ScResult<MeetingResponseDto>> Delete([FromRoute] string id)
     {
+        _logger.LogInformation("Запрос: {0}", id);
+        
         var response = await _mediator.Send(new DeleteMeetingCommand(id));
 
+        _logger.LogInformation("Ответ: {0}", response);
+        
         return new ScResult<MeetingResponseDto>(response);
     }
 
@@ -116,7 +136,11 @@ public class MeetingsController : ControllerBase
     [HttpPost("{id}/tickets/create")]
     public async Task<ScResult<MeetingResponseDto>> CreateFreeTickets([FromBody] CreateFreeTicketsRequestDto requestDto, [FromRoute] string id)
     {
+        _logger.LogInformation("Запрос: [FromBody] {0}; [FromRoute] {1}", requestDto, id);
+        
         var response = await _mediator.Send(new CreateFreeTicketsCommand(requestDto, id));
+        
+        _logger.LogInformation("Ответ: {0}", response);
 
         return new ScResult<MeetingResponseDto>(response);
     }
@@ -133,7 +157,11 @@ public class MeetingsController : ControllerBase
     [HttpPost("{id}/tickets/user")]
     public async Task<ScResult<MeetingResponseDto>> GiveTicketToUser([FromBody] TicketRequestDto requestDto, [FromRoute] string id)
     {
+        _logger.LogInformation("Запрос: [FromBody] {0}; [FromRoute] {1}", requestDto, id);
+        
         var response = await _mediator.Send(new GiveTicketToUserCommand(requestDto, id));
+        
+        _logger.LogInformation("Ответ: {0}", response);
 
         return new ScResult<MeetingResponseDto>(response);
     }
@@ -152,6 +180,8 @@ public class MeetingsController : ControllerBase
     [HttpPost("{id}/ticket/check")]
     public async Task<ScResult> CheckTicket([FromBody] CheckTicketRequestDto requestDto, [FromRoute] string id)
     {
+        _logger.LogInformation("Запрос: [FromBody] {0}; [FromRoute] {1}", requestDto, id);
+        
         await _mediator.Send(new CheckUserTicketQuery(id, requestDto));
 
         return new ScResult();

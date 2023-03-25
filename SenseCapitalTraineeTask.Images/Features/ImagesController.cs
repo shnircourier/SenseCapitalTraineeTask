@@ -15,11 +15,13 @@ public class ImagesController : ControllerBase
 {
     private readonly IMediator _mediator;
     private readonly RabbitMqSenderService _service;
+    private readonly ILogger<ImagesController> _logger;
 
-    public ImagesController(IMediator mediator, RabbitMqSenderService service)
+    public ImagesController(IMediator mediator, RabbitMqSenderService service, ILogger<ImagesController> logger)
     {
         _mediator = mediator;
         _service = service;
+        _logger = logger;
     }
     
     [HttpGet]
@@ -33,7 +35,11 @@ public class ImagesController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ScResult<string>> Get(string id)
     {
+        _logger.LogInformation("Запрос: {0}", id);
+        
         var response = await _mediator.Send(new ImageByIdQuery(id));
+        
+        _logger.LogInformation("Ответ: {0}", response);
 
         return new ScResult<string>(response);
     }

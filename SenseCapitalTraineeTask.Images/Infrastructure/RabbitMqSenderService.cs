@@ -6,11 +6,13 @@ namespace SenseCapitalTraineeTask.Images.Infrastructure;
 
 public class RabbitMqSenderService
 {
+    private readonly ILogger<RabbitMqSenderService> _logger;
     private readonly IModel _chanel;
     private const string QueueName = "ImageDeleteEvent";
 
-    public RabbitMqSenderService()
+    public RabbitMqSenderService(ILogger<RabbitMqSenderService> logger)
     {
+        _logger = logger;
         var factory = new ConnectionFactory
         {
             HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST"),
@@ -31,6 +33,8 @@ public class RabbitMqSenderService
         };
         var jsonString = JsonSerializer.Serialize(message, options);
         var body = Encoding.UTF8.GetBytes(jsonString);
+        
+        _logger.LogInformation("Отправка сообщения: {0}", jsonString);
         
         _chanel.BasicPublish("", QueueName, body: body);
     }

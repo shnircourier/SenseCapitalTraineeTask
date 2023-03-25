@@ -15,11 +15,13 @@ public class RoomsController : ControllerBase
 {
     private readonly IMediator _mediator;
     private readonly RabbitMqSenderService _service;
+    private readonly ILogger<RoomsController> _logger;
 
-    public RoomsController(IMediator mediator, RabbitMqSenderService service)
+    public RoomsController(IMediator mediator, RabbitMqSenderService service, ILogger<RoomsController> logger)
     {
         _mediator = mediator;
         _service = service;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -33,8 +35,12 @@ public class RoomsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ScResult<string>> Get(string id)
     {
+        _logger.LogInformation("Запрос: {0}", id);
+        
         var response = await _mediator.Send(new RoomByIdQuery(id));
 
+        _logger.LogInformation("Ответ: {0}", response);
+        
         return new ScResult<string>(response);
     }
 

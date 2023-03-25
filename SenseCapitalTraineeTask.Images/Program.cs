@@ -21,6 +21,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         cfg.RequireHttpsMetadata = false;
     });
 
+builder.Services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddConsole();
+});
+
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 var app = builder.Build();

@@ -16,15 +16,18 @@ public class ImageByIdHandler : IRequestHandler<ImageByIdQuery, ScResult<string>
 {
     private const int MaxRetries = 3;
     private readonly IdentityService _identityService;
+    private readonly ILogger<ImageByIdHandler> _logger;
     private readonly AsyncRetryPolicy<ScResult<string>> _retryPolicy;
 
     /// <summary>
     /// Получение картинки по Id у стороннего сервиса
     /// </summary>
     /// <param name="identityService"></param>
-    public ImageByIdHandler(IdentityService identityService)
+    /// <param name="logger"></param>
+    public ImageByIdHandler(IdentityService identityService, ILogger<ImageByIdHandler> logger)
     {
         _identityService = identityService;
+        _logger = logger;
         _retryPolicy = Policy<ScResult<string>>.Handle<HttpRequestException>().RetryAsync(MaxRetries);
     }
 
@@ -37,7 +40,11 @@ public class ImageByIdHandler : IRequestHandler<ImageByIdQuery, ScResult<string>
         {
             var imageUrl = Environment.GetEnvironmentVariable("ASPNETCORE_IMAGES_URL");
             
+            _logger.LogInformation("Запрос к сервису картинок");
+            
             var response = await client.GetAsync(imageUrl + $"/images/{request.Id}", cancellationToken);
+            
+            _logger.LogInformation("Ответ: {0}", response);
 
             var content = await response.Content.ReadAsStringAsync(cancellationToken);
 

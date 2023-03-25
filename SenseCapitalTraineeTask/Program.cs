@@ -66,6 +66,10 @@ builder.Services.AddScoped<IdentityService>();
 builder.Services.AddScoped<RabbitMqSenderService>();
 builder.Services.AddHostedService<DeleteImageListenerService>();
 builder.Services.AddHostedService<DeleteRoomListenerService>();
+builder.Services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddConsole();
+});
 
 
 var app = builder.Build();

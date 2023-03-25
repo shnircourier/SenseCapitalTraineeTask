@@ -75,6 +75,9 @@ public class DeleteImageListenerService : IHostedService
         
         using var scope = _scopeFactory.CreateScope();
         var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<DeleteImageListenerService>>();
+        logger.LogInformation("Получено сообщение: {0}", message);
+        
         await mediator.Send(new UpdateMeetingsImageIdCommand(data!.DeletedId), cancellationToken);
     }
 }

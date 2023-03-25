@@ -10,16 +10,23 @@ public class IdentityService
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IConfiguration _configuration;
+    private readonly ILogger<IdentityService> _logger;
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="httpClientFactory"></param>
     /// <param name="configuration"></param>
-    public IdentityService(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+    /// <param name="logger"></param>
+    public IdentityService(
+        IHttpClientFactory httpClientFactory,
+        ILogger<IdentityService> logger,
+        IConfiguration configuration
+        )
     {
         _httpClientFactory = httpClientFactory;
         _configuration = configuration;
+        _logger = logger;
     }
 
     /// <summary>
@@ -29,7 +36,12 @@ public class IdentityService
     public async Task<HttpClient> GetAuthorizedClient()
     {
         var client = _httpClientFactory.CreateClient();
+        
+        _logger.LogInformation("Обращение к документации identity server");
+        
         var discovery = await GetDiscoveryDocument();
+        
+        _logger.LogInformation("Обращение к identity server для получения JWT");
         
         var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
         {
@@ -38,6 +50,8 @@ public class IdentityService
             ClientSecret = "client_secret",
             Scope = "MyApi"
         });
+        
+        _logger.LogInformation("Ответ: {0}", response);
         
         client.SetBearerToken(response.AccessToken);
 
