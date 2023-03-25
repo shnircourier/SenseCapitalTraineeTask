@@ -1,9 +1,10 @@
 using SenseCapitalTraineeTask.Data.Entities;
+// ReSharper disable IdentifierTypo
 
 namespace SenseCapitalTraineeTask.Data.Seeds;
 
 /// <summary>
-/// Сидер пользователей
+/// Тестовые данные пользователей
 /// </summary>
 public static class MongoDbUserSeeder
 {
@@ -15,18 +16,18 @@ public static class MongoDbUserSeeder
     {
         if (repository.Get().Result.Count == 0)
         {
-            //Переменная не используется но необходима поскольку метод CreateMany имеет результат
+            // ReSharper disable once UnusedVariable
             var resp = repository.CreateMany(new List<User>
             {
                 new()
                 {
                     Password = "Password",
-                    Username = "Password",
+                    Username = "Password"
                 },
                 new()
                 {
                     Password = "Password1",
-                    Username = "Password1",
+                    Username = "Password1"
                 }
             }).Result;
         }

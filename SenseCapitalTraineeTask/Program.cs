@@ -8,6 +8,7 @@ using SenseCapitalTraineeTask.Data.Entities;
 using SenseCapitalTraineeTask.Data.MongoDb;
 using SenseCapitalTraineeTask.Data.Seeds;
 using SenseCapitalTraineeTask.Features.Meetings;
+using SenseCapitalTraineeTask.Identity;
 using SenseCapitalTraineeTask.Infrastructure.Middlewares;
 using SenseCapitalTraineeTask.Infrastructure.PipelineBehaviors;
 using Swashbuckle.AspNetCore.Filters;
@@ -26,7 +27,7 @@ builder.Services.AddSwaggerGen(opts =>
 
     opts.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
-        Description = "JWT авторизация, необходимо вставить токен начиная с ключевого слова Bearer {ваш токен}",
+        Description = "JWT авторизация, необходимо вставить token начиная с ключевого слова Bearer {ваш token}",
         In = ParameterLocation.Header,
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey
@@ -37,12 +38,10 @@ builder.Services.AddSwaggerGen(opts =>
 
 
 
-//Репозитории
+//Repositories
 builder.Services.AddScoped<IRepository<Meeting>, MongoDbMeetingRepository>();
 builder.Services.AddScoped<IRepository<Ticket>, MongoDbTicketRepository>();
 builder.Services.AddScoped<IRepository<User>, MongoDbUserRepository>();
-builder.Services.AddScoped<IRepository<Room>, MongoDbRoomRepository>();
-builder.Services.AddScoped<IRepository<Image>, MongoDbImageRepository>();
 
 
 
@@ -57,11 +56,20 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, cfg =>
     {
-        cfg.Authority = builder.Configuration["Auth:Authority"];
+        cfg.Authority = Environment.GetEnvironmentVariable("ASPNETCORE_IDENTITY_URL") ?? builder.Configuration["Auth:Authority"];
         cfg.Audience = "MyApi";
 
         cfg.RequireHttpsMetadata = false;
     });
+builder.Services.AddScoped<IdentityService>();
+
+builder.Services.AddScoped<RabbitMqSenderService>();
+builder.Services.AddHostedService<DeleteImageListenerService>();
+builder.Services.AddHostedService<DeleteRoomListenerService>();
+builder.Services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddConsole();
+});
 
 
 var app = builder.Build();
@@ -73,13 +81,9 @@ if (app.Environment.IsDevelopment())
     {
         using var scoped = app.Services.CreateScope();
         var userRep = scoped.ServiceProvider.GetRequiredService<IRepository<User>>();
-        var imageRep = scoped.ServiceProvider.GetRequiredService<IRepository<Image>>();
-        var roomRep = scoped.ServiceProvider.GetRequiredService<IRepository<Room>>();
 
         MongoDbUserSeeder.Populate(userRep);
-        MongoDbImageSeeder.Populate(imageRep);
-        MongoDbRoomSeeder.Populate(roomRep);
-        
+
     });
     app.UseSwagger();
     app.UseSwaggerUI();

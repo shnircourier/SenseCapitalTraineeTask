@@ -22,7 +22,7 @@ public class CreateFreeTicketsHandler : IRequestHandler<CreateFreeTicketsCommand
     /// </summary>
     /// <param name="meetingRepository">Коллекция мероприятий</param>
     /// <param name="ticketRepository">Коллекция билетов</param>
-    /// <param name="mapper">Маппер</param>
+    /// <param name="mapper">Mapper</param>
     public CreateFreeTicketsHandler(
         IRepository<Meeting> meetingRepository,
         IRepository<Ticket> ticketRepository,

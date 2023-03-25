@@ -32,17 +32,24 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
         
         var context = new ValidationContext<TRequest>(request);
 
-        var failures = _validators
-            .Select(x => x.ValidateAsync(context, cancellationToken))
-            .SelectMany(x => x.Result.Errors)
-            .Where(x => x != null)
-            .ToList();
-
-        if (failures.Any())
+        try
         {
-            throw new ValidationException(failures);
-        }
+            var failures = _validators
+                .Select(x => x.ValidateAsync(context, cancellationToken))
+                .SelectMany(x => x.Result.Errors)
+                .Where(x => x != null)
+                .ToList();
+            
+            if (failures.Any())
+            {
+                throw new ValidationException(failures);
+            }
         
-        return await next();
+            return await next();
+        }
+        catch (AggregateException e)
+        {
+            throw e.InnerException!;
+        }
     }
 }

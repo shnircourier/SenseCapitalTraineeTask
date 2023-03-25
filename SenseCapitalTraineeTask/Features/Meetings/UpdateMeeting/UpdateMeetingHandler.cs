@@ -20,7 +20,7 @@ public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, Meetin
     /// 
     /// </summary>
     /// <param name="repository">БД</param>
-    /// <param name="mapper">Маппер</param>
+    /// <param name="mapper">Mapper</param>
     public UpdateMeetingHandler(
         IRepository<Meeting> repository,
         IMapper mapper)
@@ -50,6 +50,8 @@ public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, Meetin
         meeting.ImgId = request.Meeting.ImgId;
 
         meeting.RoomId = request.Meeting.RoomId;
+
+        meeting.TicketPrice = request.Meeting.TicketPrice;
 
         var response = _mapper.Map<MeetingResponseDto>(await _repository.Update(meeting));
 

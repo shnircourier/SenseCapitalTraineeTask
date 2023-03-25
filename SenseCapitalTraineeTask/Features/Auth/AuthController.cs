@@ -15,14 +15,17 @@ namespace SenseCapitalTraineeTask.Features.Auth;
 public class AuthController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly ILogger<AuthController> _logger;
 
     /// <summary>
     /// Контроллер авторизации
     /// </summary>
     /// <param name="mediator"></param>
-    public AuthController(IMediator mediator)
+    /// <param name="logger"></param>
+    public AuthController(IMediator mediator, ILogger<AuthController> logger)
     {
         _mediator = mediator;
+        _logger = logger;
     }
 
     /// <summary>
@@ -33,23 +36,29 @@ public class AuthController : ControllerBase
     public async Task<ScResult<List<UserResponseDto>>> GetUsers()
     {
         var response = await _mediator.Send(new GetUsersQuery());
+        
+        _logger.LogInformation("Ответ: {0}", response);
 
         return new ScResult<List<UserResponseDto>>(response);
     }
 
     
     /// <summary>
-    /// Получить JWT токен
+    /// Получить JWT
     /// </summary>
     /// <param name="userRequestDto">Модель пользователя</param>
-    /// <returns>JWT токен в виде строки</returns>
-    /// <response code="400">Неправильный логин или пароль</response>
+    /// <returns>JWT в виде строки</returns>
+    /// <response code="400">Неправильное имя пользователя или пароль</response>
     /// <response code="400">Ошибка обращения к IdentityServer</response>
     [HttpPost("get-token")]
     public async Task<ScResult<string>> GetToken([FromBody] UserRequestDto userRequestDto)
     {
+        _logger.LogInformation("Запрос: {0}", userRequestDto);
+        
         var response = await _mediator.Send(new GetTokenQuery(userRequestDto));
 
+        _logger.LogInformation("Ответ: {0}", response);
+        
         return new ScResult<string>(response);
     }
 
@@ -59,9 +68,11 @@ public class AuthController : ControllerBase
     /// <response code="200">Ок</response>
     /// <response code="401">Запрещено</response>
     [Authorize]
+    // ReSharper disable once StringLiteralTypo
     [HttpGet("stub/authstub")]
     public ActionResult CheckToken()
     {
+        _logger.LogInformation("Запрос на тестовый маршрут для проверки авторизации");
         return Ok();
     }
 }

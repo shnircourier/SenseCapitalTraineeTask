@@ -26,5 +26,5 @@ public class Ticket
     /// <summary>
     /// Номер места
     /// </summary>
-    public int? Seat { get; set; }
+    public int? Seat { get; init; }
 }

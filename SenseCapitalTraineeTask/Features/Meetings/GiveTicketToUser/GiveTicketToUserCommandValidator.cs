@@ -6,7 +6,7 @@ using SenseCapitalTraineeTask.Features.Auth.GetUsers;
 namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUser;
 
 /// <summary>
-/// Валидатор данных на выдачу билета пользователю
+/// Validator данных на выдачу билета пользователю
 /// </summary>
 [UsedImplicitly]
 public class GiveTicketToUserCommandValidator : AbstractValidator<GiveTicketToUserCommand>
@@ -18,6 +18,8 @@ public class GiveTicketToUserCommandValidator : AbstractValidator<GiveTicketToUs
         
         RuleFor(x => x.RequestDto.UserId)
             .NotEmpty()
+            .Matches(@"^[0-9a-fA-F]{24}$")
+            .WithMessage("UserId. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
             .MustAsync(async (x, _) =>
             {
                 var users = await mediator.Send(new GetUsersQuery());

@@ -6,5 +6,5 @@ namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 /// Команда на обновление данных мероприятия
 /// </summary>
 /// <param name="Meeting">Модель мероприятия</param>
-/// <param name="Id">Id мерорприятия</param>
+/// <param name="Id">Id мероприятия</param>
 public record UpdateMeetingCommand(MeetingRequestDto Meeting, string Id) : IRequest<MeetingResponseDto>;

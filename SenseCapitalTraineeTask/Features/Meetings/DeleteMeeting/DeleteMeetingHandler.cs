@@ -15,18 +15,22 @@ public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingCommand, Meetin
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
+    private readonly RabbitMqSenderService _senderService;
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="repository">БД</param>
-    /// <param name="mapper">Маппер</param>
+    /// <param name="mapper">Mapper</param>
+    /// <param name="senderService"></param>
     public DeleteMeetingHandler(
         IRepository<Meeting> repository,
-        IMapper mapper)
+        IMapper mapper,
+        RabbitMqSenderService senderService)
     {
         _repository = repository;
         _mapper = mapper;
+        _senderService = senderService;
     }
 
     /// <inheritdoc />
@@ -40,6 +44,13 @@ public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingCommand, Meetin
         }
         
         await _repository.Delete(meeting);
+        
+        _senderService.SendingMessage(new MeetingEventBody
+        {
+            DeletedId = meeting.Id,
+            EventType = EventType.MeetingDeleteEvent,
+            QueueName = "MeetingDeleteEvent"
+        });
 
         var response = _mapper.Map<MeetingResponseDto>(meeting);
         

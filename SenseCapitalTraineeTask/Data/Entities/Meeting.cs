@@ -56,6 +56,11 @@ public class Meeting
     /// Заполнено ли помещение
     /// </summary>
     public bool IsFull { get; set; }
+
+    /// <summary>
+    /// Цена за билет
+    /// </summary>
+    public decimal TicketPrice { get; set; }
     
 #pragma warning restore CS8618
 }

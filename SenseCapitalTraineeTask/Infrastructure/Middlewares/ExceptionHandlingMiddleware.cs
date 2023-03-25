@@ -3,6 +3,7 @@ using FluentValidation;
 using SC.Internship.Common.Exceptions;
 using SC.Internship.Common.ScResult;
 
+// ReSharper disable once IdentifierTypo
 namespace SenseCapitalTraineeTask.Infrastructure.Middlewares;
 
 /// <summary>
@@ -34,12 +35,17 @@ public class ExceptionHandlingMiddleware : IMiddleware
         };
         httpContext.Response.ContentType = "application/json";
         httpContext.Response.StatusCode = statusCode;
-        await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response));
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+        await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response, options));
     }
     
     private static int GetStatusCode(Exception exception) =>
         exception switch
         {
+            HttpRequestException => StatusCodes.Status503ServiceUnavailable,
             ValidationException => StatusCodes.Status422UnprocessableEntity,
             FormatException => StatusCodes.Status422UnprocessableEntity,
             ScException => StatusCodes.Status400BadRequest,
@@ -64,6 +70,9 @@ public class ExceptionHandlingMiddleware : IMiddleware
                 break;
             case FormatException:
                 scError.Message = "Некорректный формат Id. Необходимо 24 символа(0-9, a-f)";
+                break;
+            case HttpRequestException:
+                scError.Message = "Не удалось соединиться с сервисом";
                 break;
         }
 

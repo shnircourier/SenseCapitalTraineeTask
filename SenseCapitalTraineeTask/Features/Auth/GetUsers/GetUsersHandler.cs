@@ -19,7 +19,7 @@ public class GetUsersHandler : IRequestHandler<GetUsersQuery, List<UserResponseD
     /// DI
     /// </summary>
     /// <param name="repository">БД</param>
-    /// <param name="mapper">Автомапер</param>
+    /// <param name="mapper">Mapper</param>
     public GetUsersHandler(IRepository<User> repository, IMapper mapper)
     {
         _repository = repository;

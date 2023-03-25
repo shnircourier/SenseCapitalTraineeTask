@@ -5,7 +5,7 @@ using SenseCapitalTraineeTask.Data.Entities;
 namespace SenseCapitalTraineeTask.Features.Auth;
 
 /// <summary>
-/// Маппер пользователя
+/// Профиль пользователя
 /// </summary>
 [UsedImplicitly]
 public class UserDtoMapping : Profile

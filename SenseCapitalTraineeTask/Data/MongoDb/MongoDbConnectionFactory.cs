@@ -1,9 +1,12 @@
 using MongoDB.Driver;
+// ReSharper disable CommentTypo
+// ReSharper disable IdentifierTypo
+// ReSharper disable StringLiteralTypo
 
 namespace SenseCapitalTraineeTask.Data.MongoDb;
 
 /// <summary>
-/// Хелпер связи с монго
+/// Функция связи с mongo
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public class MongoDbConnectionFactory<T>
@@ -13,19 +16,19 @@ public class MongoDbConnectionFactory<T>
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="configuration">Конфиг</param>
+    /// <param name="configuration">Конфигурация</param>
     public MongoDbConnectionFactory(IConfiguration configuration)
     {
         _configuration = configuration;
     }
     /// <summary>
-    /// Метод обращения к монго
+    /// Метод обращения к mongo
     /// </summary>
     /// <param name="collectionName"></param>
     /// <returns></returns>
     public IMongoCollection<T> ConnectToMongo(string collectionName)
     {
-        var client = new MongoClient(_configuration["Mongo:ConnectionString"]);
+        var client = new MongoClient(Environment.GetEnvironmentVariable("ASPNETCORE_MONGO") ?? _configuration["Mongo:ConnectionString"]);
         var db = client.GetDatabase(_configuration["Mongo:Database"]);
         return db.GetCollection<T>(collectionName);
     }

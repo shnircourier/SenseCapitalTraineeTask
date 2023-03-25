@@ -1,5 +1,7 @@
 using MongoDB.Driver;
 using SenseCapitalTraineeTask.Data.Entities;
+// ReSharper disable IdentifierTypo
+// ReSharper disable StringLiteralTypo
 
 namespace SenseCapitalTraineeTask.Data.MongoDb;
 
@@ -12,7 +14,7 @@ public class MongoDbTicketRepository : IRepository<Ticket>
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="configuration">Конфиг</param>
+    /// <param name="configuration">Конфигурация</param>
     public MongoDbTicketRepository(IConfiguration configuration)
     {
         _collection = configuration["Mongo:TicketCollection"]!;
@@ -40,6 +42,12 @@ public class MongoDbTicketRepository : IRepository<Ticket>
     }
 
     /// <inheritdoc />
+    public Task<List<Ticket>> GetMeetingsByRoomId(string id)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
     public async Task<Ticket> Create(Ticket entity)
     {
         await _connection
@@ -53,13 +61,19 @@ public class MongoDbTicketRepository : IRepository<Ticket>
     public async Task<Ticket> Update(Ticket entity)
     {
         var filter = Builders<Ticket>.Filter.Eq("Id", entity.Id);
-
-        //Переменная не используется но необходима поскольку метод ReplaceOneAsync имеет результат
+        
+        // ReSharper disable once UnusedVariable
         var result = await _connection
             .ConnectToMongo(_collection)
             .ReplaceOneAsync(filter, entity, new ReplaceOptions { IsUpsert = false });
 
         return entity;
+    }
+
+    /// <inheritdoc />
+    public Task UpdateManyImageId(string imageId, string? newValue)
+    {
+        throw new NotImplementedException();
     }
 
     /// <inheritdoc />
@@ -70,6 +84,12 @@ public class MongoDbTicketRepository : IRepository<Ticket>
             .DeleteOneAsync(m => m.Id == entity.Id);
         
         return entity;
+    }
+
+    /// <inheritdoc />
+    public Task DeleteManyMeetingByRoomId(string roomId)
+    {
+        throw new NotImplementedException();
     }
 
     /// <inheritdoc />

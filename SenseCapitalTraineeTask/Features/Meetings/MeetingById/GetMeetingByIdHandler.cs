@@ -20,7 +20,7 @@ public class GetMeetingByIdHandler : IRequestHandler<GetMeetingByIdQuery, Meetin
     /// 
     /// </summary>
     /// <param name="repository">БД</param>
-    /// <param name="mapper">маппер</param>
+    /// <param name="mapper">Mapper</param>
     public GetMeetingByIdHandler(
         IRepository<Meeting> repository,
         IMapper mapper)

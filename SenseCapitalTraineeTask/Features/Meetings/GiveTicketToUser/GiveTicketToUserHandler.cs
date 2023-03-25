@@ -4,6 +4,7 @@ using MediatR;
 using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Data;
 using SenseCapitalTraineeTask.Data.Entities;
+using SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUserWithPayment;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUser;
 
@@ -15,16 +16,19 @@ public class GiveTicketToUserHandler : IRequestHandler<GiveTicketToUserCommand, 
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
+    private readonly IMediator _mediator;
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="repository">Бд</param>
-    /// <param name="mapper">Маппер</param>
-    public GiveTicketToUserHandler(IRepository<Meeting> repository, IMapper mapper)
+    /// <param name="mapper">Mapper</param>
+    /// <param name="mediator"></param>
+    public GiveTicketToUserHandler(IRepository<Meeting> repository, IMapper mapper, IMediator mediator)
     {
         _repository = repository;
         _mapper = mapper;
+        _mediator = mediator;
     }
 
     /// <inheritdoc />
@@ -40,6 +44,11 @@ public class GiveTicketToUserHandler : IRequestHandler<GiveTicketToUserCommand, 
         if (meeting.IsFull)
         {
             throw new ScException("Билеты закончились");
+        }
+
+        if (meeting.TicketPrice > 0)
+        {
+            return await _mediator.Send(new GiveTicketToUserWithPaymentCommand(request.RequestDto, request.MeetingId), cancellationToken);
         }
         
         var ticket = meeting.Tickets.First(t => t.OwnerId is null);

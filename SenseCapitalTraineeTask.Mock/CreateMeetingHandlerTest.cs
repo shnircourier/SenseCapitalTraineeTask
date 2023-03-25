@@ -28,8 +28,9 @@ public class CreateMeetingHandlerTest
         const string title = "Description";
         const bool isFull = false;
         var tickets = new List<Ticket>();
+        const decimal ticketPrice = 0;
 
-        var request = new MeetingRequestDto(beginAt, endAt, title, description, id, id);
+        var request = new MeetingRequestDto(beginAt, endAt, title, description, id, id, ticketPrice);
         
         var meeting = new Meeting
         {
@@ -43,7 +44,7 @@ public class CreateMeetingHandlerTest
             Tickets = tickets
         };
         
-        var response = new MeetingResponseDto(id, beginAt, endAt, title, description, id, id, tickets, isFull);
+        var response = new MeetingResponseDto(id, beginAt, endAt, title, description, id, id, tickets, isFull, ticketPrice);
         
         var command = new CreateMeetingCommand(request);
         

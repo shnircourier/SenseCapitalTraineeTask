@@ -1,5 +1,7 @@
 using MongoDB.Driver;
 using SenseCapitalTraineeTask.Data.Entities;
+// ReSharper disable IdentifierTypo
+// ReSharper disable StringLiteralTypo
 
 namespace SenseCapitalTraineeTask.Data.MongoDb;
 
@@ -12,7 +14,7 @@ public class MongoDbUserRepository : IRepository<User>
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="configuration">Конфиг</param>
+    /// <param name="configuration">Конфигурация</param>
     public MongoDbUserRepository(IConfiguration configuration)
     {
         _collection = configuration["Mongo:UserCollection"]!;
@@ -36,6 +38,12 @@ public class MongoDbUserRepository : IRepository<User>
     }
 
     /// <inheritdoc />
+    public Task<List<User>> GetMeetingsByRoomId(string id)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
     public Task<User> Create(User entity)
     {
         throw new NotImplementedException();
@@ -48,7 +56,19 @@ public class MongoDbUserRepository : IRepository<User>
     }
 
     /// <inheritdoc />
+    public Task UpdateManyImageId(string imageId, string? newValue)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
     public Task<User> Delete(User entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task DeleteManyMeetingByRoomId(string roomId)
     {
         throw new NotImplementedException();
     }

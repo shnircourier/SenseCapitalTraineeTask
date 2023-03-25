@@ -7,7 +7,7 @@ using SenseCapitalTraineeTask.Features.Auth.VerifyUser;
 namespace SenseCapitalTraineeTask.Features.Auth.GetToken;
 
 /// <summary>
-/// Логика получения токена с identity server
+/// Логика получения JWT с identity server
 /// </summary>
 [UsedImplicitly]
 public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
@@ -15,18 +15,25 @@ public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IMediator _mediator;
     private readonly IConfiguration _configuration;
+    private readonly ILogger<GetTokenHandler> _logger;
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="httpClientFactory">Клиент</param>
     /// <param name="mediator">Медиатор</param>
-    /// <param name="configuration">Конфиг</param>
-    public GetTokenHandler(IHttpClientFactory httpClientFactory, IMediator mediator, IConfiguration configuration)
+    /// <param name="configuration">Конфигурация</param>
+    /// <param name="logger"></param>
+    public GetTokenHandler(
+        IHttpClientFactory httpClientFactory,
+        IMediator mediator,
+        IConfiguration configuration,
+        ILogger<GetTokenHandler> logger)
     {
         _httpClientFactory = httpClientFactory;
         _mediator = mediator;
         _configuration = configuration;
+        _logger = logger;
     }
 
     /// <inheritdoc />
@@ -36,14 +43,16 @@ public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
 
         if (!isExist)
         {
-            throw new ScException("Неправильный логин или пароль");
+            throw new ScException("Неправильный имя пользователя или пароль");
         }
         
         var authClient = _httpClientFactory.CreateClient();
 
+        _logger.LogInformation("Обращение к документации identity server");
+        
         var discovery = await authClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
         {
-            Address = _configuration["Auth:Authority"],
+            Address = Environment.GetEnvironmentVariable("ASPNETCORE_IDENTITY_URL") ?? _configuration["Auth:Authority"],
             Policy =
             {
                 RequireHttps = false
@@ -52,8 +61,10 @@ public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
 
         if (discovery.IsError)
         {
-            throw new ScException($"Сервис авторизации по адресу {_configuration["Auth:Authority"]} временно недоступен");
+            throw new ScException($"Сервис авторизации по адресу {Environment.GetEnvironmentVariable("ASPNETCORE_IDENTITY_URL") ?? _configuration["Auth:Authority"]} временно недоступен");
         }
+        
+        _logger.LogInformation("Обращение к маршруту получения JWT");
         
         var response = await authClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
         {
@@ -63,6 +74,8 @@ public class GetTokenHandler : IRequestHandler<GetTokenQuery, string>
             Scope = "MyApi"
         }, cancellationToken: cancellationToken);
 
+        _logger.LogInformation("Ответ: {0}", response);
+        
         return response.AccessToken;
     }
 }

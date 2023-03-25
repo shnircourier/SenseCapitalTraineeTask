@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+
 namespace SenseCapitalTraineeTask.Features.Meetings;
 
 /// <summary>
@@ -15,10 +17,12 @@ public class TicketDto
     /// <summary>
     /// Идентификатор владельца
     /// </summary>
+    [UsedImplicitly]
     public string? OwnerId { get; set; }
 
     /// <summary>
     /// Место
     /// </summary>
+    [UsedImplicitly]
     public int Seat { get; set; }
 }

@@ -1,13 +1,13 @@
 using FluentValidation;
 using JetBrains.Annotations;
 using MediatR;
-using SenseCapitalTraineeTask.Features.Images.ImageGuids;
-using SenseCapitalTraineeTask.Features.Rooms.RoomGuids;
+using SenseCapitalTraineeTask.Features.Images.ImageById;
+using SenseCapitalTraineeTask.Features.Rooms.RoomById;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 
 /// <summary>
-/// Валидатор создания мероприятия
+/// Validator создания мероприятия
 /// </summary>
 [UsedImplicitly]
 public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingCommand>
@@ -16,6 +16,10 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
     public CreateMeetingCommandValidator(IMediator mediator)
     {
         RuleLevelCascadeMode = CascadeMode.Stop;
+
+        RuleFor(x => x.Meeting.TicketPrice)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("Цена билета не может быть отрицательной");
         
         RuleFor(x => x.Meeting.Title)
             .NotEmpty()
@@ -27,21 +31,25 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
 
         RuleFor(x => x.Meeting.ImgId)
             .NotEmpty()
-            .MustAsync(async (x, _ ) =>
+            .Matches(@"^[0-9a-fA-F]{24}$")
+            .WithMessage("ImgId. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
+            .MustAsync(async (x, _) =>
             {
-                var guids = await mediator.Send(new GetImgGuidsQuery());
-            
-                return guids.HashSet.Contains(x);
+                var response = await mediator.Send(new ImageByIdQuery(x));
+
+                return response.Result is not null;
             })
             .WithMessage("ImgId. Ссылка на несуществующий ключ");
 
         RuleFor(x => x.Meeting.RoomId)
             .NotEmpty()
+            .Matches(@"^[0-9a-fA-F]{24}$")
+            .WithMessage("RoomId. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
             .MustAsync(async (x, _) =>
             {
-                var guids = await mediator.Send(new GetRoomGuidsQuery());
-            
-                return guids.HashSet.Contains(x);
+                var response = await mediator.Send(new RoomByIdQuery(x));
+
+                return response.Result is not null;
             })
             .WithMessage("RoomId. Ссылка на несуществующий ключ");
 

@@ -22,4 +22,5 @@ public record MeetingResponseDto(
     string ImgId,
     string RoomId,
     List<Ticket> Tickets,
-    bool IsFull);
+    bool IsFull,
+    decimal TicketPrice);
