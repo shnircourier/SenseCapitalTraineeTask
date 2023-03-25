@@ -51,6 +51,8 @@ public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, Meetin
 
         meeting.RoomId = request.Meeting.RoomId;
 
+        meeting.TicketPrice = request.Meeting.TicketPrice;
+
         var response = _mapper.Map<MeetingResponseDto>(await _repository.Update(meeting));
 
         return response;
