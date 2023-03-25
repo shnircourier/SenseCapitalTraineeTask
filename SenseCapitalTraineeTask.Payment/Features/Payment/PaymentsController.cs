@@ -29,10 +29,10 @@ public class PaymentsController : ControllerBase
         return new ScResult<List<PaymentOperation>>(response);
     }
 
-    [HttpPost]
-    public async Task<ScResult<PaymentOperation>> Create([FromBody] string description)
+    [HttpPost("")]
+    public async Task<ScResult<PaymentOperation>> Create([FromBody] PaymentCreateRequest request)
     {
-        var response = await _mediator.Send(new CreatePaymentCommand(description));
+        var response = await _mediator.Send(new CreatePaymentCommand(request.Description));
 
         return new ScResult<PaymentOperation>(response);
     }

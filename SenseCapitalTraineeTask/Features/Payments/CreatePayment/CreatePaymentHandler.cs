@@ -1,7 +1,9 @@
+using System.Text;
 using System.Text.Json;
 using MediatR;
 using Polly;
 using Polly.Retry;
+using SC.Internship.Common.Exceptions;
 using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Identity;
 
@@ -33,11 +35,16 @@ public class CreatePaymentHandler : IRequestHandler<CreatePaymentCommand, ScResu
 
             var json = JsonSerializer.Serialize(request);
             
-            var response = await client.PostAsync(paymentUrl + "payments", new StringContent(json), cancellationToken);
-            
-            _logger.LogInformation("Ответ: {0}", response);
+            var response = await client.PostAsync(paymentUrl + "/payments", new StringContent(json, Encoding.UTF8, "application/json"), cancellationToken);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ScException("Ошибка при оплате");
+            }
 
             var content = await response.Content.ReadAsStringAsync(cancellationToken);
+            
+            _logger.LogInformation("Ответ: {0}", content);
 
             var options = new JsonSerializerOptions
             {
