@@ -7,10 +7,10 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CreateFreeTickets;
 /// Validator создания билетов
 /// </summary>
 [UsedImplicitly]
-public class CreateFreeTicketsCommandValidator : AbstractValidator<CreateFreeTicketsCommand>
+public class CreateFreeTicketsValidator : AbstractValidator<CreateFreeTicketsCommand>
 {
     /// <inheritdoc />
-    public CreateFreeTicketsCommandValidator()
+    public CreateFreeTicketsValidator()
     {
         RuleLevelCascadeMode = CascadeMode.Stop;
 

@@ -6,4 +6,4 @@ namespace SenseCapitalTraineeTask.Features.Auth.GetToken;
 /// Запрос на получение JWT
 /// </summary>
 /// <param name="UserRequestDto"></param>
-public record GetTokenQuery(UserRequestDto UserRequestDto) : IRequest<string>;
+public record GetTokenRequest(UserRequestDto UserRequestDto) : IRequest<string>;

@@ -10,7 +10,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.MeetingList;
 /// Логика получения списка мероприятий
 /// </summary>
 [UsedImplicitly]
-public class GetMeetingListHandler : IRequestHandler<GetMeetingListQuery, List<MeetingResponseDto>>
+public class GetMeetingListHandler : IRequestHandler<GetMeetingListRequest, List<MeetingResponseDto>>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ public class GetMeetingListHandler : IRequestHandler<GetMeetingListQuery, List<M
     }
 
     /// <inheritdoc />
-    public async Task<List<MeetingResponseDto>> Handle(GetMeetingListQuery request, CancellationToken cancellationToken)
+    public async Task<List<MeetingResponseDto>> Handle(GetMeetingListRequest request, CancellationToken cancellationToken)
     {
         var response = _mapper.Map<List<MeetingResponseDto>>(await _repository.Get());
         

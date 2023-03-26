@@ -35,16 +35,14 @@ services:
       dockerfile: SenseCapitalTraineeTask/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
     env_file:
       - ./SenseCapitalTraineeTask/env.list
     ports:
-      - "29001:80"
-      - "29000:443"
+      - "29000:80"
     restart: on-failure
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
       - rabbitmq
       - mongodb
@@ -59,13 +57,11 @@ services:
       dockerfile: MyIdentityServer/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
     ports:
       - "28000:80"
-      - "28001:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     networks:
       - app-network
       
@@ -78,15 +74,13 @@ services:
       dockerfile: SenseCapitalTraineeTask.Images/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
     env_file:
       - ./SenseCapitalTraineeTask.Images/env.list
     ports:
       - "26000:80"
-      - "26001:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
       - rabbitmq
     networks:
@@ -100,15 +94,13 @@ services:
       dockerfile: SenseCapitalTraineeTask.Rooms/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
     env_file:
       - ./SenseCapitalTraineeTask.Rooms/env.list
     ports:
       - "25000:80"
-      - "25001:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
       - rabbitmq
     networks:
@@ -122,15 +114,13 @@ services:
       dockerfile: SenseCapitalTraineeTask.Payment/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
     env_file:
       - ./SenseCapitalTraineeTask.Payment/env.list
     ports:
       - "27000:80"
-      - "27001:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     networks:
       - app-network
 

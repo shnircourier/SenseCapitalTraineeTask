@@ -9,10 +9,10 @@ namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUser;
 /// Validator данных на выдачу билета пользователю
 /// </summary>
 [UsedImplicitly]
-public class GiveTicketToUserCommandValidator : AbstractValidator<GiveTicketToUserCommand>
+public class GiveTicketToUserValidator : AbstractValidator<GiveTicketToUserCommand>
 {
     /// <inheritdoc />
-    public GiveTicketToUserCommandValidator(IMediator mediator)
+    public GiveTicketToUserValidator(IMediator mediator)
     {
         RuleLevelCascadeMode = CascadeMode.Stop;
         

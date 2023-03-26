@@ -9,4 +9,4 @@ namespace SenseCapitalTraineeTask.Features.Images.ImageById;
 /// </summary>
 /// <param name="Id"></param>
 [UsedImplicitly]
-public record ImageByIdQuery(string Id) : IRequest<ScResult<string>>;
+public record ImageByIdRequest(string Id) : IRequest<ScResult<string>>;

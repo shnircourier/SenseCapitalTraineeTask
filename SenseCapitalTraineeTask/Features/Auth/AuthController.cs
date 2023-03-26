@@ -55,7 +55,7 @@ public class AuthController : ControllerBase
     {
         _logger.LogInformation("Запрос: {0}", userRequestDto);
         
-        var response = await _mediator.Send(new GetTokenQuery(userRequestDto));
+        var response = await _mediator.Send(new GetTokenRequest(userRequestDto));
 
         _logger.LogInformation("Ответ: {0}", response);
         

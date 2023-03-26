@@ -89,15 +89,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+
+app.UseCors(cfg =>
+{
+    cfg.AllowAnyOrigin();
+    cfg.AllowAnyHeader();
+    cfg.AllowAnyMethod();
+});
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-app.UseCors(cfg => cfg.AllowAnyOrigin());
 
 app.MapControllers();
 

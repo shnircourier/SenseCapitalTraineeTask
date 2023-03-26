@@ -31,7 +31,7 @@ public class GetMeetingByIdHandlerTest
         const decimal ticketPrice = 0;
         
 
-        var query = new GetMeetingByIdQuery(id);
+        var query = new GetMeetingByIdRequest(id);
         
         var meeting = new Meeting
         {

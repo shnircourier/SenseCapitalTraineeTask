@@ -16,8 +16,7 @@ public static class MongoDbUserSeeder
     {
         if (repository.Get().Result.Count == 0)
         {
-            // ReSharper disable once UnusedVariable
-            var resp = repository.CreateMany(new List<User>
+            var _ = repository.CreateMany(new List<User>
             {
                 new()
                 {

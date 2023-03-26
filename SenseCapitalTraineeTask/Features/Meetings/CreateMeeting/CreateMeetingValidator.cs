@@ -10,10 +10,10 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 /// Validator создания мероприятия
 /// </summary>
 [UsedImplicitly]
-public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingCommand>
+public class CreateMeetingValidator : AbstractValidator<CreateMeetingCommand>
 {
     /// <inheritdoc />
-    public CreateMeetingCommandValidator(IMediator mediator)
+    public CreateMeetingValidator(IMediator mediator)
     {
         RuleLevelCascadeMode = CascadeMode.Stop;
 
@@ -35,7 +35,7 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
             .WithMessage("ImgId. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
             .MustAsync(async (x, _) =>
             {
-                var response = await mediator.Send(new ImageByIdQuery(x));
+                var response = await mediator.Send(new ImageByIdRequest(x));
 
                 return response.Result is not null;
             })
@@ -47,7 +47,7 @@ public class CreateMeetingCommandValidator : AbstractValidator<CreateMeetingComm
             .WithMessage("RoomId. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
             .MustAsync(async (x, _) =>
             {
-                var response = await mediator.Send(new RoomByIdQuery(x));
+                var response = await mediator.Send(new RoomByIdRequest(x));
 
                 return response.Result is not null;
             })

@@ -9,4 +9,4 @@ namespace SenseCapitalTraineeTask.Features.Rooms.RoomById;
 /// </summary>
 /// <param name="Id"></param>
 [UsedImplicitly]
-public record RoomByIdQuery(string Id) : IRequest<ScResult<string>>;
+public record RoomByIdRequest(string Id) : IRequest<ScResult<string>>;

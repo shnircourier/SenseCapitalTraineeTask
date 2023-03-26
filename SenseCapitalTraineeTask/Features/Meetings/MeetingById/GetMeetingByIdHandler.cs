@@ -11,7 +11,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.MeetingById;
 /// Логика получения мероприятия по Id
 /// </summary>
 [UsedImplicitly]
-public class GetMeetingByIdHandler : IRequestHandler<GetMeetingByIdQuery, MeetingResponseDto>
+public class GetMeetingByIdHandler : IRequestHandler<GetMeetingByIdRequest, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
@@ -30,7 +30,7 @@ public class GetMeetingByIdHandler : IRequestHandler<GetMeetingByIdQuery, Meetin
     }
 
     /// <inheritdoc />
-    public async Task<MeetingResponseDto> Handle(GetMeetingByIdQuery request, CancellationToken cancellationToken)
+    public async Task<MeetingResponseDto> Handle(GetMeetingByIdRequest request, CancellationToken cancellationToken)
     {
         var meeting = await _repository.Get(request.Id);
 
