@@ -14,10 +14,10 @@ namespace SenseCapitalTraineeTask.Images.Features;
 public class ImagesController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly RabbitMqSenderService _service;
+    private readonly ImageSenderService _service;
     private readonly ILogger<ImagesController> _logger;
 
-    public ImagesController(IMediator mediator, RabbitMqSenderService service, ILogger<ImagesController> logger)
+    public ImagesController(IMediator mediator, ImageSenderService service, ILogger<ImagesController> logger)
     {
         _mediator = mediator;
         _service = service;

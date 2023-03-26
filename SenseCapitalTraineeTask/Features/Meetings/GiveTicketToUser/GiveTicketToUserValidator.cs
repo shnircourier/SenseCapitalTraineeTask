@@ -18,6 +18,7 @@ public class GiveTicketToUserValidator : AbstractValidator<GiveTicketToUserComma
         
         RuleFor(x => x.RequestDto.UserId)
             .NotEmpty()
+            .WithMessage("UserId. Поле обязательно к заполнению")
             .Matches(@"^[0-9a-fA-F]{24}$")
             .WithMessage("UserId. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
             .MustAsync(async (x, _) =>

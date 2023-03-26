@@ -1,4 +1,4 @@
-using SenseCapitalTraineeTask.Data.Entities;
+using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings;
 

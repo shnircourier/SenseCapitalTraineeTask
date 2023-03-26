@@ -1,7 +1,7 @@
 using AutoMapper;
-using SenseCapitalTraineeTask.Data;
-using SenseCapitalTraineeTask.Data.Entities;
 using SenseCapitalTraineeTask.Features.Meetings;
+using SenseCapitalTraineeTask.Features.Meetings.Data;
+using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
 using SenseCapitalTraineeTask.Features.Meetings.MeetingById;
 
 namespace SenseCapitalTraineeTask.Mock;

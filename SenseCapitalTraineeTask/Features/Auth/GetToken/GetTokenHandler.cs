@@ -39,13 +39,6 @@ public class GetTokenHandler : IRequestHandler<GetTokenRequest, string>
     /// <inheritdoc />
     public async Task<string> Handle(GetTokenRequest request, CancellationToken cancellationToken)
     {
-        var isExist = await _mediator.Send(new VerifyUserQuery(request.UserRequestDto), cancellationToken);
-
-        if (!isExist)
-        {
-            throw new ScException("Неправильный имя пользователя или пароль");
-        }
-        
         var authClient = _httpClientFactory.CreateClient();
 
         _logger.LogInformation("Обращение к документации identity server");
@@ -62,6 +55,13 @@ public class GetTokenHandler : IRequestHandler<GetTokenRequest, string>
         if (discovery.IsError)
         {
             throw new ScException($"Сервис авторизации по адресу {Environment.GetEnvironmentVariable("ASPNETCORE_IDENTITY_URL") ?? _configuration["Auth:Authority"]} временно недоступен");
+        }
+        
+        var isExist = await _mediator.Send(new VerifyUserQuery(request.UserRequestDto), cancellationToken);
+
+        if (!isExist)
+        {
+            throw new ScException("Неправильный имя пользователя или пароль");
         }
         
         _logger.LogInformation("Обращение к маршруту получения JWT");

@@ -1,8 +1,8 @@
 using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.Exceptions;
-using SenseCapitalTraineeTask.Rooms.Data;
-using SenseCapitalTraineeTask.Rooms.Data.Entities;
+using SenseCapitalTraineeTask.Rooms.Features.Data;
+using SenseCapitalTraineeTask.Rooms.Features.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Rooms.Features.RoomById;
 

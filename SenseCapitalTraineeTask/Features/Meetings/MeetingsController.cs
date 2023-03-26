@@ -138,7 +138,7 @@ public class MeetingsController : ControllerBase
     {
         _logger.LogInformation("Запрос: [FromBody] {0}; [FromRoute] {1}", requestDto, id);
         
-        var response = await _mediator.Send(new CreateFreeTicketsCommand(requestDto, id));
+        var response = await _mediator.Send(new CreateTicketsCommand(requestDto, id));
         
         _logger.LogInformation("Ответ: {0}", response);
 

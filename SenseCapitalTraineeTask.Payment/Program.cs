@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using SenseCapitalTraineeTask.Payment.Data;
+using SenseCapitalTraineeTask.Payment.Features.Payment.Data;
 using SenseCapitalTraineeTask.Payment.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);

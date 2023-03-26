@@ -2,8 +2,8 @@ using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.Exceptions;
-using SenseCapitalTraineeTask.Data;
-using SenseCapitalTraineeTask.Data.Entities;
+using SenseCapitalTraineeTask.Features.Meetings.Data;
+using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 

@@ -23,16 +23,19 @@ public class UpdateMeetingValidator : AbstractValidator<UpdateMeetingCommand>
         
         RuleFor(x => x.Meeting.Title)
             .NotEmpty()
-            .WithMessage("Поле обязательно к заполнению")
-            .Length(10, 128);
+            .WithMessage("Title. Поле обязательно к заполнению")
+            .Length(10, 128)
+            .WithMessage("Title. Кол-во символов должно быть от 10 до 128");
 
         RuleFor(x => x.Meeting.Description)
             .NotEmpty()
-            .WithMessage("Поле обязательно к заполнению")
-            .Length(10, 128);
+            .WithMessage("Description. Поле обязательно к заполнению")
+            .Length(10, 256)
+            .WithMessage("Description. Кол-во символов должно быть от 10 до 128");
 
         RuleFor(x => x.Meeting.ImgId)
             .NotEmpty()
+            .WithMessage("ImgId. Поле обязательно к заполнению")
             .Matches(@"^[0-9a-fA-F]{24}$")
             .WithMessage("ImgId. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
             .MustAsync(async (x, _) =>
@@ -41,10 +44,11 @@ public class UpdateMeetingValidator : AbstractValidator<UpdateMeetingCommand>
 
                 return response.Result is not null;
             })
-            .WithMessage("ImgId. Ссылка на несуществующий ключ");
+            .WithMessage("ImgId. Выбранной картинки не существует");
 
         RuleFor(x => x.Meeting.RoomId)
             .NotEmpty()
+            .WithMessage("RoomId. Поле обязательно к заполнению")
             .Matches(@"^[0-9a-fA-F]{24}$")
             .WithMessage("RoomId. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
             .MustAsync(async (x, _) =>
@@ -53,17 +57,17 @@ public class UpdateMeetingValidator : AbstractValidator<UpdateMeetingCommand>
 
                 return response.Result is not null;
             })
-            .WithMessage("RoomId. Ссылка на несуществующий ключ");
+            .WithMessage("RoomId. Выбранного помещения не существует");
 
         RuleFor(x => x.Meeting.BeginAt)
             .NotEmpty()
-            .WithMessage("Поле обязательно к заполнению")
+            .WithMessage("BeginAt. Поле обязательно к заполнению")
             .Must((x,d ) => d < x.Meeting.EndAt)
             .WithMessage("Дата начала не может быть позже даты окончания");
 
         RuleFor(x => x.Meeting.EndAt)
             .NotEmpty()
-            .WithMessage("Поле обязательно к заполнению")
+            .WithMessage("EndAt. Поле обязательно к заполнению")
             .Must((x, d) => d > x.Meeting.BeginAt)
             .WithMessage("Дата окончания не может быть раньше даты начала");
     }

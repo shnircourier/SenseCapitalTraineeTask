@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using MediatR;
-using SenseCapitalTraineeTask.Rooms.Data;
-using SenseCapitalTraineeTask.Rooms.Data.Entities;
+using SenseCapitalTraineeTask.Rooms.Features.Data;
+using SenseCapitalTraineeTask.Rooms.Features.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Rooms.Features.RoomList;
 

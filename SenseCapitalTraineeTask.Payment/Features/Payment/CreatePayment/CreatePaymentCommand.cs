@@ -1,5 +1,5 @@
 using MediatR;
-using SenseCapitalTraineeTask.Payment.Data;
+using SenseCapitalTraineeTask.Payment.Features.Payment.Data;
 
 namespace SenseCapitalTraineeTask.Payment.Features.Payment.CreatePayment;
 

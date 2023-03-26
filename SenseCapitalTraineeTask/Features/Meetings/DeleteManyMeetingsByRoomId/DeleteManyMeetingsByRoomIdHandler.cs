@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using MediatR;
-using SenseCapitalTraineeTask.Data;
-using SenseCapitalTraineeTask.Data.Entities;
+using SenseCapitalTraineeTask.Features.Meetings.Data;
+using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.DeleteManyMeetingsByRoomId;
 
