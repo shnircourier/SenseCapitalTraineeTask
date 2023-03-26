@@ -4,7 +4,7 @@ using MediatR;
 using SenseCapitalTraineeTask.Features.Meetings.Data;
 using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
 
-namespace SenseCapitalTraineeTask.Features.Meetings.CreateFreeTickets;
+namespace SenseCapitalTraineeTask.Features.Meetings.CreateTickets;
 
 /// <summary>
 /// Логика создания билетов

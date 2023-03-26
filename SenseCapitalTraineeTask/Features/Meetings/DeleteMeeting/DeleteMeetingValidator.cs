@@ -1,6 +1,7 @@
 using FluentValidation;
 using JetBrains.Annotations;
 using MediatR;
+using SenseCapitalTraineeTask.Features.Meetings.MeetingById;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.DeleteMeeting;
 
@@ -22,7 +23,7 @@ public class DeleteMeetingValidator : AbstractValidator<DeleteMeetingCommand>
             .WithMessage("Id. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
             .MustAsync(async (x, _) =>
             {
-                var response = await mediator.Send(new DeleteMeetingCommand(x));
+                var response = await mediator.Send(new GetMeetingByIdRequest(x));
 
                 // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
                 return response is not null;

@@ -4,4 +4,5 @@ namespace SenseCapitalTraineeTask.Features.Meetings;
 /// Модель создания билетов
 /// </summary>
 /// <param name="Amount">Кол-во билетов (мест)</param>
-public record CreateFreeTicketsRequestDto(int Amount, bool IsSeatRequired);
+/// <param name="IsSeatRequired">Нужен ли номер места</param>
+public record CreateTicketsRequestDto(int Amount, bool IsSeatRequired);

@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Features.Meetings.CheckUserTicket;
-using SenseCapitalTraineeTask.Features.Meetings.CreateFreeTickets;
 using SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
+using SenseCapitalTraineeTask.Features.Meetings.CreateTickets;
 using SenseCapitalTraineeTask.Features.Meetings.DeleteMeeting;
 using SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUser;
 using SenseCapitalTraineeTask.Features.Meetings.MeetingById;
@@ -134,7 +134,7 @@ public class MeetingsController : ControllerBase
     /// <response code="422">Ошибка валидации</response>
     // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     [HttpPost("{id}/tickets/create")]
-    public async Task<ScResult<MeetingResponseDto>> CreateFreeTickets([FromBody] CreateFreeTicketsRequestDto requestDto, [FromRoute] string id)
+    public async Task<ScResult<MeetingResponseDto>> CreateFreeTickets([FromBody] CreateTicketsRequestDto requestDto, [FromRoute] string id)
     {
         _logger.LogInformation("Запрос: [FromBody] {0}; [FromRoute] {1}", requestDto, id);
         
@@ -172,18 +172,19 @@ public class MeetingsController : ControllerBase
     /// <param name="requestDto">Модель запроса</param>
     /// <param name="id">Идентификатор мероприятия</param>
     /// <returns></returns>
+    /// <response code="200">Пустой ответ, значит все места совпали</response>
     /// <response code="400">Мероприятие не найдено</response>
     /// <response code="400">Билет не найден</response>
     /// <response code="400">Билет не принадлежит пользователю</response>
     /// <response code="400">Места не совпадают</response>
     // ReSharper disable once RouteTemplates.ActionRoutePrefixCanBeExtractedToControllerRoute
     [HttpPost("{id}/ticket/check")]
-    public async Task<ScResult> CheckTicket([FromBody] CheckTicketRequestDto requestDto, [FromRoute] string id)
+    public async Task<ScResult<bool>> CheckTicket([FromBody] CheckTicketRequestDto requestDto, [FromRoute] string id)
     {
         _logger.LogInformation("Запрос: [FromBody] {0}; [FromRoute] {1}", requestDto, id);
         
-        await _mediator.Send(new CheckUserTicketRequest(id, requestDto));
+        var response = await _mediator.Send(new CheckUserTicketRequest(id, requestDto));
 
-        return new ScResult();
+        return new ScResult<bool>(response);
     }
 }

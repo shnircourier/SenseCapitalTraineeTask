@@ -10,7 +10,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CheckUserTicket;
 /// Логика проверки билета пользователя
 /// </summary>
 [UsedImplicitly]
-public class CheckUserTicketHandler : IRequestHandler<CheckUserTicketRequest>
+public class CheckUserTicketHandler : IRequestHandler<CheckUserTicketRequest, bool>
 {
     private readonly IRepository<Meeting> _repository;
 
@@ -24,7 +24,7 @@ public class CheckUserTicketHandler : IRequestHandler<CheckUserTicketRequest>
     }
 
     /// <inheritdoc />
-    public async Task Handle(CheckUserTicketRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(CheckUserTicketRequest request, CancellationToken cancellationToken)
     {
         var meeting = await _repository.Get(request.MeetingId);
 
@@ -51,5 +51,7 @@ public class CheckUserTicketHandler : IRequestHandler<CheckUserTicketRequest>
         {
             throw new ScException("Места не совпадают");
         }
+
+        return true;
     }
 }

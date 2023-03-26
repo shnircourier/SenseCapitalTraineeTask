@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using MediatR;
 using SenseCapitalTraineeTask.Features.Meetings.MeetingById;
 
-namespace SenseCapitalTraineeTask.Features.Meetings.CreateFreeTickets;
+namespace SenseCapitalTraineeTask.Features.Meetings.CreateTickets;
 
 /// <summary>
 /// Validator создания билетов

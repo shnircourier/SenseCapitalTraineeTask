@@ -7,4 +7,4 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CheckUserTicket;
 /// </summary>
 /// <param name="MeetingId"></param>
 /// <param name="RequestDto"></param>
-public record CheckUserTicketRequest(string MeetingId, CheckTicketRequestDto RequestDto) : IRequest;
+public record CheckUserTicketRequest(string MeetingId, CheckTicketRequestDto RequestDto) : IRequest<bool>;

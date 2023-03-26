@@ -5,6 +5,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings;
 /// <summary>
 /// 
 /// </summary>
+/// <param name="Id">Id</param>
 /// <param name="BeginAt">Дата начала</param>
 /// <param name="EndAt">Дата конца</param>
 /// <param name="Title">Заголовок</param>
@@ -13,6 +14,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings;
 /// <param name="RoomId">Id комнаты</param>
 /// <param name="Tickets">Список билетов</param>
 /// <param name="IsFull">Заполнена ли</param>
+/// <param name="TicketPrice">Цена билета</param>
 public record MeetingResponseDto(
     string Id,
     DateTime BeginAt,
