@@ -19,14 +19,6 @@ public class GetMeetingByIdValidator : AbstractValidator<GetMeetingByIdRequest>
             .NotEmpty()
             .WithMessage("Id не может быть пустым")
             .Matches(@"^[0-9a-fA-F]{24}$")
-            .WithMessage("Id. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
-            .MustAsync(async (x, _) =>
-            {
-                var response = await mediator.Send(new GetMeetingByIdRequest(x));
-
-                // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-                return response is not null;
-            })
-            .WithMessage("Мероприятие не найдено");
+            .WithMessage("Id. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)");
     }
 }

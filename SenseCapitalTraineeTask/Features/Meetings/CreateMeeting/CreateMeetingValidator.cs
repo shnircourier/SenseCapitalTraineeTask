@@ -62,7 +62,7 @@ public class CreateMeetingValidator : AbstractValidator<CreateMeetingCommand>
         RuleFor(x => x.Meeting.BeginAt)
             .NotEmpty()
             .WithMessage("BeginAt. Поле обязательно к заполнению")
-            .Must((x, d) => d == x.Meeting.EndAt)
+            .Must((x, d) => !d.Equals(x.Meeting.EndAt))
             .WithMessage("BeginAt. Дата начала равна дате окончания")
             .Must((x,d ) => d < x.Meeting.EndAt)
             .WithMessage("BeginAt. Дата начала не может быть позже даты окончания");
@@ -70,7 +70,7 @@ public class CreateMeetingValidator : AbstractValidator<CreateMeetingCommand>
         RuleFor(x => x.Meeting.EndAt)
             .NotEmpty()
             .WithMessage("EndAt. Поле обязательно к заполнению")
-            .Must((x, d) => d == x.Meeting.BeginAt)
+            .Must((x, d) => !d.Equals(x.Meeting.BeginAt))
             .WithMessage("EndAt. Дата начала равна дате окончания")
             .Must((x, d) => d > x.Meeting.BeginAt)
             .WithMessage("EndAt. Дата окончания не может быть раньше даты начала");
