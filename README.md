@@ -4,7 +4,7 @@
 ### 2) Выбрать ветку master
 ### 3) Выполнить восстановление submodule'ей гита, командой git submodule update
 ### 4) Выполнить восстановление NuGet пакетов
-### 5) Запустить docker compose командой  docker compose -f .\docker-compose.yml -f .\docker-compose.override.yml up или в IDE Visual Studio 2022
+### 5) Запустить docker compose командой  docker compose up или в IDE Visual Studio 2022
 ### 6) Перейти на по ссылке http://localhost:29000/swagger/index.html  (Если не меняли файлы env)
 
 ### Мероприятия где цена билетов = 0 считаются бесплатными и обращение к сервису оплаты не происходит
