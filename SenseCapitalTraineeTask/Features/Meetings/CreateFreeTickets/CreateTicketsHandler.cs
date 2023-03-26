@@ -1,7 +1,6 @@
 using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
-using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Features.Meetings.Data;
 using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
 
@@ -37,12 +36,7 @@ public class CreateTicketsHandler : IRequestHandler<CreateTicketsCommand, Meetin
     public async Task<MeetingResponseDto> Handle(CreateTicketsCommand request, CancellationToken cancellationToken)
     {
         var meeting = await _meetingRepository.Get(request.MeetingId);
-        
-        if (meeting is null)
-        {
-            throw new ScException("Мероприятие не найдено");
-        }
-        
+
         var newFreeTickets = new List<Ticket>();
         
         for (var i = 0; i < request.RequestDto.Amount; i++)

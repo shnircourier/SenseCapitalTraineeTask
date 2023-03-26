@@ -1,7 +1,6 @@
 using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
-using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Features.Meetings.Data;
 using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
 
@@ -34,11 +33,6 @@ public class GetMeetingByIdHandler : IRequestHandler<GetMeetingByIdRequest, Meet
     {
         var meeting = await _repository.Get(request.Id);
 
-        if (meeting is null)
-        {
-            throw new ScException("Мероприятие не найдено");
-        }
-        
         var response = _mapper.Map<MeetingResponseDto>(meeting);
         
         return response;

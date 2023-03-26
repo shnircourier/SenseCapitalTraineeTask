@@ -1,7 +1,6 @@
 using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
-using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Features.Meetings.Data;
 using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
 
@@ -38,11 +37,6 @@ public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingCommand, Meetin
     {
         var meeting = await _repository.Get(request.Id);
 
-        if (meeting is null)
-        {
-            throw new ScException("Мероприятие не найдено");
-        }
-        
         await _repository.Delete(meeting);
         
         _senderService.SendingMessage(new MeetingEventBody

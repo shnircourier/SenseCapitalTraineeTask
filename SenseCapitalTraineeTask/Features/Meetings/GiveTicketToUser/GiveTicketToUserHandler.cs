@@ -35,12 +35,7 @@ public class GiveTicketToUserHandler : IRequestHandler<GiveTicketToUserCommand, 
     public async Task<MeetingResponseDto> Handle(GiveTicketToUserCommand request, CancellationToken cancellationToken)
     {
         var meeting = await _repository.Get(request.MeetingId);
-        
-        if (meeting is null)
-        {
-            throw new ScException("Мероприятие не найдено");
-        }
-        
+
         if (meeting.IsFull)
         {
             throw new ScException("Билеты закончились");

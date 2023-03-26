@@ -1,30 +1,23 @@
 using FluentValidation;
 using JetBrains.Annotations;
 using MediatR;
-using SenseCapitalTraineeTask.Features.Meetings.MeetingById;
 
-namespace SenseCapitalTraineeTask.Features.Meetings.CreateFreeTickets;
+namespace SenseCapitalTraineeTask.Features.Meetings.MeetingById;
 
 /// <summary>
-/// Validator создания билетов
+/// Обработчик id мероприятия
 /// </summary>
 [UsedImplicitly]
-public class CreateTicketsValidator : AbstractValidator<CreateTicketsCommand>
+public class GetMeetingByIdValidator : AbstractValidator<GetMeetingByIdRequest>
 {
     /// <inheritdoc />
-    public CreateTicketsValidator(IMediator mediator)
+    public GetMeetingByIdValidator(IMediator mediator)
     {
         RuleLevelCascadeMode = CascadeMode.Stop;
 
-        RuleFor(x => x.RequestDto.Amount)
+        RuleFor(x => x.Id)
             .NotEmpty()
-            .WithMessage("Поле обязательно к заполнению")
-            .GreaterThan(0)
-            .WithMessage("Кол-во билетов не может быть отрицательным или равно 0");
-        
-        RuleFor(x => x.MeetingId)
-            .NotEmpty()
-            .WithMessage("MeetingId не может быть пустым")
+            .WithMessage("Id не может быть пустым")
             .Matches(@"^[0-9a-fA-F]{24}$")
             .WithMessage("Id. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
             .MustAsync(async (x, _) =>

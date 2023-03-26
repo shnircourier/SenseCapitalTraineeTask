@@ -1,7 +1,6 @@
 using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
-using SC.Internship.Common.Exceptions;
 using SenseCapitalTraineeTask.Features.Meetings.Data;
 using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
 
@@ -33,11 +32,6 @@ public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, Meetin
     public async Task<MeetingResponseDto> Handle(UpdateMeetingCommand request, CancellationToken cancellationToken)
     {
         var meeting = await _repository.Get(request.Id);
-
-        if (meeting is null)
-        {
-            throw new ScException("Мероприятие не найдено");
-        }
 
         meeting.Description = request.Meeting.Description;
 

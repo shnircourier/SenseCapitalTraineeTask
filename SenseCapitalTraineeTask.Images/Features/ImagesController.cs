@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Images.Features.ImageById;
 using SenseCapitalTraineeTask.Images.Features.ImageList;
-using SenseCapitalTraineeTask.Images.Infrastructure;
 
 namespace SenseCapitalTraineeTask.Images.Features;
 
