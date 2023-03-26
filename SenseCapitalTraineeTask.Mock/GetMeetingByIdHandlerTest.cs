@@ -1,7 +1,7 @@
 using AutoMapper;
-using SenseCapitalTraineeTask.Data;
-using SenseCapitalTraineeTask.Data.Entities;
 using SenseCapitalTraineeTask.Features.Meetings;
+using SenseCapitalTraineeTask.Features.Meetings.Data;
+using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
 using SenseCapitalTraineeTask.Features.Meetings.MeetingById;
 
 namespace SenseCapitalTraineeTask.Mock;
@@ -31,7 +31,7 @@ public class GetMeetingByIdHandlerTest
         const decimal ticketPrice = 0;
         
 
-        var query = new GetMeetingByIdQuery(id);
+        var query = new GetMeetingByIdRequest(id);
         
         var meeting = new Meeting
         {

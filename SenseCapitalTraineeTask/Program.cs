@@ -3,11 +3,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-using SenseCapitalTraineeTask.Data;
-using SenseCapitalTraineeTask.Data.Entities;
-using SenseCapitalTraineeTask.Data.MongoDb;
-using SenseCapitalTraineeTask.Data.Seeds;
 using SenseCapitalTraineeTask.Features.Meetings;
+using SenseCapitalTraineeTask.Features.Meetings.Data;
+using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
+using SenseCapitalTraineeTask.Features.Meetings.Data.MongoDb;
+using SenseCapitalTraineeTask.Features.Meetings.Data.Seeds;
 using SenseCapitalTraineeTask.Identity;
 using SenseCapitalTraineeTask.Infrastructure.Middlewares;
 using SenseCapitalTraineeTask.Infrastructure.PipelineBehaviors;
@@ -89,15 +89,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+
+app.UseCors(cfg =>
+{
+    cfg.AllowAnyOrigin();
+    cfg.AllowAnyHeader();
+    cfg.AllowAnyMethod();
+});
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-app.UseCors(cfg => cfg.AllowAnyOrigin());
 
 app.MapControllers();
 

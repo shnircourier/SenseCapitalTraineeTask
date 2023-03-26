@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using SenseCapitalTraineeTask.Rooms.Data;
-using SenseCapitalTraineeTask.Rooms.Data.Entities;
+using SenseCapitalTraineeTask.Rooms.Features;
+using SenseCapitalTraineeTask.Rooms.Features.Data;
+using SenseCapitalTraineeTask.Rooms.Features.Data.Entities;
 using SenseCapitalTraineeTask.Rooms.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,13 +32,18 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 var app = builder.Build();
 
+app.UseCors(cfg =>
+{
+    cfg.AllowAnyOrigin();
+    cfg.AllowAnyHeader();
+    cfg.AllowAnyMethod();
+});
+
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-app.UseCors(cfg => cfg.AllowAnyOrigin());
 
 app.MapControllers();
 

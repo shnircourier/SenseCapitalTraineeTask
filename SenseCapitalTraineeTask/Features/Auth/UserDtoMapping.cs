@@ -1,6 +1,6 @@
 using AutoMapper;
 using JetBrains.Annotations;
-using SenseCapitalTraineeTask.Data.Entities;
+using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Auth;
 

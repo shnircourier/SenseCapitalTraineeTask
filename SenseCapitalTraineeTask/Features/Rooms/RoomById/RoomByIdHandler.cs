@@ -12,7 +12,7 @@ namespace SenseCapitalTraineeTask.Features.Rooms.RoomById;
 /// Обращение к стороннему сервису помещений
 /// </summary>
 [UsedImplicitly]
-public class RoomByIdHandler : IRequestHandler<RoomByIdQuery, ScResult<string>>
+public class RoomByIdHandler : IRequestHandler<RoomByIdRequest, ScResult<string>>
 {
     private const int MaxRetries = 3;
     private readonly IdentityService _identityService;
@@ -32,7 +32,7 @@ public class RoomByIdHandler : IRequestHandler<RoomByIdQuery, ScResult<string>>
     }
 
     /// <inheritdoc />
-    public async Task<ScResult<string>> Handle(RoomByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ScResult<string>> Handle(RoomByIdRequest request, CancellationToken cancellationToken)
     {
         var client = await _identityService.GetAuthorizedClient();
 

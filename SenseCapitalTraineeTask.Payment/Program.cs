@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using SenseCapitalTraineeTask.Payment.Data;
+using SenseCapitalTraineeTask.Payment.Features.Payment.Data;
 using SenseCapitalTraineeTask.Payment.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +26,13 @@ builder.Services.AddLogging(loggingBuilder =>
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 var app = builder.Build();
+
+app.UseCors(cfg =>
+{
+    cfg.AllowAnyOrigin();
+    cfg.AllowAnyHeader();
+    cfg.AllowAnyMethod();
+});
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 

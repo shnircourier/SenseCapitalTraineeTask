@@ -12,7 +12,7 @@ namespace SenseCapitalTraineeTask.Features.Images.ImageById;
 /// Получение картинки по Id у стороннего сервиса
 /// </summary>
 [UsedImplicitly]
-public class ImageByIdHandler : IRequestHandler<ImageByIdQuery, ScResult<string>>
+public class ImageByIdHandler : IRequestHandler<ImageByIdRequest, ScResult<string>>
 {
     private const int MaxRetries = 3;
     private readonly IdentityService _identityService;
@@ -32,7 +32,7 @@ public class ImageByIdHandler : IRequestHandler<ImageByIdQuery, ScResult<string>
     }
 
     /// <inheritdoc />
-    public async Task<ScResult<string>> Handle(ImageByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ScResult<string>> Handle(ImageByIdRequest request, CancellationToken cancellationToken)
     {
         var client = await _identityService.GetAuthorizedClient();
 

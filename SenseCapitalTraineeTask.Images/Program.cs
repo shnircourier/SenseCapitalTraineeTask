@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using SenseCapitalTraineeTask.Images.Data;
-using SenseCapitalTraineeTask.Images.Data.Entities;
+using SenseCapitalTraineeTask.Images.Features;
+using SenseCapitalTraineeTask.Images.Features.Data;
+using SenseCapitalTraineeTask.Images.Features.Data.Entities;
 using SenseCapitalTraineeTask.Images.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,7 @@ builder.Services.AddSingleton<IRepository<Image>, TestDataRepository>();
 builder.Services.AddMediatR(cfg => 
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
-builder.Services.AddScoped<RabbitMqSenderService>();
+builder.Services.AddScoped<ImageSenderService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, cfg =>
@@ -30,13 +31,18 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 var app = builder.Build();
 
+app.UseCors(cfg =>
+{
+    cfg.AllowAnyOrigin();
+    cfg.AllowAnyHeader();
+    cfg.AllowAnyMethod();
+});
+
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-app.UseCors(cfg => cfg.AllowAnyOrigin());
 
 app.MapControllers();
 

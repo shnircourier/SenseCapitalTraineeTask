@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
 using SenseCapitalTraineeTask.Rooms.Features.RoomById;
 using SenseCapitalTraineeTask.Rooms.Features.RoomList;
-using SenseCapitalTraineeTask.Rooms.Infrastructure;
 
 namespace SenseCapitalTraineeTask.Rooms.Features;
 

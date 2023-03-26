@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using MediatR;
-using SenseCapitalTraineeTask.Images.Data;
-using SenseCapitalTraineeTask.Images.Data.Entities;
+using SenseCapitalTraineeTask.Images.Features.Data;
+using SenseCapitalTraineeTask.Images.Features.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Images.Features.ImageList;
 

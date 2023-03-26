@@ -2,8 +2,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SC.Internship.Common.ScResult;
-using SenseCapitalTraineeTask.Payment.Data;
 using SenseCapitalTraineeTask.Payment.Features.Payment.CreatePayment;
+using SenseCapitalTraineeTask.Payment.Features.Payment.Data;
 using SenseCapitalTraineeTask.Payment.Features.Payment.PaymentList;
 using SenseCapitalTraineeTask.Payment.Features.Payment.UpdatePaymentStatus;
 

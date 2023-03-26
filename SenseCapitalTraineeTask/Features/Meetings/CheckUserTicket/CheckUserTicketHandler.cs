@@ -1,8 +1,8 @@
 using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.Exceptions;
-using SenseCapitalTraineeTask.Data;
-using SenseCapitalTraineeTask.Data.Entities;
+using SenseCapitalTraineeTask.Features.Meetings.Data;
+using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.CheckUserTicket;
 
@@ -10,7 +10,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CheckUserTicket;
 /// Логика проверки билета пользователя
 /// </summary>
 [UsedImplicitly]
-public class CheckUserTicketHandler : IRequestHandler<CheckUserTicketQuery>
+public class CheckUserTicketHandler : IRequestHandler<CheckUserTicketRequest>
 {
     private readonly IRepository<Meeting> _repository;
 
@@ -24,7 +24,7 @@ public class CheckUserTicketHandler : IRequestHandler<CheckUserTicketQuery>
     }
 
     /// <inheritdoc />
-    public async Task Handle(CheckUserTicketQuery request, CancellationToken cancellationToken)
+    public async Task Handle(CheckUserTicketRequest request, CancellationToken cancellationToken)
     {
         var meeting = await _repository.Get(request.MeetingId);
 

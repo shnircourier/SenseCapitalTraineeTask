@@ -2,8 +2,8 @@ using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
 using SC.Internship.Common.Exceptions;
-using SenseCapitalTraineeTask.Data;
-using SenseCapitalTraineeTask.Data.Entities;
+using SenseCapitalTraineeTask.Features.Meetings.Data;
+using SenseCapitalTraineeTask.Features.Meetings.Data.Entities;
 using SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUserWithPayment;
 
 namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUser;
@@ -35,12 +35,7 @@ public class GiveTicketToUserHandler : IRequestHandler<GiveTicketToUserCommand, 
     public async Task<MeetingResponseDto> Handle(GiveTicketToUserCommand request, CancellationToken cancellationToken)
     {
         var meeting = await _repository.Get(request.MeetingId);
-        
-        if (meeting is null)
-        {
-            throw new ScException("Мероприятие не найдено");
-        }
-        
+
         if (meeting.IsFull)
         {
             throw new ScException("Билеты закончились");

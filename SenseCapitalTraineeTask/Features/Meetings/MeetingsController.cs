@@ -38,7 +38,7 @@ public class MeetingsController : ControllerBase
     [HttpGet]
     public async Task<ScResult<List<MeetingResponseDto>>> Get()
     {
-        var response = await _mediator.Send(new GetMeetingListQuery());
+        var response = await _mediator.Send(new GetMeetingListRequest());
         
         _logger.LogInformation("Ответ: {0}", response);
         
@@ -58,7 +58,7 @@ public class MeetingsController : ControllerBase
     {
         _logger.LogInformation("Запрос: {0}", id);
         
-        var response = await _mediator.Send(new GetMeetingByIdQuery(id));
+        var response = await _mediator.Send(new GetMeetingByIdRequest(id));
         
         _logger.LogInformation("Ответ: {0}", response);
 
@@ -138,7 +138,7 @@ public class MeetingsController : ControllerBase
     {
         _logger.LogInformation("Запрос: [FromBody] {0}; [FromRoute] {1}", requestDto, id);
         
-        var response = await _mediator.Send(new CreateFreeTicketsCommand(requestDto, id));
+        var response = await _mediator.Send(new CreateTicketsCommand(requestDto, id));
         
         _logger.LogInformation("Ответ: {0}", response);
 
@@ -182,7 +182,7 @@ public class MeetingsController : ControllerBase
     {
         _logger.LogInformation("Запрос: [FromBody] {0}; [FromRoute] {1}", requestDto, id);
         
-        await _mediator.Send(new CheckUserTicketQuery(id, requestDto));
+        await _mediator.Send(new CheckUserTicketRequest(id, requestDto));
 
         return new ScResult();
     }
