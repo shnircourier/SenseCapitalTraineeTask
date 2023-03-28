@@ -8,4 +8,4 @@ namespace SenseCapitalTraineeTask.Features.Payments.CreatePayment;
 /// 
 /// </summary>
 /// <param name="Description"></param>
-public record CreatePaymentCommand([UsedImplicitly] string? Description) : IRequest<ScResult<PaymentOperation>>;
+public record CreatePaymentRequest([UsedImplicitly] string? Description) : IRequest<ScResult<PaymentOperation>>;

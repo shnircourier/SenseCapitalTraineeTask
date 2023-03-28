@@ -11,7 +11,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 /// Validator данных на обновление мероприятия
 /// </summary>
 [UsedImplicitly]
-public class UpdateMeetingValidator : AbstractValidator<UpdateMeetingCommand>
+public class UpdateMeetingValidator : AbstractValidator<UpdateMeetingRequest>
 {
     /// <inheritdoc />
     public UpdateMeetingValidator(IMediator mediator)

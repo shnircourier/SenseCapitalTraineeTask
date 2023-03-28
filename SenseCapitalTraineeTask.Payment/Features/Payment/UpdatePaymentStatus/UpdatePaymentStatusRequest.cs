@@ -3,4 +3,4 @@ using SenseCapitalTraineeTask.Payment.Features.Payment.Data;
 
 namespace SenseCapitalTraineeTask.Payment.Features.Payment.UpdatePaymentStatus;
 
-public record UpdatePaymentStatusCommand(UpdatePaymentStatusRequest PaymentStatusRequest) : IRequest<PaymentOperation>;
+public record UpdatePaymentStatusRequest(UpdatePaymentStatusRequestDto PaymentStatusRequestDto) : IRequest<PaymentOperation>;

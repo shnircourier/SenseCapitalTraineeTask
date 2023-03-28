@@ -57,7 +57,7 @@ public class GetTokenHandler : IRequestHandler<GetTokenRequest, string>
             throw new ScException($"Сервис авторизации по адресу {Environment.GetEnvironmentVariable("ASPNETCORE_IDENTITY_URL") ?? _configuration["Auth:Authority"]} временно недоступен");
         }
         
-        var isExist = await _mediator.Send(new VerifyUserQuery(request.UserRequestDto), cancellationToken);
+        var isExist = await _mediator.Send(new VerifyUserRequest(request.UserRequestDto), cancellationToken);
 
         if (!isExist)
         {

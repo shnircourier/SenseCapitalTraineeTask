@@ -9,7 +9,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CreateTickets;
 /// Validator создания билетов
 /// </summary>
 [UsedImplicitly]
-public class CreateTicketsValidator : AbstractValidator<CreateTicketsCommand>
+public class CreateTicketsValidator : AbstractValidator<CreateTicketsRequest>
 {
     /// <inheritdoc />
     public CreateTicketsValidator(IMediator mediator)

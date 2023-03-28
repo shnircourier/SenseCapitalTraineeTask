@@ -6,4 +6,4 @@ namespace SenseCapitalTraineeTask.Features.Meetings.DeleteManyMeetingsByRoomId;
 /// Команда удаления мероприятий по id помещений
 /// </summary>
 /// <param name="RoomId"></param>
-public record DeleteManyMeetingsByRoomIdCommand(string RoomId) : IRequest;
+public record DeleteManyMeetingsByRoomIdRequest(string RoomId) : IRequest;

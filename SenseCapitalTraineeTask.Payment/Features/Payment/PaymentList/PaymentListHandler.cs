@@ -5,7 +5,7 @@ using SenseCapitalTraineeTask.Payment.Features.Payment.Data;
 namespace SenseCapitalTraineeTask.Payment.Features.Payment.PaymentList;
 
 [UsedImplicitly]
-public class PaymentListHandler : IRequestHandler<PaymentListQuery, List<PaymentOperation>>
+public class PaymentListHandler : IRequestHandler<PaymentListRequest, List<PaymentOperation>>
 {
     private readonly PaymentData _paymentData;
 
@@ -14,7 +14,7 @@ public class PaymentListHandler : IRequestHandler<PaymentListQuery, List<Payment
         _paymentData = paymentData;
     }
     
-    public Task<List<PaymentOperation>> Handle(PaymentListQuery request, CancellationToken cancellationToken)
+    public Task<List<PaymentOperation>> Handle(PaymentListRequest request, CancellationToken cancellationToken)
     {
         var response = _paymentData.Get();
         

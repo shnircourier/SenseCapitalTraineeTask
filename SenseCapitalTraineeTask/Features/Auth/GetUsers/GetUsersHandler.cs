@@ -10,7 +10,7 @@ namespace SenseCapitalTraineeTask.Features.Auth.GetUsers;
 /// Логика получения списка пользователей
 /// </summary>
 [UsedImplicitly]
-public class GetUsersHandler : IRequestHandler<GetUsersQuery, List<UserResponseDto>>
+public class GetUsersHandler : IRequestHandler<GetUsersRequest, List<UserResponseDto>>
 {
     private readonly IRepository<User> _repository;
     private readonly IMapper _mapper;
@@ -27,7 +27,7 @@ public class GetUsersHandler : IRequestHandler<GetUsersQuery, List<UserResponseD
     }
 
     /// <inheritdoc />
-    public async Task<List<UserResponseDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+    public async Task<List<UserResponseDto>> Handle(GetUsersRequest request, CancellationToken cancellationToken)
     {
         var users = await _repository.Get();
         

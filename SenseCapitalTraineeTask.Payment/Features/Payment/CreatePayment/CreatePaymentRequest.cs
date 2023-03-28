@@ -3,4 +3,4 @@ using SenseCapitalTraineeTask.Payment.Features.Payment.Data;
 
 namespace SenseCapitalTraineeTask.Payment.Features.Payment.CreatePayment;
 
-public record CreatePaymentCommand(string? Description) : IRequest<PaymentOperation>;
+public record CreatePaymentRequest(string? Description) : IRequest<PaymentOperation>;

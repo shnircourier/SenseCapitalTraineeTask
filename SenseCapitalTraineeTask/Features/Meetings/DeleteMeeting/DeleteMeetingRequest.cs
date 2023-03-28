@@ -6,4 +6,4 @@ namespace SenseCapitalTraineeTask.Features.Meetings.DeleteMeeting;
 /// Команда на удаление мероприятия
 /// </summary>
 /// <param name="Id"></param>
-public record DeleteMeetingCommand(string Id) : IRequest<MeetingResponseDto>;
+public record DeleteMeetingRequest(string Id) : IRequest<MeetingResponseDto>;

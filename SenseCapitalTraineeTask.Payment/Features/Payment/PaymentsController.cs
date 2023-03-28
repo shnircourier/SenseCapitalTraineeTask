@@ -24,7 +24,7 @@ public class PaymentsController : ControllerBase
     [HttpGet]
     public async Task<ScResult<List<PaymentOperation>>> Get()
     {
-        var response = await _mediator.Send(new PaymentListQuery());
+        var response = await _mediator.Send(new PaymentListRequest());
 
         return new ScResult<List<PaymentOperation>>(response);
     }
@@ -32,15 +32,15 @@ public class PaymentsController : ControllerBase
     [HttpPost("")]
     public async Task<ScResult<PaymentOperation>> Create([FromBody] PaymentCreateRequest request)
     {
-        var response = await _mediator.Send(new CreatePaymentCommand(request.Description));
+        var response = await _mediator.Send(new CreatePaymentRequest(request.Description));
 
         return new ScResult<PaymentOperation>(response);
     }
 
     [HttpPatch("status")]
-    public async Task<ScResult<PaymentOperation>> UpdateStatus([FromBody] UpdatePaymentStatusRequest request)
+    public async Task<ScResult<PaymentOperation>> UpdateStatus([FromBody] UpdatePaymentStatusRequestDto requestDto)
     {
-        var response = await _mediator.Send(new UpdatePaymentStatusCommand(request));
+        var response = await _mediator.Send(new UpdatePaymentStatusRequest(requestDto));
 
         return new ScResult<PaymentOperation>(response);
     }

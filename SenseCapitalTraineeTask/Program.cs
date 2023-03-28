@@ -63,7 +63,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 builder.Services.AddScoped<IdentityService>();
 
-builder.Services.AddScoped<RabbitMqSenderService>();
+builder.Services.AddScoped<MeetingsSenderService>();
 builder.Services.AddHostedService<DeleteImageListenerService>();
 builder.Services.AddHostedService<DeleteRoomListenerService>();
 builder.Services.AddLogging(loggingBuilder =>

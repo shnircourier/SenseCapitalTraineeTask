@@ -24,7 +24,7 @@ public class CheckUserTicketValidator : AbstractValidator<CheckUserTicketRequest
             .WithMessage("UserId. Некорректный формат Id. Необходимо 24 символа(0-9, a-f)")
             .MustAsync(async (x, _) =>
             {
-                var users = await mediator.Send(new GetUsersQuery());
+                var users = await mediator.Send(new GetUsersRequest());
             
                 return users.FirstOrDefault(u => u.Id == x) is not null;
             })

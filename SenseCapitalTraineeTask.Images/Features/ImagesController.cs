@@ -26,7 +26,7 @@ public class ImagesController : ControllerBase
     [HttpGet]
     public async Task<ScResult<List<string>>> Get()
     {
-        var response = await _mediator.Send(new ImageListQuery());
+        var response = await _mediator.Send(new ImageListRequest());
 
         return new ScResult<List<string>>(response);
     }
@@ -36,7 +36,7 @@ public class ImagesController : ControllerBase
     {
         _logger.LogInformation("Запрос: {0}", id);
         
-        var response = await _mediator.Send(new ImageByIdQuery(id));
+        var response = await _mediator.Send(new ImageByIdRequest(id));
         
         _logger.LogInformation("Ответ: {0}", response);
 

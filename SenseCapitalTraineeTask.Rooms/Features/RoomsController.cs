@@ -13,10 +13,10 @@ namespace SenseCapitalTraineeTask.Rooms.Features;
 public class RoomsController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly RabbitMqSenderService _service;
+    private readonly RoomsSenderService _service;
     private readonly ILogger<RoomsController> _logger;
 
-    public RoomsController(IMediator mediator, RabbitMqSenderService service, ILogger<RoomsController> logger)
+    public RoomsController(IMediator mediator, RoomsSenderService service, ILogger<RoomsController> logger)
     {
         _mediator = mediator;
         _service = service;
@@ -26,7 +26,7 @@ public class RoomsController : ControllerBase
     [HttpGet]
     public async Task<ScResult<List<string>>> Get()
     {
-        var response = await _mediator.Send(new RoomListQuery());
+        var response = await _mediator.Send(new RoomListRequest());
 
         return new ScResult<List<string>>(response);
     }
@@ -36,7 +36,7 @@ public class RoomsController : ControllerBase
     {
         _logger.LogInformation("Запрос: {0}", id);
         
-        var response = await _mediator.Send(new RoomByIdQuery(id));
+        var response = await _mediator.Send(new RoomByIdRequest(id));
 
         _logger.LogInformation("Ответ: {0}", response);
         

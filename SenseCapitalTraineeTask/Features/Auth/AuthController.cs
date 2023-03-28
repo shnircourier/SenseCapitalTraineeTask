@@ -35,7 +35,7 @@ public class AuthController : ControllerBase
     [HttpGet("get-users")]
     public async Task<ScResult<List<UserResponseDto>>> GetUsers()
     {
-        var response = await _mediator.Send(new GetUsersQuery());
+        var response = await _mediator.Send(new GetUsersRequest());
         
         _logger.LogInformation("Ответ: {0}", response);
 

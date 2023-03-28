@@ -77,6 +77,6 @@ public class DeleteRoomListenerService : IHostedService
         var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<DeleteImageListenerService>>();
         logger.LogInformation("Получено сообщение: {0}", message);
-        await mediator.Send(new DeleteManyMeetingsByRoomIdCommand(data!.DeletedId), cancellationToken);
+        await mediator.Send(new DeleteManyMeetingsByRoomIdRequest(data!.DeletedId), cancellationToken);
     }
 }

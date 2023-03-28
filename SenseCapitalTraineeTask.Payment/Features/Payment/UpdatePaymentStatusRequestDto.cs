@@ -3,7 +3,7 @@ using SenseCapitalTraineeTask.Payment.Features.Payment.Data;
 
 namespace SenseCapitalTraineeTask.Payment.Features.Payment;
 
-public class UpdatePaymentStatusRequest
+public class UpdatePaymentStatusRequestDto
 {
     public Guid Id { get; [UsedImplicitly] set; }
     

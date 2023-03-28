@@ -9,4 +9,4 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CreateTickets;
 /// <param name="RequestDto">Тело запроса на добавление</param>
 /// <param name="MeetingId">Id мероприятия</param>
 [UsedImplicitly]
-public record CreateTicketsCommand(CreateTicketsRequestDto RequestDto, string MeetingId) : IRequest<MeetingResponseDto>;
+public record CreateTicketsRequest(CreateTicketsRequestDto RequestDto, string MeetingId) : IRequest<MeetingResponseDto>;

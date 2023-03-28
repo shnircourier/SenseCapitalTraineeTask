@@ -32,7 +32,7 @@ public class UpdateMeetingHandlerTest
 
         var request = new MeetingRequestDto(beginAt, endAt, title, description, id, id, ticketPrice);
 
-        var command = new UpdateMeetingCommand(request, id);
+        var command = new UpdateMeetingRequest(request, id);
 
         _meetingRepositoryMock.Setup(x => x.Get(id)).ReturnsAsync((Meeting)null!);
 

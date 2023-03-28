@@ -14,7 +14,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUserWithPayment;
 /// Логика передачи билета пользователю за деньги
 /// </summary>
 [UsedImplicitly]
-public class GiveTicketToUserWithPaymentHandler : IRequestHandler<GiveTicketToUserWithPaymentCommand, MeetingResponseDto>
+public class GiveTicketToUserWithPaymentHandler : IRequestHandler<GiveTicketToUserWithPaymentRequest, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
@@ -41,7 +41,7 @@ public class GiveTicketToUserWithPaymentHandler : IRequestHandler<GiveTicketToUs
     }
 
     /// <inheritdoc />
-    public async Task<MeetingResponseDto> Handle(GiveTicketToUserWithPaymentCommand request, CancellationToken cancellationToken)
+    public async Task<MeetingResponseDto> Handle(GiveTicketToUserWithPaymentRequest request, CancellationToken cancellationToken)
     {
         var meeting = await _repository.Get(request.MeetingId);
         
@@ -59,7 +59,7 @@ public class GiveTicketToUserWithPaymentHandler : IRequestHandler<GiveTicketToUs
             
         _logger.LogInformation("Создание запроса на оплату");
             
-        var newPayment = await _mediator.Send(new CreatePaymentCommand(description), cancellationToken);
+        var newPayment = await _mediator.Send(new CreatePaymentRequest(description), cancellationToken);
             
         _logger.LogInformation("Оплата на рассмотрении: {0}", newPayment);
         
@@ -79,14 +79,14 @@ public class GiveTicketToUserWithPaymentHandler : IRequestHandler<GiveTicketToUs
         
             var response = _mapper.Map<MeetingResponseDto>(await _repository.Update(meeting));
 
-            var paymentRequest = new UpdatePaymentRequest
+            var paymentRequest = new UpdatePaymentRequestDto
             {
                 Description = $"Оплата для пользователя {request.RequestDto.UserId} подтверждена",
                 Id = payment.Id,
                 State = PaymentState.Confirmed
             };
 
-            var confirmedPayment = await _mediator.Send(new UpdatePaymentCommand(paymentRequest), cancellationToken);
+            var confirmedPayment = await _mediator.Send(new UpdatePaymentRequest(paymentRequest), cancellationToken);
 
             _logger.LogInformation("Оплата подтверждена: {0}", confirmedPayment);
 
@@ -94,7 +94,7 @@ public class GiveTicketToUserWithPaymentHandler : IRequestHandler<GiveTicketToUs
         }
         catch (Exception)
         {
-            var paymentRequest = new UpdatePaymentRequest
+            var paymentRequest = new UpdatePaymentRequestDto
             {
                 Description = $"Оплата для пользователя {request.RequestDto.UserId} отклонена",
                 Id = payment.Id,
@@ -102,7 +102,7 @@ public class GiveTicketToUserWithPaymentHandler : IRequestHandler<GiveTicketToUs
             };
 
             // ReSharper disable once UnusedVariable
-            var canceledPayment = await _mediator.Send(new UpdatePaymentCommand(paymentRequest), cancellationToken);
+            var canceledPayment = await _mediator.Send(new UpdatePaymentRequest(paymentRequest), cancellationToken);
             throw new ScException("Ошибка при проведении транзакции оплаты");
         }
         

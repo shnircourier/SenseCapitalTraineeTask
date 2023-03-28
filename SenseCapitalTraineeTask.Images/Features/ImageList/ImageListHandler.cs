@@ -6,7 +6,7 @@ using SenseCapitalTraineeTask.Images.Features.Data.Entities;
 namespace SenseCapitalTraineeTask.Images.Features.ImageList;
 
 [UsedImplicitly]
-public class ImageListHandler : IRequestHandler<ImageListQuery, List<string>>
+public class ImageListHandler : IRequestHandler<ImageListRequest, List<string>>
 {
     private readonly IRepository<Image> _repository;
 
@@ -15,7 +15,7 @@ public class ImageListHandler : IRequestHandler<ImageListQuery, List<string>>
         _repository = repository;
     }
     
-    public async Task<List<string>> Handle(ImageListQuery request, CancellationToken cancellationToken)
+    public async Task<List<string>> Handle(ImageListRequest request, CancellationToken cancellationToken)
     {
         var result = await _repository.Get();
 

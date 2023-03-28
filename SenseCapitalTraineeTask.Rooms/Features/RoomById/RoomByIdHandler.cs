@@ -7,7 +7,7 @@ using SenseCapitalTraineeTask.Rooms.Features.Data.Entities;
 namespace SenseCapitalTraineeTask.Rooms.Features.RoomById;
 
 [UsedImplicitly]
-public class RoomByIdHandler : IRequestHandler<RoomByIdQuery, string>
+public class RoomByIdHandler : IRequestHandler<RoomByIdRequest, string>
 {
     private readonly IRepository<Room> _repository;
 
@@ -16,7 +16,7 @@ public class RoomByIdHandler : IRequestHandler<RoomByIdQuery, string>
         _repository = repository;
     }
     
-    public async Task<string> Handle(RoomByIdQuery request, CancellationToken cancellationToken)
+    public async Task<string> Handle(RoomByIdRequest request, CancellationToken cancellationToken)
     {
         var result = await _repository.Get(request.Id);
 

@@ -10,7 +10,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeeting;
 /// Логика обновление данных мероприятия
 /// </summary>
 [UsedImplicitly]
-public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, MeetingResponseDto>
+public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingRequest, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ public class UpdateMeetingHandler : IRequestHandler<UpdateMeetingCommand, Meetin
     }
 
     /// <inheritdoc />
-    public async Task<MeetingResponseDto> Handle(UpdateMeetingCommand request, CancellationToken cancellationToken)
+    public async Task<MeetingResponseDto> Handle(UpdateMeetingRequest request, CancellationToken cancellationToken)
     {
         var meeting = await _repository.Get(request.Id);
 

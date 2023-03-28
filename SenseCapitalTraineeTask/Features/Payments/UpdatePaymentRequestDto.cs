@@ -5,7 +5,7 @@ namespace SenseCapitalTraineeTask.Features.Payments;
 /// <summary>
 /// Запрос на обработку платежа
 /// </summary>
-public class UpdatePaymentRequest
+public class UpdatePaymentRequestDto
 {
     /// <summary>
     /// Идентификатор платежа

@@ -7,7 +7,7 @@ using SenseCapitalTraineeTask.Images.Features.Data.Entities;
 namespace SenseCapitalTraineeTask.Images.Features.ImageById;
 
 [UsedImplicitly]
-public class ImageByIdHandler : IRequestHandler<ImageByIdQuery, string>
+public class ImageByIdHandler : IRequestHandler<ImageByIdRequest, string>
 {
     private readonly IRepository<Image> _repository;
 
@@ -16,7 +16,7 @@ public class ImageByIdHandler : IRequestHandler<ImageByIdQuery, string>
         _repository = repository;
     }
     
-    public async Task<string> Handle(ImageByIdQuery request, CancellationToken cancellationToken)
+    public async Task<string> Handle(ImageByIdRequest request, CancellationToken cancellationToken)
     {
         var result = await _repository.Get(request.Id);
 

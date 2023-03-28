@@ -6,7 +6,7 @@ using SenseCapitalTraineeTask.Rooms.Features.Data.Entities;
 namespace SenseCapitalTraineeTask.Rooms.Features.RoomList;
 
 [UsedImplicitly]
-public class RoomListHandler : IRequestHandler<RoomListQuery, List<string>>
+public class RoomListHandler : IRequestHandler<RoomListRequest, List<string>>
 {
     private readonly IRepository<Room> _repository;
 
@@ -15,7 +15,7 @@ public class RoomListHandler : IRequestHandler<RoomListQuery, List<string>>
         _repository = repository;
     }
     
-    public async Task<List<string>> Handle(RoomListQuery request, CancellationToken cancellationToken)
+    public async Task<List<string>> Handle(RoomListRequest request, CancellationToken cancellationToken)
     {
         var result = await _repository.Get();
 

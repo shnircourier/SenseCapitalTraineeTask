@@ -10,7 +10,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 /// Логика создания мероприятия
 /// </summary>
 [UsedImplicitly]
-public class CreateMeetingHandler : IRequestHandler<CreateMeetingCommand, MeetingResponseDto>
+public class CreateMeetingHandler : IRequestHandler<CreateMeetingRequest, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ public class CreateMeetingHandler : IRequestHandler<CreateMeetingCommand, Meetin
     }
 
     /// <inheritdoc />
-    public async Task<MeetingResponseDto> Handle(CreateMeetingCommand request, CancellationToken cancellationToken)
+    public async Task<MeetingResponseDto> Handle(CreateMeetingRequest request, CancellationToken cancellationToken)
     {
         var meeting = _mapper.Map<Meeting>(request.Meeting);
 

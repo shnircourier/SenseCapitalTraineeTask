@@ -12,7 +12,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUser;
 /// Логика выдачи билетов пользователю
 /// </summary>
 [UsedImplicitly]
-public class GiveTicketToUserHandler : IRequestHandler<GiveTicketToUserCommand, MeetingResponseDto>
+public class GiveTicketToUserHandler : IRequestHandler<GiveTicketToUserRequest, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
@@ -32,7 +32,7 @@ public class GiveTicketToUserHandler : IRequestHandler<GiveTicketToUserCommand, 
     }
 
     /// <inheritdoc />
-    public async Task<MeetingResponseDto> Handle(GiveTicketToUserCommand request, CancellationToken cancellationToken)
+    public async Task<MeetingResponseDto> Handle(GiveTicketToUserRequest request, CancellationToken cancellationToken)
     {
         var meeting = await _repository.Get(request.MeetingId);
 
@@ -43,7 +43,7 @@ public class GiveTicketToUserHandler : IRequestHandler<GiveTicketToUserCommand, 
 
         if (meeting.TicketPrice > 0)
         {
-            return await _mediator.Send(new GiveTicketToUserWithPaymentCommand(request.RequestDto, request.MeetingId), cancellationToken);
+            return await _mediator.Send(new GiveTicketToUserWithPaymentRequest(request.RequestDto, request.MeetingId), cancellationToken);
         }
         
         var ticket = meeting.Tickets.First(t => t.OwnerId is null);

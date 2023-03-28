@@ -8,4 +8,4 @@ namespace SenseCapitalTraineeTask.Features.Auth.VerifyUser;
 /// </summary>
 /// <param name="UserRequestDto"></param>
 [UsedImplicitly]
-public record VerifyUserQuery(UserRequestDto UserRequestDto) : IRequest<bool>;
+public record VerifyUserRequest(UserRequestDto UserRequestDto) : IRequest<bool>;

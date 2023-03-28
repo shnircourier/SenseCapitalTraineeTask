@@ -8,7 +8,7 @@ namespace SenseCapitalTraineeTask.Features.Auth.VerifyUser;
 /// Логика проверки валидности пользователя
 /// </summary>
 [UsedImplicitly]
-public class VerifyUserHandler : IRequestHandler<VerifyUserQuery, bool>
+public class VerifyUserHandler : IRequestHandler<VerifyUserRequest, bool>
 {
     private readonly IMediator _mediator;
 
@@ -22,9 +22,9 @@ public class VerifyUserHandler : IRequestHandler<VerifyUserQuery, bool>
     }
 
     /// <inheritdoc />
-    public async Task<bool> Handle(VerifyUserQuery request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(VerifyUserRequest request, CancellationToken cancellationToken)
     {
-        var response = await _mediator.Send(new GetUsersQuery(), cancellationToken);
+        var response = await _mediator.Send(new GetUsersRequest(), cancellationToken);
 
         return response.FirstOrDefault(r =>
             r.Username == request.UserRequestDto.Username

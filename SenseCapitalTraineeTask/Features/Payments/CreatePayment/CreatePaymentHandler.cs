@@ -14,7 +14,7 @@ namespace SenseCapitalTraineeTask.Features.Payments.CreatePayment;
 /// Логика отправки запроса на создание платежа
 /// </summary>
 [UsedImplicitly]
-public class CreatePaymentHandler : IRequestHandler<CreatePaymentCommand, ScResult<PaymentOperation>>
+public class CreatePaymentHandler : IRequestHandler<CreatePaymentRequest, ScResult<PaymentOperation>>
 {
     private const int MaxRetries = 3;
     private readonly IdentityService _identityService;
@@ -34,7 +34,7 @@ public class CreatePaymentHandler : IRequestHandler<CreatePaymentCommand, ScResu
     }
 
     /// <inheritdoc />
-    public async Task<ScResult<PaymentOperation>> Handle(CreatePaymentCommand request, CancellationToken cancellationToken)
+    public async Task<ScResult<PaymentOperation>> Handle(CreatePaymentRequest request, CancellationToken cancellationToken)
     {
         var client = await _identityService.GetAuthorizedClient();
         

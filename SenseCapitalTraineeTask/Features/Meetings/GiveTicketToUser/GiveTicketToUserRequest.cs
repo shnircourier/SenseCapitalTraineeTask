@@ -9,4 +9,4 @@ namespace SenseCapitalTraineeTask.Features.Meetings.GiveTicketToUser;
 /// <param name="RequestDto"></param>
 /// <param name="MeetingId"></param>
 [UsedImplicitly]
-public record GiveTicketToUserCommand(TicketRequestDto RequestDto, string MeetingId) : IRequest<MeetingResponseDto>;
+public record GiveTicketToUserRequest(TicketRequestDto RequestDto, string MeetingId) : IRequest<MeetingResponseDto>;

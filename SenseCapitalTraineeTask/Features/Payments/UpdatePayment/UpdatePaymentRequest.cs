@@ -6,5 +6,5 @@ namespace SenseCapitalTraineeTask.Features.Payments.UpdatePayment;
 /// <summary>
 /// 
 /// </summary>
-/// <param name="Request"></param>
-public record UpdatePaymentCommand(UpdatePaymentRequest Request) : IRequest<ScResult<PaymentOperation>>;
+/// <param name="RequestDto"></param>
+public record UpdatePaymentRequest(UpdatePaymentRequestDto RequestDto) : IRequest<ScResult<PaymentOperation>>;

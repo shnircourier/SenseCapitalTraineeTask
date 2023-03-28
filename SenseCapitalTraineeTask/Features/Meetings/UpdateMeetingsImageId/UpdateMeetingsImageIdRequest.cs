@@ -6,4 +6,4 @@ namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeetingsImageId;
 /// Команда множественного обновления
 /// </summary>
 /// <param name="ImageId"></param>
-public record UpdateMeetingsImageIdCommand(string ImageId) : IRequest;
+public record UpdateMeetingsImageIdRequest(string ImageId) : IRequest;

@@ -77,7 +77,7 @@ public class MeetingsController : ControllerBase
     {
         _logger.LogInformation("Запрос: {0}", requestDto);
         
-        var response = await _mediator.Send(new CreateMeetingCommand(requestDto));
+        var response = await _mediator.Send(new CreateMeetingRequest(requestDto));
         
         _logger.LogInformation("Ответ: {0}", response);
 
@@ -99,7 +99,7 @@ public class MeetingsController : ControllerBase
     {
         _logger.LogInformation("Запрос: [FromBody] {0}; [FromRoute] {1}", requestDto, id);
         
-        var response = await _mediator.Send(new UpdateMeetingCommand(requestDto, id));
+        var response = await _mediator.Send(new UpdateMeetingRequest(requestDto, id));
         
         _logger.LogInformation("Ответ: {0}", response);
 
@@ -117,7 +117,7 @@ public class MeetingsController : ControllerBase
     {
         _logger.LogInformation("Запрос: {0}", id);
         
-        var response = await _mediator.Send(new DeleteMeetingCommand(id));
+        var response = await _mediator.Send(new DeleteMeetingRequest(id));
 
         _logger.LogInformation("Ответ: {0}", response);
         
@@ -138,7 +138,7 @@ public class MeetingsController : ControllerBase
     {
         _logger.LogInformation("Запрос: [FromBody] {0}; [FromRoute] {1}", requestDto, id);
         
-        var response = await _mediator.Send(new CreateTicketsCommand(requestDto, id));
+        var response = await _mediator.Send(new CreateTicketsRequest(requestDto, id));
         
         _logger.LogInformation("Ответ: {0}", response);
 
@@ -159,7 +159,7 @@ public class MeetingsController : ControllerBase
     {
         _logger.LogInformation("Запрос: [FromBody] {0}; [FromRoute] {1}", requestDto, id);
         
-        var response = await _mediator.Send(new GiveTicketToUserCommand(requestDto, id));
+        var response = await _mediator.Send(new GiveTicketToUserRequest(requestDto, id));
         
         _logger.LogInformation("Ответ: {0}", response);
 

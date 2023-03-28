@@ -6,7 +6,7 @@ using SenseCapitalTraineeTask.Payment.Features.Payment.Data;
 namespace SenseCapitalTraineeTask.Payment.Features.Payment.UpdatePaymentStatus;
 
 [UsedImplicitly]
-public class UpdatePaymentStatusHandler : IRequestHandler<UpdatePaymentStatusCommand, PaymentOperation>
+public class UpdatePaymentStatusHandler : IRequestHandler<UpdatePaymentStatusRequest, PaymentOperation>
 {
     private readonly PaymentData _paymentData;
 
@@ -15,18 +15,18 @@ public class UpdatePaymentStatusHandler : IRequestHandler<UpdatePaymentStatusCom
         _paymentData = paymentData;
     }
     
-    public Task<PaymentOperation> Handle(UpdatePaymentStatusCommand request, CancellationToken cancellationToken)
+    public Task<PaymentOperation> Handle(UpdatePaymentStatusRequest request, CancellationToken cancellationToken)
     {
-        var payment = _paymentData.Get(request.PaymentStatusRequest.Id);
+        var payment = _paymentData.Get(request.PaymentStatusRequestDto.Id);
 
         if (payment is null)
         {
             throw new ScException("Платежная операция не найдена");
         }
 
-        payment.Description = request.PaymentStatusRequest.Description;
+        payment.Description = request.PaymentStatusRequestDto.Description;
 
-        payment.State = request.PaymentStatusRequest.State;
+        payment.State = request.PaymentStatusRequestDto.State;
 
         var response = _paymentData.UpdateStatus(payment);
 

@@ -6,4 +6,4 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 /// Команда создания мероприятий
 /// </summary>
 /// <param name="Meeting"></param>
-public record CreateMeetingCommand(MeetingRequestDto Meeting) : IRequest<MeetingResponseDto>;
+public record CreateMeetingRequest(MeetingRequestDto Meeting) : IRequest<MeetingResponseDto>;

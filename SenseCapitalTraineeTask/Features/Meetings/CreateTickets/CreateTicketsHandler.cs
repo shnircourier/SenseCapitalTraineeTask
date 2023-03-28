@@ -10,7 +10,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CreateTickets;
 /// Логика создания билетов
 /// </summary>
 [UsedImplicitly]
-public class CreateTicketsHandler : IRequestHandler<CreateTicketsCommand, MeetingResponseDto>
+public class CreateTicketsHandler : IRequestHandler<CreateTicketsRequest, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _meetingRepository;
     private readonly IRepository<Ticket> _ticketRepository;
@@ -33,7 +33,7 @@ public class CreateTicketsHandler : IRequestHandler<CreateTicketsCommand, Meetin
     }
 
     /// <inheritdoc />
-    public async Task<MeetingResponseDto> Handle(CreateTicketsCommand request, CancellationToken cancellationToken)
+    public async Task<MeetingResponseDto> Handle(CreateTicketsRequest request, CancellationToken cancellationToken)
     {
         var meeting = await _meetingRepository.Get(request.MeetingId);
 

@@ -9,7 +9,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.DeleteMeeting;
 /// Валидация удаления мероприятия
 /// </summary>
 [UsedImplicitly]
-public class DeleteMeetingValidator : AbstractValidator<DeleteMeetingCommand>
+public class DeleteMeetingValidator : AbstractValidator<DeleteMeetingRequest>
 {
     /// <inheritdoc />
     public DeleteMeetingValidator(IMediator mediator)

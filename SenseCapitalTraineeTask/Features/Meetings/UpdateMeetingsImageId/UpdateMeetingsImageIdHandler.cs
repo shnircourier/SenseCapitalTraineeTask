@@ -9,7 +9,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.UpdateMeetingsImageId;
 /// Обновление мероприятий содержащих определенную картинку
 /// </summary>
 [UsedImplicitly]
-public class UpdateMeetingsImageIdHandler : IRequestHandler<UpdateMeetingsImageIdCommand>
+public class UpdateMeetingsImageIdHandler : IRequestHandler<UpdateMeetingsImageIdRequest>
 {
     private readonly IRepository<Meeting> _repository;
 
@@ -23,7 +23,7 @@ public class UpdateMeetingsImageIdHandler : IRequestHandler<UpdateMeetingsImageI
     }
 
     /// <inheritdoc />
-    public async Task Handle(UpdateMeetingsImageIdCommand request, CancellationToken cancellationToken)
+    public async Task Handle(UpdateMeetingsImageIdRequest request, CancellationToken cancellationToken)
     {
         await _repository.UpdateManyImageId(request.ImageId, null);
     }

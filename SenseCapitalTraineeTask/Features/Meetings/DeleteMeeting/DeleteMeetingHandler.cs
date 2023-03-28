@@ -10,11 +10,11 @@ namespace SenseCapitalTraineeTask.Features.Meetings.DeleteMeeting;
 /// Логика удаления мероприятия
 /// </summary>
 [UsedImplicitly]
-public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingCommand, MeetingResponseDto>
+public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingRequest, MeetingResponseDto>
 {
     private readonly IRepository<Meeting> _repository;
     private readonly IMapper _mapper;
-    private readonly RabbitMqSenderService _senderService;
+    private readonly MeetingsSenderService _senderService;
 
     /// <summary>
     /// 
@@ -25,7 +25,7 @@ public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingCommand, Meetin
     public DeleteMeetingHandler(
         IRepository<Meeting> repository,
         IMapper mapper,
-        RabbitMqSenderService senderService)
+        MeetingsSenderService senderService)
     {
         _repository = repository;
         _mapper = mapper;
@@ -33,7 +33,7 @@ public class DeleteMeetingHandler : IRequestHandler<DeleteMeetingCommand, Meetin
     }
 
     /// <inheritdoc />
-    public async Task<MeetingResponseDto> Handle(DeleteMeetingCommand request, CancellationToken cancellationToken)
+    public async Task<MeetingResponseDto> Handle(DeleteMeetingRequest request, CancellationToken cancellationToken)
     {
         var meeting = await _repository.Get(request.Id);
 

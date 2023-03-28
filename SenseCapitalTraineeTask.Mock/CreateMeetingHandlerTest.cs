@@ -46,7 +46,7 @@ public class CreateMeetingHandlerTest
         
         var response = new MeetingResponseDto(id, beginAt, endAt, title, description, id, id, tickets, isFull, ticketPrice);
         
-        var command = new CreateMeetingCommand(request);
+        var command = new CreateMeetingRequest(request);
         
         _mapperMock.Setup(x => x.Map<Meeting>(request)).Returns(meeting);
         

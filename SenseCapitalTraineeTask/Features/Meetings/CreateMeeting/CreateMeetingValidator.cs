@@ -10,7 +10,7 @@ namespace SenseCapitalTraineeTask.Features.Meetings.CreateMeeting;
 /// Validator создания мероприятия
 /// </summary>
 [UsedImplicitly]
-public class CreateMeetingValidator : AbstractValidator<CreateMeetingCommand>
+public class CreateMeetingValidator : AbstractValidator<CreateMeetingRequest>
 {
     /// <inheritdoc />
     public CreateMeetingValidator(IMediator mediator)

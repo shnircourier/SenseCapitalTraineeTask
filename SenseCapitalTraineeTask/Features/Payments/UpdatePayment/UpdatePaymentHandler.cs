@@ -15,7 +15,7 @@ namespace SenseCapitalTraineeTask.Features.Payments.UpdatePayment;
 /// Логика отправки запроса на обновления статуса оплаты
 /// </summary>
 [UsedImplicitly]
-public class UpdatePaymentHandler : IRequestHandler<UpdatePaymentCommand, ScResult<PaymentOperation>>
+public class UpdatePaymentHandler : IRequestHandler<UpdatePaymentRequest, ScResult<PaymentOperation>>
 {
     private const int MaxRetries = 3;
     private readonly IdentityService _identityService;
@@ -35,7 +35,7 @@ public class UpdatePaymentHandler : IRequestHandler<UpdatePaymentCommand, ScResu
     }
 
     /// <inheritdoc />
-    public async Task<ScResult<PaymentOperation>> Handle(UpdatePaymentCommand request, CancellationToken cancellationToken)
+    public async Task<ScResult<PaymentOperation>> Handle(UpdatePaymentRequest request, CancellationToken cancellationToken)
     {
         var client = await _identityService.GetAuthorizedClient();
         
@@ -43,9 +43,9 @@ public class UpdatePaymentHandler : IRequestHandler<UpdatePaymentCommand, ScResu
         {
             var paymentUrl = Environment.GetEnvironmentVariable("ASPNETCORE_PAYMENT_URL");
             
-            _logger.LogInformation("Изменение статуса оплаты: {0}", request.Request.State);
+            _logger.LogInformation("Изменение статуса оплаты: {0}", request.RequestDto.State);
 
-            var json = JsonSerializer.Serialize(request.Request);
+            var json = JsonSerializer.Serialize(request.RequestDto);
             
             var response = await client.PatchAsync(paymentUrl + "/payments/status", new StringContent(json, Encoding.UTF8, "application/json"), cancellationToken);
 

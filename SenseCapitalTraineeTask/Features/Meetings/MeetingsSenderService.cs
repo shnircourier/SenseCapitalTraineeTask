@@ -2,17 +2,21 @@ using System.Text;
 using System.Text.Json;
 using RabbitMQ.Client;
 
-namespace SenseCapitalTraineeTask.Rooms.Features;
+namespace SenseCapitalTraineeTask.Features.Meetings;
 
-public class RabbitMqSenderService
+/// <summary>
+/// Рассылка события удаления мероприятия
+/// </summary>
+public class MeetingsSenderService
 {
-    private readonly ILogger<RabbitMqSenderService> _logger;
     private readonly IModel _chanel;
-    private const string QueueName = "SpaceDeleteEvent";
+    private const string QueueName = "EventDeleteEvent";
 
-    public RabbitMqSenderService(ILogger<RabbitMqSenderService> logger)
+    /// <summary>
+    /// 
+    /// </summary>
+    public MeetingsSenderService()
     {
-        _logger = logger;
         var factory = new ConnectionFactory
         {
             HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST"),
@@ -25,16 +29,15 @@ public class RabbitMqSenderService
         _chanel.QueueDeclare(QueueName, durable: true, exclusive: false);
     }
 
+    /// <summary>
+    /// Отправка сообщения
+    /// </summary>
+    /// <param name="message"></param>
+    /// <typeparam name="T"></typeparam>
     public void SendingMessage<T>(T message)
     {
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
-        var jsonString = JsonSerializer.Serialize(message, options);
+        var jsonString = JsonSerializer.Serialize(message);
         var body = Encoding.UTF8.GetBytes(jsonString);
-        
-        _logger.LogInformation("Отправка сообщения: {0}", jsonString);
         
         _chanel.BasicPublish("", QueueName, body: body);
     }
